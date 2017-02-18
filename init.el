@@ -235,6 +235,7 @@
  (global-set-key (kbd "C-x b")   'helm-buffers-list)
  (global-set-key (kbd "C-x C-b")   'helm-buffers-list)
  (define-key helm-map (kbd "C-h") 'delete-backward-char)
+ (define-key helm-map (kbd "C-w") 'backward-kill-word)
  (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
  (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
  (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
