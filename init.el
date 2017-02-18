@@ -354,8 +354,6 @@
  (global-company-mode)
  ;; 候補の一番下でさらに下に行こうとすると一番上に戻る
  (setq company-selection-wrap-around t)
- ;; Delayを0に設定(デフォルトは0.5)
- (setq company-idle-delay 0)
 
  ;; 参考サイト: http://qiita.com/syohex/items/8d21d7422f14e9b53b17
  ;; auto-completeのような見た目に
