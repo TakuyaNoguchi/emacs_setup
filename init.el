@@ -617,3 +617,9 @@
 (when (require 'smartparens-config nil t)
   (smartparens-global-mode t)
   (add-hook 'ruby-mode-hook #'smartparens-mode))
+
+
+
+;;; markdown-mode
+;; (package-install 'markdown-mode)
+;; $ sudo apt-get install markdown
