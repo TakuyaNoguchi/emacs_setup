@@ -354,8 +354,8 @@
 
 
 ;;; Migemo
-;; # apt-get install cmigemo
-;; # apt-get install migemo
+;; $ sudo apt-get install cmigemo
+;; $ sudo apt-get install migemo
 ;; (package-install 'migemo)
 (when (and (executable-find "cmigemo")
            (require 'migemo nil t))
@@ -371,8 +371,12 @@
 
 ;;; SKK
 ;; (package-install 'ddskk)
-;; 辞書のダウンロード: M-x skk-get
-;; OSのIMEを無効化: $ echo 'Emacs24*useXIM: false' >> ~/.Xresources
+;;
+;; 辞書のダウンロード:
+;; M-x skk-get
+;;
+;; OSのIMEを無効化:
+;; $ echo 'Emacs24*useXIM: false' >> ~/.Xresources
 (when (require 'skk nil t)
  ;; Use AZIK
  (setq skk-use-azik t)
@@ -499,6 +503,7 @@
 
 ;;; dmacro
 ;; 繰り返し処理を楽にする
+;; $ mkdir -p ~/.emacs.d/elisp
 ;; $ wget http://www.pitecan.com/DynamicMacro/dmacro.el -P ~/.emacs.d/elisp
 (defconst *dmacro-key* (kbd "C-t") "繰返し指定キー")
 (global-set-key *dmacro-key* 'dmacro-exec)
