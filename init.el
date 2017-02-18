@@ -224,7 +224,7 @@
 (when (require 'helm-config nil t)
  (helm-mode 1)
  ;; 無効にしたい機能
- (add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . nil))
+ ;;(add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . nil))
 
  (global-set-key (kbd "M-x")     'helm-M-x)
  (global-set-key (kbd "C-x C-f") 'helm-find-files)
