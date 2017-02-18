@@ -109,6 +109,33 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 
+;; 行末の改行を削除
+;; 参考サイト: http://pokutuna.hatenablog.com/entry/20111117/1321523457
+;; 削除を実行しない拡張子
+(setq delete-trailing-whitespace-exclude-patterns (list "\\.md$" "\\.markdown$"))
+
+(defun delete-trailing-whitespace-with-exclude-pattern ()
+  (interactive)
+  (cond ((equal nil (loop for pattern in delete-trailing-whitespace-exclude-patterns
+                          thereis (string-match pattern buffer-file-name)))
+         (delete-trailing-whitespace))))
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace-with-exclude-pattern)
+
+
+;; ファイル末尾の改行を削除
+;; http://www.emacswiki.org/emacs/DeletingWhitespace
+(defun my-delete-trailing-blank-lines ()
+  "Deletes all blank lines at the end of the file."
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (widen)
+      (goto-char (point-max))
+      (delete-blank-lines))))
+
+(add-hook 'before-save-hook 'my-delete-trailing-blank-lines)
+
 ;; ファイル名が重複していたらディレクトリ名を追加する
 (when (require 'uniquify nil t)
  (setq uniqufy-buffer-name-style 'post-forward-angle-brackets))
