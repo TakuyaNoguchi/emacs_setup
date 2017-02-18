@@ -455,22 +455,28 @@
 ;; OSのIMEを無効化:
 ;; $ echo 'Emacs24*useXIM: false' >> ~/.Xresources
 (when (require 'skk nil t)
- ;; Use AZIK
- (setq skk-use-azik t)
- (setq skk-azik-keyboard-type 'jp106)
- (setq skk-sticky-key (kbd "C-l"))
- (setq skk-kakutei-key (kbd "C-;"))
- ;; 変換候補がひとつしかない場合は確定する
- (setq skk-kakutei-when-unique-candidate t)
- ;; skk-isearch を無効化
- (setq skk-isearch-start-mode 'latin)
+  ;; Use AZIK
+  (setq skk-use-azik t)
+  (delete "l" skk-rom-kana-base-rule-list)
+  (setq skk-azik-keyboard-type 'jp106)
+  (setq skk-sticky-key (kbd "l"))
+  (setq skk-kakutei-key (kbd "C-;"))
+  ;; 変換候補がひとつしかない場合は確定する
+  (setq skk-kakutei-when-unique-candidate t)
+  ;; skk-isearch を無効化
+  (setq skk-isearch-start-mode 'latin)
 
- (setq skk-large-jisyo (expand-file-name "~/.emacs.d/skk-get-jisyo/SKK-JISYO.L"))
+  (setq skk-large-jisyo (expand-file-name "~/.emacs.d/skk-get-jisyo/SKK-JISYO.L"))
 
- (global-set-key (kbd "C-l") 'skk-mode)
- (global-set-key (kbd "C-;") 'skk-mode)
- (global-set-key (kbd "C-:") 'skk-mode))
+  (global-set-key (kbd "C-;") 'skk-mode)
+  (global-set-key (kbd "C-:") 'skk-mode)
 
+  ;; キーバインドの再割り当て
+  (defvar skk-my-unnecessary-rule-list
+    '(("l" nil nil)
+      ("\C-j" nil skk-kakutei)))
+  (setq skk-rom-kana-rule-list
+        (append skk-rom-kana-rule-list skk-my-unnecessary-rule-list)))
 
 
 ;;; Magit
