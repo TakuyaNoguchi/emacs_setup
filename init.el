@@ -94,8 +94,8 @@
 
 ;; 以前開いたファイルを再度開いたとき、元のカーソル位置を復元する
 (when (require 'saveplace nil t)
- (setq-default save-place t)
- (setq save-place-file "~/.emacs.d/saved-places"))
+  (setq-default save-place t)
+  (setq save-place-file "~/.emacs.d/saved-places"))
 
 ;; cua-modeをオン
 (cua-mode t)
@@ -138,28 +138,28 @@
 
 ;; ファイル名が重複していたらディレクトリ名を追加する
 (when (require 'uniquify nil t)
- (setq uniqufy-buffer-name-style 'post-forward-angle-brackets))
+  (setq uniqufy-buffer-name-style 'post-forward-angle-brackets))
 
 ;;; パッケージ管理
 (when (require 'package nil t)
- (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
- (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
- (fset 'package-desc-vers 'package--ac-desc-version)
- (package-initialize))
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (fset 'package-desc-vers 'package--ac-desc-version)
+  (package-initialize))
 
 
 
 ;;; color theme の設定
 ;; (package-install 'color-theme-sanityinc-solarized)
 (when (require 'color-theme-sanityinc-solarized nil t)
- (color-theme-sanityinc-solarized--define-theme dark)
+  (color-theme-sanityinc-solarized--define-theme dark)
 
- (add-hook 'after-make-frame-functions
-           (lambda (frame)
-             (let ((mode (if (display-graphic-p frame) 'light 'dark)))
-               (set-frame-parameter frame 'background-mode mode)
-               (set-terminal-parameter frame 'background-mode mode))
-             (enable-theme 'solarized))))
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (let ((mode (if (display-graphic-p frame) 'light 'dark)))
+                (set-frame-parameter frame 'background-mode mode)
+                (set-terminal-parameter frame 'background-mode mode))
+              (enable-theme 'solarized))))
 
 
 
@@ -208,199 +208,205 @@
 ;; Slimeの設定
 ;; (package-install 'slime)
 (when (require 'slime-autoloads nil t)
- (setq inferior-lisp-program "/usr/bin/sbcl"))
+  (setq inferior-lisp-program "/usr/bin/sbcl"))
 
 ;; ParEditの設定
 ;; (package-install 'paredit)
 (when (require 'paredit nil t)
- (show-paren-mode 1)
- (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
- (add-hook 'lisp-interacton-mode-hook 'enable-paredit-mode))
+  (show-paren-mode 1)
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+  (add-hook 'lisp-interacton-mode-hook 'enable-paredit-mode))
 
 
 
 ;;; Helm
 ;; (package-install 'helm)
 (when (require 'helm-config nil t)
- (helm-mode 1)
- ;; 無効にしたい機能
- ;;(add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . nil))
+  (helm-mode 1)
+  ;; 無効にしたい機能
+  ;;(add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . nil))
 
- (setq recentf-save-file "~/.emacs.d/.recentf")
- (setq recentf-exclude '(".recentf"
-                         "/elpa/"))
+  (setq recentf-save-file "~/.emacs.d/.recentf")
+  (setq recentf-exclude '(".recentf"
+                          "/elpa/"))
 
- (global-set-key (kbd "M-x")     'helm-M-x)
- (global-set-key (kbd "C-x C-f") 'helm-find-files)
- (global-set-key (kbd "C-x C-r") 'helm-recentf)
- (global-set-key (kbd "C-c C-r") 'helm-recentf)
- (global-set-key (kbd "M-y")     'helm-show-kill-ring)
- (global-set-key (kbd "C-c i")   'helm-imenu)
- (global-set-key (kbd "C-x b")   'helm-buffers-list)
- (global-set-key (kbd "C-x C-b")   'helm-buffers-list)
- (define-key helm-map (kbd "C-h") 'delete-backward-char)
- (define-key helm-map (kbd "C-w") 'backward-kill-word)
- (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
- (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
- (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
+  (global-set-key (kbd "M-x")     'helm-M-x)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (global-set-key (kbd "C-x C-r") 'helm-recentf)
+  (global-set-key (kbd "C-c C-r") 'helm-recentf)
+  (global-set-key (kbd "M-y")     'helm-show-kill-ring)
+  (global-set-key (kbd "C-c i")   'helm-imenu)
+  (global-set-key (kbd "C-x b")   'helm-mini)
+  (global-set-key (kbd "C-x C-b")   'helm-buffers-list)
+  (define-key helm-map (kbd "C-h") 'delete-backward-char)
+  (define-key helm-map (kbd "C-w") 'backward-kill-word)
+  (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
+  (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
+  (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
- (add-to-list 'helm-completing-read-handlers-alist '(find-alternate-file . nil))
- (add-to-list 'helm-completing-read-handlers-alist '(find-tag . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(find-alternate-file . nil))
+  (add-to-list 'helm-completing-read-handlers-alist '(find-tag . nil))
 
- (setq helm-buffer-details-flag nil)
+  (setq helm-buffer-details-flag nil)
 
- ;; Emulate `kill-line' in helm minibuffer
- (setq helm-delete-minibuffer-contents-from-point t)
- (defadvice helm-delete-minibuffer-contents (before emulate-kill-line activate)
-   "Emulate `kill-line' in helm minibuffer"
-   (kill-new (buffer-substring (point) (field-end))))
+  ;; Emulate `kill-line' in helm minibuffer
+  (setq helm-delete-minibuffer-contents-from-point t)
+  (defadvice helm-delete-minibuffer-contents (before emulate-kill-line activate)
+    "Emulate `kill-line' in helm minibuffer"
+    (kill-new (buffer-substring (point) (field-end))))
 
- (defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-file-exist activate)
-   "Execute command only if CANDIDATE exists"
-   (when (file-exists-p candidate)
-     ad-do-it))
+  (defadvice helm-ff-kill-or-find-buffer-fname (around execute-only-if-file-exist activate)
+    "Execute command only if CANDIDATE exists"
+    (when (file-exists-p candidate)
+      ad-do-it))
 
- (setq helm-ff-fuzzy-matching nil)
- (defadvice helm-ff--transform-pattern-for-completion (around my-transform activate)
-   "Transform the pattern to reflect my intention"
-   (let* ((pattern (ad-get-arg 0))
-          (input-pattern (file-name-nondirectory pattern))
-          (dirname (file-name-directory pattern)))
-     (setq input-pattern (replace-regexp-in-string "\\." "\\\\." input-pattern))
-     (setq ad-return-value
-           (concat dirname
-                   (if (string-match "^\\^" input-pattern)
-                       (substring input-pattern 1)
-                     (concat ".*" input-pattern))))))
+  (setq helm-ff-fuzzy-matching nil)
+  (defadvice helm-ff--transform-pattern-for-completion (around my-transform activate)
+    "Transform the pattern to reflect my intention"
+    (let* ((pattern (ad-get-arg 0))
+           (input-pattern (file-name-nondirectory pattern))
+           (dirname (file-name-directory pattern)))
+      (setq input-pattern (replace-regexp-in-string "\\." "\\\\." input-pattern))
+      (setq ad-return-value
+            (concat dirname
+                    (if (string-match "^\\^" input-pattern)
+                        (substring input-pattern 1)
+                      (concat ".*" input-pattern))))))
 
- (defun helm-buffers-list-pattern-transformer (pattern)
-   (if (equal pattern "")
-       pattern
-     (let* ((first-char (substring pattern 0 1))
-            (pattern (cond ((equal first-char "*")
-                            (concat " " pattern))
-                           ((equal first-char "=")
-                            (concat "*" (substring pattern 1)))
-                           (t
-                            pattern))))
-       ;; Escape some characters
-       (setq pattern (replace-regexp-in-string "\\." "\\\\." pattern))
-       (setq pattern (replace-regexp-in-string "\\*" "\\\\*" pattern))
-       pattern)))
+  (defun helm-buffers-list-pattern-transformer (pattern)
+    (if (equal pattern "")
+        pattern
+      (let* ((first-char (substring pattern 0 1))
+             (pattern (cond ((equal first-char "*")
+                             (concat " " pattern))
+                            ((equal first-char "=")
+                             (concat "*" (substring pattern 1)))
+                            (t
+                             pattern))))
+        ;; Escape some characters
+        (setq pattern (replace-regexp-in-string "\\." "\\\\." pattern))
+        (setq pattern (replace-regexp-in-string "\\*" "\\\\*" pattern))
+        pattern)))
 
 
- (unless helm-source-buffers-list
-   (setq helm-source-buffers-list
-         (helm-make-source "Buffers" 'helm-source-buffers)))
- (add-to-list 'helm-source-buffers-list
-              '(pattern-transformer helm-buffers-list-pattern-transformer))
+  (unless helm-source-buffers-list
+    (setq helm-source-buffers-list
+          (helm-make-source "Buffers" 'helm-source-buffers)))
+  (add-to-list 'helm-source-buffers-list
+               '(pattern-transformer helm-buffers-list-pattern-transformer))
 
- (defadvice helm-ff-sort-candidates (around no-sort activate)
-   "Don't sort candidates in a confusing order!"
-   (setq ad-return-value (ad-get-arg 0)))
+  (defadvice helm-ff-sort-candidates (around no-sort activate)
+    "Don't sort candidates in a confusing order!"
+    (setq ad-return-value (ad-get-arg 0)))
 
- ;; (package-install 'helm-swoop)
- (when (require 'helm-swoop nil t)
+  ;; Helmの候補選択を楽に行う
+  ;; (package-install 'ace-jump-helm-line)
+  (when (require 'ace-jump-helm-line nil t)
+    (define-key helm-map (kbd "@") 'ace-jump-helm-line)
+    (setq ace-jump-helm-line-default-action 'select))
 
-   ;; Change the keybinds to whatever you like :)
-   (global-set-key (kbd "M-i") 'helm-swoop)
-   (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
-   (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
-   (global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
+  ;; (package-install 'helm-swoop)
+  (when (require 'helm-swoop nil t)
 
-   ;; When doing isearch, hand the word over to helm-swoop
-   (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
-   ;; From helm-swoop to helm-multi-swoop-all
-   (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
-   ;; When doing evil-search, hand the word over to helm-swoop
-   ;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
+    ;; Change the keybinds to whatever you like :)
+    (global-set-key (kbd "M-i") 'helm-swoop)
+    (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
+    (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
+    (global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
 
-   ;; Instead of helm-multi-swoop-all, you can also use helm-multi-swoop-current-mode
-   (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
+    ;; When doing isearch, hand the word over to helm-swoop
+    (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+    ;; From helm-swoop to helm-multi-swoop-all
+    (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
+    ;; When doing evil-search, hand the word over to helm-swoop
+    ;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
 
-   ;; Move up and down like isearch
-   (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
-   (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
-   (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
-   (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
+    ;; Instead of helm-multi-swoop-all, you can also use helm-multi-swoop-current-mode
+    (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
 
-   ;; Save buffer when helm-multi-swoop-edit complete
-   (setq helm-multi-swoop-edit-save t)
+    ;; Move up and down like isearch
+    (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+    (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+    (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
+    (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
 
-   ;; If this value is t, split window inside the current window
-   (setq helm-swoop-split-with-multiple-windows nil)
+    ;; Save buffer when helm-multi-swoop-edit complete
+    (setq helm-multi-swoop-edit-save t)
 
-   ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
-   (setq helm-swoop-split-direction 'split-window-vertically)
+    ;; If this value is t, split window inside the current window
+    (setq helm-swoop-split-with-multiple-windows nil)
 
-   ;; If nil, you can slightly boost invoke speed in exchange for text color
-   (setq helm-swoop-speed-or-color nil)
+    ;; Split direcion. 'split-window-vertically or 'split-window-horizontally
+    (setq helm-swoop-split-direction 'split-window-vertically)
 
-   ;; ;; Go to the opposite side of line from the end or beginning of line
-   (setq helm-swoop-move-to-line-cycle t)
+    ;; If nil, you can slightly boost invoke speed in exchange for text color
+    (setq helm-swoop-speed-or-color nil)
 
-   ;; Optional face for line numbers
-   ;; Face name is `helm-swoop-line-number-face`
-   (setq helm-swoop-use-line-number-face t)
+    ;; ;; Go to the opposite side of line from the end or beginning of line
+    (setq helm-swoop-move-to-line-cycle t)
 
-   ;; If you prefer fuzzy matching
-   (setq helm-swoop-use-fuzzy-match t)
+    ;; Optional face for line numbers
+    ;; Face name is `helm-swoop-line-number-face`
+    (setq helm-swoop-use-line-number-face t)
 
-   ;; If you would like to use migemo, enable helm's migemo feature
-   (when (require 'migemo nil t)
-     (helm-migemo-mode 1))))
+    ;; If you prefer fuzzy matching
+    (setq helm-swoop-use-fuzzy-match t)
+
+    ;; If you would like to use migemo, enable helm's migemo feature
+    (when (require 'migemo nil t)
+      (helm-migemo-mode 1))))
 
 
 
 ;;; company-mode
 ;; (package-install 'company)
 (when (require 'company nil t)
- ;; 全バッファで有効
- (global-company-mode)
- ;; 候補の一番下でさらに下に行こうとすると一番上に戻る
- (setq company-selection-wrap-around t)
+  ;; 全バッファで有効
+  (global-company-mode)
+  ;; 候補の一番下でさらに下に行こうとすると一番上に戻る
+  (setq company-selection-wrap-around t)
 
- ;; 参考サイト: http://qiita.com/syohex/items/8d21d7422f14e9b53b17
- ;; auto-completeのような見た目に
- (set-face-attribute 'company-tooltip nil
-                     :foreground "black" :background "lightgrey")
- (set-face-attribute 'company-tooltip-common nil
-                     :foreground "black" :background "lightgrey")
- (set-face-attribute 'company-tooltip-common-selection nil
-                     :foreground "white" :background "steelblue")
- (set-face-attribute 'company-tooltip-selection nil
-                     :foreground "black" :background "steelblue")
- (set-face-attribute 'company-preview-common nil
-                     :background nil :foreground "lightgrey" :underline t)
- (set-face-attribute 'company-scrollbar-fg nil
-                     :background "orange")
- (set-face-attribute 'company-scrollbar-bg nil
-                     :background "gray40")
+  ;; 参考サイト: http://qiita.com/syohex/items/8d21d7422f14e9b53b17
+  ;; auto-completeのような見た目に
+  (set-face-attribute 'company-tooltip nil
+                      :foreground "black" :background "lightgrey")
+  (set-face-attribute 'company-tooltip-common nil
+                      :foreground "black" :background "lightgrey")
+  (set-face-attribute 'company-tooltip-common-selection nil
+                      :foreground "white" :background "steelblue")
+  (set-face-attribute 'company-tooltip-selection nil
+                      :foreground "black" :background "steelblue")
+  (set-face-attribute 'company-preview-common nil
+                      :background nil :foreground "lightgrey" :underline t)
+  (set-face-attribute 'company-scrollbar-fg nil
+                      :background "orange")
+  (set-face-attribute 'company-scrollbar-bg nil
+                      :background "gray40")
 
- ;; キーバインド
- (define-key company-active-map (kbd "C-n") 'company-select-next)
- (define-key company-active-map (kbd "C-p") 'company-select-previous)
- (define-key company-search-map (kbd "C-n") 'company-select-next)
- (define-key company-search-map (kbd "C-p") 'company-select-previous)
- (define-key company-active-map (kbd "C-s") 'company-filter-candidates) ; C-sで絞り込む
- (define-key company-active-map (kbd "C-i") 'company-complete-selection) ; TABで候補を設定
- (define-key company-active-map (kbd "M-n") nil)
- (define-key company-active-map (kbd "M-p") nil)
- (define-key company-active-map (kbd "C-h") nil)
+  ;; キーバインド
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-search-map (kbd "C-n") 'company-select-next)
+  (define-key company-search-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map (kbd "C-s") 'company-filter-candidates) ; C-sで絞り込む
+  (define-key company-active-map (kbd "C-i") 'company-complete-selection) ; TABで候補を設定
+  (define-key company-active-map (kbd "M-n") nil)
+  (define-key company-active-map (kbd "M-p") nil)
+  (define-key company-active-map (kbd "C-h") nil)
 
- ;; (package-install 'company-quickhelp)
- (when (require 'company-quickhelp nil t)
-  (company-quickhelp-mode +1))
+  ;; (package-install 'company-quickhelp)
+  (when (require 'company-quickhelp nil t)
+    (company-quickhelp-mode +1))
 
- ;; (package-install 'popwin)
- (require 'popwin nil t))
+  ;; (package-install 'popwin)
+  (require 'popwin nil t))
 
 
 ;;; avy
 ;; (package-install 'avy)
 (when (require 'avy nil t)
- (global-set-key (kbd "C-@") 'avy-goto-char)
- (global-set-key (kbd "M-@") 'avy-goto-char-2))
+  (global-set-key (kbd "C-@") 'avy-goto-char)
+  (global-set-key (kbd "M-@") 'avy-goto-char-2))
 
 
 
@@ -485,21 +491,21 @@
 ;;; Magit
 ;; (package-install 'magit)
 (when (require 'magit nil t)
- (global-unset-key (kbd "C-x g"))
- (global-set-key (kbd "C-x g s") 'magit-status)
- (global-set-key (kbd "C-x g b") 'magit-blame))
+  (global-unset-key (kbd "C-x g"))
+  (global-set-key (kbd "C-x g s") 'magit-status)
+  (global-set-key (kbd "C-x g b") 'magit-blame))
 
 
 
 ;;; flycheck
 ;; (package-install 'flycheck)
 (when (require 'flycheck nil t)
- (global-flycheck-mode)
- (define-key global-map (kbd "C-c n") 'flycheck-next-error)
- (define-key global-map (kbd "C-c p") 'flycheck-previous-error)
- (define-key global-map (kbd "C-c d") 'flycheck-list-errors)
+  (global-flycheck-mode)
+  (define-key global-map (kbd "C-c n") 'flycheck-next-error)
+  (define-key global-map (kbd "C-c p") 'flycheck-previous-error)
+  (define-key global-map (kbd "C-c d") 'flycheck-list-errors)
 
- (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
 ;;; undohist
 ;; ファイルを閉じた後も履歴を保持する
@@ -511,16 +517,16 @@
 ;; undoの履歴を可視化する
 ;; (package-install 'undo-tree)
 (when (require 'undo-tree nil t)
- (global-undo-tree-mode t)
- (global-set-key (kbd "M-/") 'undo-tree-redo))
+  (global-undo-tree-mode t)
+  (global-set-key (kbd "M-/") 'undo-tree-redo))
 
 
 
 ;;; expand-region
 ;; (package-install 'expand-region)
 (when (require 'expand-region nil t)
- (global-set-key (kbd "C-,")   'er/expand-region)
- (global-set-key (kbd "C-M-,") 'er/contract-region))
+  (global-set-key (kbd "C-,")   'er/expand-region)
+  (global-set-key (kbd "C-M-,") 'er/contract-region))
 
 
 
@@ -528,13 +534,13 @@
 ;; Rubyの正規表現をEmacsで使用する
 ;; (package-install 'foreign-regexp)
 (when (require 'foreign-regexp nil t)
- (custom-set-variables
-  '(foreign-regexp/regexp-type 'ruby)
-  '(reb-re-syntax 'foreign-regexp))
+  (custom-set-variables
+   '(foreign-regexp/regexp-type 'ruby)
+   '(reb-re-syntax 'foreign-regexp))
 
- (global-set-key (kbd "M-%") 'foreign-regexp/query-replace)
- (global-set-key (kbd "M-s") 'foreign-regexp/isearch-forward)
- (global-set-key (kbd "M-s") 'foreign-regexp/isearch-backward))
+  (global-set-key (kbd "M-%") 'foreign-regexp/query-replace)
+  (global-set-key (kbd "M-s") 'foreign-regexp/isearch-forward)
+  (global-set-key (kbd "M-s") 'foreign-regexp/isearch-backward))
 
 
 
@@ -542,7 +548,7 @@
 ;; 括弧の色付け
 ;; (package-install 'rainbow-delimiters)
 (when (require 'rainbow-delimiters nil t)
- (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 
 
@@ -550,7 +556,7 @@
 ;; バージョン管理している場合、変更箇所を分かりやすく表示する
 ;; (package-install 'git-gutter)
 (when (require 'git-gutter nil t)
- (global-git-gutter-mode +1))
+  (global-git-gutter-mode +1))
 
 
 
@@ -558,8 +564,8 @@
 ;; point-undo
 ;; (package-install 'point-undo)
 (when (require 'point-undo nil t)
- (global-set-key [f7] 'point-undo)
- (global-set-key [M-f7] 'point-redo))
+  (global-set-key [f7] 'point-undo)
+  (global-set-key [M-f7] 'point-redo))
 
 
 
@@ -567,8 +573,8 @@
 ;; 編集履歴によるカーソル位置の記憶
 ;; (package-install 'goto-chg)
 (when (require 'goto-chg nil t)
- (global-set-key [f8] 'goto-last-change)
- (global-set-key [M-f8] 'goto-last-change-reverse))
+  (global-set-key [f8] 'goto-last-change)
+  (global-set-key [M-f8] 'goto-last-change-reverse))
 
 
 
@@ -576,7 +582,7 @@
 ;; C-a C-a でバッファの先頭、C-e C-e でバッファの末尾に移動
 ;; (package-install 'sequential-command)
 (when (require 'sequential-command-config nil t)
- (sequential-command-setup-keys))
+  (sequential-command-setup-keys))
 
 
 
@@ -608,8 +614,8 @@
 ;; endに対応する行のハイライト
 ;; (package-install 'ruby-block)
 (when (require 'ruby-block nil t)
- (ruby-block-mode t)
- (setq ruby-block-highlight-toggle t))
+  (ruby-block-mode t)
+  (setq ruby-block-highlight-toggle t))
 
 
 
