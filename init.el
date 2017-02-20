@@ -473,8 +473,7 @@
 
   ;; キーバインドの再割り当て
   (defvar skk-my-unnecessary-rule-list
-    '(("l" nil nil)
-      ("\C-j" nil skk-kakutei)))
+    '(("l" nil nil)))
   (setq skk-rom-kana-rule-list
         (append skk-rom-kana-rule-list skk-my-unnecessary-rule-list)))
 
