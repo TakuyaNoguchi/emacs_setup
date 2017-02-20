@@ -21,6 +21,10 @@
 ;; 現在の関数名をモードラインに表示
 (which-function-mode 1)
 
+;; 行番号と列番号を表示
+(line-number-mode t)
+(column-number-mode t)
+
 ;; 右クリックを無効化
 (global-unset-key [down-mouse-3])
 
