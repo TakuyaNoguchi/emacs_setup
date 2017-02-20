@@ -226,6 +226,10 @@
  ;; 無効にしたい機能
  ;;(add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . nil))
 
+ (setq recentf-save-file "~/.emacs.d/.recentf")
+ (setq recentf-exclude '(".recentf"
+                         "/elpa/"))
+
  (global-set-key (kbd "M-x")     'helm-M-x)
  (global-set-key (kbd "C-x C-f") 'helm-find-files)
  (global-set-key (kbd "C-x C-r") 'helm-recentf)
