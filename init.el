@@ -504,6 +504,8 @@
 ;;; flycheck
 ;; (package-install 'flycheck)
 (when (require 'flycheck nil t)
+  ;; 保存時に実行する
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (global-flycheck-mode)
   (define-key global-map (kbd "C-c n") 'flycheck-next-error)
   (define-key global-map (kbd "C-c p") 'flycheck-previous-error)
