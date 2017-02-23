@@ -524,7 +524,8 @@
 ;; (package-install 'undo-tree)
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode t)
-  (global-set-key (kbd "M-/") 'undo-tree-redo))
+  (global-set-key (kbd "M-/") 'undo-tree-redo)
+  (global-set-key (kbd "C-M-/") 'undo-tree-redo))
 
 
 
