@@ -212,14 +212,38 @@
 ;; Slimeの設定
 ;; (package-install 'slime)
 (when (require 'slime-autoloads nil t)
-  (setq inferior-lisp-program "/usr/bin/sbcl"))
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+
+  ;; (package-install 'slime-company)
+  (require 'slime-company nil t)
+  (slime-setup '(slime-repl slime-fancy slime-banner slime-company))
+  ;; (package-install 'popwin)
+  (when (require 'popwin nil t)
+    ;; Apropos
+    (push '("*slime-apropos*") popwin:special-display-config)
+    ;; Macroexpand
+    (push '("*slime-macroexpansion*") popwin:special-display-config)
+    ;; Help
+    (push '("*slime-description*") popwin:special-display-config)
+    ;; Compilation
+    (push '("*slime-compilation*" :noselect t) popwin:special-display-config)
+    ;; Cross-reference
+    (push '("*slime-xref*") popwin:special-display-config)
+    ;; Debugger
+    (push '(sldb-mode :stick t) popwin:special-display-config)
+    ;; REPL
+    (push '(slime-repl-mode) popwin:special-display-config)
+    ;; Connections
+    (push '(slime-connection-list-mode) popwin:special-display-config)))
 
 ;; ParEditの設定
 ;; (package-install 'paredit)
 (when (require 'paredit nil t)
   (show-paren-mode 1)
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-  (add-hook 'lisp-interacton-mode-hook 'enable-paredit-mode))
+
+  (dolist (mode '(emacs-lisp-mode-hook lisp-mode-hook lisp-interacton-mode-hook
+                                       slime-mode-hook slime-repl-mode-hook))
+    (add-hook mode 'enable-paredit-mode)))
 
 
 
@@ -400,10 +424,7 @@
 
   ;; (package-install 'company-quickhelp)
   (when (require 'company-quickhelp nil t)
-    (company-quickhelp-mode +1))
-
-  ;; (package-install 'popwin)
-  (require 'popwin nil t))
+    (company-quickhelp-mode +1)))
 
 
 ;;; avy
