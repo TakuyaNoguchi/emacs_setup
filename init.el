@@ -246,7 +246,17 @@
 
   (dolist (mode '(emacs-lisp-mode-hook lisp-mode-hook lisp-interacton-mode-hook
                                        slime-mode-hook slime-repl-mode-hook))
-    (add-hook mode 'enable-paredit-mode)))
+    (add-hook mode 'enable-paredit-mode))
+
+  (defun paredit-space-for-delimiter-predicate-lisp (endp delimiter)
+    (or endp
+        (cond ((eq (char-syntax delimiter) ?\()
+               ;; # または ,@ の後に ( を入力した場合、空白を入れないように設定
+               (not (looking-back "#\\|,@")))
+              (else t))))
+
+  (add-hook 'paredit-space-for-delimiter-predicates
+            #'paredit-space-for-delimiter-predicate-lisp))
 
 
 
