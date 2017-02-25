@@ -214,9 +214,12 @@
 (when (require 'slime-autoloads nil t)
   (setq inferior-lisp-program "/usr/bin/sbcl")
 
-  ;; (package-install 'slime-company)
-  (require 'slime-company nil t)
-  (slime-setup '(slime-repl slime-fancy slime-banner slime-company))
+  ;; (package-install 'ac-slime)
+  (when (require 'ac-slime nil t)
+    (add-hook 'slime-mode-hook 'set-up-slime-ac)
+    (add-hook 'slime-repl-mode-hook 'set-up-slime-ac))
+
+  (slime-setup '(slime-repl slime-fancy slime-banner))
   ;; (package-install 'popwin)
   (when (require 'popwin nil t)
     ;; Apropos
@@ -385,46 +388,16 @@
       (helm-migemo-mode 1))))
 
 
+;;; auto-complete
+;; (package-install 'auto-complete)
+(when (require 'auto-complete nil t)
+  (ac-config-default)
+  (ac-set-trigger-key "TAB")
+  ;; 補完メニュー表示時にC-n/C-pで補完候補選択
+  (setq ac-use-menu-map t)
+   ;; 曖昧マッチ
+  (setq ac-use-fuzzy t))
 
-;;; company-mode
-;; (package-install 'company)
-(when (require 'company nil t)
-  ;; 全バッファで有効
-  (global-company-mode)
-  ;; 候補の一番下でさらに下に行こうとすると一番上に戻る
-  (setq company-selection-wrap-around t)
-
-  ;; 参考サイト: http://qiita.com/syohex/items/8d21d7422f14e9b53b17
-  ;; auto-completeのような見た目に
-  (set-face-attribute 'company-tooltip nil
-                      :foreground "black" :background "lightgrey")
-  (set-face-attribute 'company-tooltip-common nil
-                      :foreground "black" :background "lightgrey")
-  (set-face-attribute 'company-tooltip-common-selection nil
-                      :foreground "white" :background "steelblue")
-  (set-face-attribute 'company-tooltip-selection nil
-                      :foreground "black" :background "steelblue")
-  (set-face-attribute 'company-preview-common nil
-                      :background nil :foreground "lightgrey" :underline t)
-  (set-face-attribute 'company-scrollbar-fg nil
-                      :background "orange")
-  (set-face-attribute 'company-scrollbar-bg nil
-                      :background "gray40")
-
-  ;; キーバインド
-  (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-search-map (kbd "C-n") 'company-select-next)
-  (define-key company-search-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "C-s") 'company-filter-candidates) ; C-sで絞り込む
-  (define-key company-active-map (kbd "C-i") 'company-complete-selection) ; TABで候補を設定
-  (define-key company-active-map (kbd "M-n") nil)
-  (define-key company-active-map (kbd "M-p") nil)
-  (define-key company-active-map (kbd "C-h") nil)
-
-  ;; (package-install 'company-quickhelp)
-  (when (require 'company-quickhelp nil t)
-    (company-quickhelp-mode +1)))
 
 
 ;;; avy
