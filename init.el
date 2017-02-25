@@ -212,14 +212,14 @@
 ;; Slimeの設定
 ;; (package-install 'slime)
 (when (require 'slime-autoloads nil t)
-  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (setq inferior-lisp-program "/usr/bin/clisp")
 
   ;; (package-install 'ac-slime)
   (when (require 'ac-slime nil t)
     (add-hook 'slime-mode-hook 'set-up-slime-ac)
     (add-hook 'slime-repl-mode-hook 'set-up-slime-ac))
 
-  (slime-setup '(slime-repl slime-fancy slime-banner))
+  (slime-setup '(slime-repl slime-fancy slime-banner slime-indentation))
   ;; (package-install 'popwin)
   (when (require 'popwin nil t)
     ;; Apropos
