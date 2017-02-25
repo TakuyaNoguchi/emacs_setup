@@ -505,6 +505,9 @@
 
   (global-set-key (kbd "C-;") 'skk-mode)
   (global-set-key (kbd "C-:") 'skk-mode)
+  ;; 候補が1つの場合、skk-kakutei-when-unique-candidateで確定しているが、その単語に対して
+  ;; 辞書登録したい場合は、続けてskk-undo-kakuteiを実行することで辞書登録モードに遷移する。
+  (global-set-key (kbd "C-M-;") 'skk-undo-kakutei)
 
   ;; キーバインドの再割り当て
   (defvar skk-my-unnecessary-rule-list
