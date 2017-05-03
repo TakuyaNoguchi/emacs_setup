@@ -558,6 +558,46 @@
 
 
 
+;;; Rubyの設定
+;; modeの設定
+(autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
+
+;; endの補完
+;; (package-install 'ruby-electric)
+(when (require 'ruby-electric nil t)
+  (add-hook 'ruby-mode-hook '(lambda ()
+                               (ruby-electric-mode t)
+                               (smartparens-global-mode))))
+
+;; endに対応する行のハイライト
+;; (package-install 'ruby-block)
+(when (require 'ruby-block nil t)
+  (ruby-block-mode t)
+  (setq ruby-block-highlight-toggle t))
+
+
+
+;;; Rails
+;; (package-install 'projectile-rails)
+(when (require 'projectile-rails nil t)
+  (setq projectile-completion-system 'helm)
+  (projectile-rails-global-mode))
+
+
+
+;;; smartparens
+;; 対応する括弧の入力
+;; (package-install 'smartparens)
+(when (require 'smartparens-config nil t)
+  (smartparens-global-mode t)
+  (add-hook 'ruby-mode-hook #'smartparens-mode))
+
+
+
 ;;; markdown-mode
 ;; (package-install 'markdown-mode)
 ;; $ sudo apt-get install markdown
