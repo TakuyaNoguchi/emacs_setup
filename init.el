@@ -601,3 +601,16 @@
 ;;; markdown-mode
 ;; (package-install 'markdown-mode)
 ;; $ sudo apt-get install markdown
+
+
+
+;;; org-mode
+;; LOGBOOK に計測時間を格納する(折り畳み可能なセクション)
+(setq org-clock-into-drawer t)
+
+;; 現在開いているファイルの行へのリンクをコピー
+;; コピー後、orgファイルを開き C-c C-l でリンクをペーストできる
+(global-set-key (kbd "C-c l") 'org-store-link)
+
+;; 予定の一覧を閲覧
+(global-set-key (kbd "C-c a") 'org-agenda)
