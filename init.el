@@ -208,6 +208,58 @@
 (global-unset-key [\M-mouse-3])
 
 
+;;; Lispの設定
+;; Slimeの設定
+;; (package-install 'slime)
+(when (require 'slime-autoloads nil t)
+  (setq inferior-lisp-program "/usr/bin/clisp")
+
+  ;; (package-install 'ac-slime)
+  (when (require 'ac-slime nil t)
+    (add-hook 'slime-mode-hook 'set-up-slime-ac)
+    (add-hook 'slime-repl-mode-hook 'set-up-slime-ac))
+
+  (slime-setup '(slime-repl slime-fancy slime-banner slime-indentation))
+  ;; (package-install 'popwin)
+  (when (require 'popwin nil t)
+    ;; Apropos
+    (push '("*slime-apropos*") popwin:special-display-config)
+    ;; Macroexpand
+    (push '("*slime-macroexpansion*") popwin:special-display-config)
+    ;; Help
+    (push '("*slime-description*") popwin:special-display-config)
+    ;; Compilation
+    (push '("*slime-compilation*" :noselect t) popwin:special-display-config)
+    ;; Cross-reference
+    (push '("*slime-xref*") popwin:special-display-config)
+    ;; Debugger
+    (push '(sldb-mode :stick t) popwin:special-display-config)
+    ;; REPL
+    (push '(slime-repl-mode) popwin:special-display-config)
+    ;; Connections
+    (push '(slime-connection-list-mode) popwin:special-display-config)))
+
+;; ParEditの設定
+;; (package-install 'paredit)
+(when (require 'paredit nil t)
+  (show-paren-mode 1)
+
+  (dolist (mode '(emacs-lisp-mode-hook lisp-mode-hook lisp-interacton-mode-hook
+                                       slime-mode-hook slime-repl-mode-hook))
+    (add-hook mode 'enable-paredit-mode))
+
+  (defun paredit-space-for-delimiter-predicate-lisp (endp delimiter)
+    (or endp
+        (cond ((eq (char-syntax delimiter) ?\()
+               ;; # または ,@ の後に ( を入力した場合、空白を入れないように設定
+               (not (looking-back "#\\|,@")))
+              (else t))))
+
+  (add-hook 'paredit-space-for-delimiter-predicates
+            #'paredit-space-for-delimiter-predicate-lisp))
+
+
+
 ;;; Helm
 ;; (package-install 'helm)
 (when (require 'helm-config nil t)
