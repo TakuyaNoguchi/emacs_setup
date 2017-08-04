@@ -60,6 +60,14 @@
 ;; ウィンドウ内に収まらないときだけカッコ内も光らせる
 (setq show-paren-style 'mixed)
 
+;; C-u C-SPC C-SPC ... で過去のマークに戻れるように設定
+(setq set-mark-command-repeat-pop t)
+;; 保持できるマークの数を32個に変更
+(setq mark-ring-max 32)
+
+;; yesとnoの入力をyとnで入力できるように設定
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 ;; 行末の空白を表示
 (setq-default show-trailing-whitespace t)
 
