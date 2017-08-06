@@ -138,6 +138,16 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace-with-exclude-pattern)
 
+;; リージョンを選択せずに Ctrl-w を押下したときに、カーソルの前の単語を削除する。
+;; 参考サイト: http://d.hatena.ne.jp/plonk123/20121016/1350412750
+(defun kill-word-or-region ()
+  "Kill word backwards, kill region if there is an active one"
+  (interactive)
+  (if (use-region-p)
+      (kill-region (region-beginning) (region-end))
+    (backward-kill-word 1)))
+(global-set-key (kbd "C-w") 'kill-word-or-region)
+
 
 ;; ファイル末尾の改行を削除
 ;; http://www.emacswiki.org/emacs/DeletingWhitespace
