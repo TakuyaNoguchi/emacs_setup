@@ -684,6 +684,11 @@
 ;; 予定の一覧を閲覧
 (global-set-key (kbd "C-c a") 'org-agenda)
 
+;; outlineの移動を楽にする
+(when (require 'smartrep nil t)
+  (smartrep-define-key
+      org-mode-map "C-c" '(("C-n" . (outline-next-visible-heading 1))
+                           ("C-p" . (outline-previous-visible-heading 1)))))
 
 
 ;;; 色文字列に色をつける
