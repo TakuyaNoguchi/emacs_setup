@@ -325,6 +325,21 @@
     (define-key helm-map (kbd "@") 'ace-jump-helm-line)
     (setq ace-jump-helm-line-default-action 'select))
 
+  ;; TAGの生成
+  (package-install 'helm-etags-plus)
+  (when (require 'helm-etags-plus nil t)
+    (setq ctags-update-command "/usr/bin/ctags")
+    (add-hook 'ruby-mode-hook  'turn-on-ctags-auto-update-mode)
+    (add-hook 'js3-mode-hook  'turn-on-ctags-auto-update-mode)
+
+    (global-set-key (kbd "M-.") 'helm-etags-plus-select)
+    ;;list all visited tags
+    (global-set-key (kbd "M-*") 'helm-etags-plus-history)
+    ;;go back directly
+    (global-set-key (kbd "M-,") 'helm-etags-plus-history-go-back)
+    ;;go forward directly
+    (global-set-key (kbd "M-/") 'helm-etags-plus-history-go-forward))
+
   (package-install 'helm-swoop)
   (when (require 'helm-swoop nil t)
 
