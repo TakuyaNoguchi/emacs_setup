@@ -441,10 +441,6 @@
       ("o"        . 'mc/sort-regions)
       ("O"        . 'mc/reverse-regions))))
 
-;;; easy-repeat
-(package-install 'easy-repeat)
-(require 'easy-repeat nil t)
-
 
 
 ;;; Migemo
