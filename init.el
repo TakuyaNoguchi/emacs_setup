@@ -36,6 +36,9 @@
 ;; .#* とかのバックアップファイルを作らない
 (setq auto-save-default nil)
 
+;; Ctrl-j と Ctrl-m の入れ替え
+(electric-indent-mode -1)
+
 ;; メニューバーを消す
 (menu-bar-mode -1)
 
