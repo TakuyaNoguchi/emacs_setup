@@ -166,16 +166,9 @@
 
 
 ;;; color theme の設定
-(package-install 'color-theme-sanityinc-solarized)
-(when (require 'color-theme-sanityinc-solarized nil t)
-  (color-theme-sanityinc-solarized--define-theme dark)
-
-  (add-hook 'after-make-frame-functions
-            (lambda (frame)
-              (let ((mode (if (display-graphic-p frame) 'light 'dark)))
-                (set-frame-parameter frame 'background-mode mode)
-                (set-terminal-parameter frame 'background-mode mode))
-              (enable-theme 'solarized))))
+(package-install 'zenburn-theme)
+(when (require 'zenburn-theme nil t)
+  (load-theme 'zenburn t))
 
 
 
