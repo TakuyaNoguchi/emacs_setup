@@ -458,14 +458,18 @@
   (setq skk-azik-keyboard-type 'jp106)
   (setq skk-sticky-key (kbd "l"))
   (setq skk-kakutei-key (kbd "C-;"))
+  ;; 単語の注釈を表示しないように修正
+  (setq skk-show-annotation nil)
   ;; 変換候補がひとつしかない場合は確定する
   (setq skk-kakutei-when-unique-candidate t)
   ;; skk-isearch を無効化
   (setq skk-isearch-start-mode 'latin)
-
   (setq skk-large-jisyo (expand-file-name "~/.emacs.d/skk-get-jisyo/SKK-JISYO.L"))
+  ;; 最後の見出し語を表示
+  (setq skk-dcomp-activate t)
 
   (global-set-key (kbd "C-l") 'skk-mode)
+  (global-set-key (kbd "C-;") 'skk-mode)
   ;; 候補が1つの場合、skk-kakutei-when-unique-candidateで確定しているが、その単語に対して
   ;; 辞書登録したい場合は、続けてskk-undo-kakuteiを実行することで辞書登録モードに遷移する。
   (global-set-key (kbd "C-M-;") 'skk-undo-kakutei)
