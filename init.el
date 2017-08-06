@@ -25,6 +25,9 @@
 (line-number-mode t)
 (column-number-mode t)
 
+;; バッファの再読み込み
+(global-set-key (kbd "<f5>") 'revert-buffer)
+
 ;; 右クリックを無効化
 (global-unset-key [down-mouse-3])
 
