@@ -166,7 +166,7 @@
 
 
 ;;; color theme の設定
-;; (package-install 'color-theme-sanityinc-solarized)
+(package-install 'color-theme-sanityinc-solarized)
 (when (require 'color-theme-sanityinc-solarized nil t)
   (color-theme-sanityinc-solarized--define-theme dark)
 
@@ -183,20 +183,33 @@
 (require 'dired-x nil t)
 
 ;; "r"でファイル名インライン編集する
-(require 'wdired nil t)
-(define-key dired-mode-map "r" 'wdired-change-to-wdired-mode)
+(when (require 'wdired nil t)
+  (define-key dired-mode-map "r" 'wdired-change-to-wdired-mode))
 
 
 
 ;;; 基本キーバインド
 ;; バックスペース
 (global-set-key (kbd "C-h") 'delete-backward-char)
+;; ミニバッファ内でBackspace
+(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
 ;; カーソルの前の単語を削除
 (global-set-key (kbd "M-h") 'backward-kill-word)
 ;; ヘルプ
 (global-set-key (kbd "M-?") 'help-for-help)
 ;; 補完
 (global-set-key (kbd "C-o") 'hippie-expand)
+(setq hippie-expand-try-functions-list
+      '(try-expand-dabbrev              ; カレントバッファでdabbrev
+        try-expand-dabbrev-all-buffers  ; 全てのバッファでdabbrev
+        try-expand-dabbrev-from-kill    ; キルリングの中からdabbrev
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-all-abbrevs
+        try-expand-list
+        try-expand-line
+        try-complete-lisp-symbol))
+
 ;; コメントアウト
 (global-set-key (kbd "M-;") 'comment-dwim)
 ;; 行番号で移動
@@ -220,60 +233,9 @@
 (global-unset-key [\M-mouse-3])
 
 
-;;; Lispの設定
-;; Slimeの設定
-;; (package-install 'slime)
-(when (require 'slime-autoloads nil t)
-  (setq inferior-lisp-program "/usr/bin/clisp")
-
-  ;; (package-install 'ac-slime)
-  (when (require 'ac-slime nil t)
-    (add-hook 'slime-mode-hook 'set-up-slime-ac)
-    (add-hook 'slime-repl-mode-hook 'set-up-slime-ac))
-
-  (slime-setup '(slime-repl slime-fancy slime-banner slime-indentation))
-  ;; (package-install 'popwin)
-  (when (require 'popwin nil t)
-    ;; Apropos
-    (push '("*slime-apropos*") popwin:special-display-config)
-    ;; Macroexpand
-    (push '("*slime-macroexpansion*") popwin:special-display-config)
-    ;; Help
-    (push '("*slime-description*") popwin:special-display-config)
-    ;; Compilation
-    (push '("*slime-compilation*" :noselect t) popwin:special-display-config)
-    ;; Cross-reference
-    (push '("*slime-xref*") popwin:special-display-config)
-    ;; Debugger
-    (push '(sldb-mode :stick t) popwin:special-display-config)
-    ;; REPL
-    (push '(slime-repl-mode) popwin:special-display-config)
-    ;; Connections
-    (push '(slime-connection-list-mode) popwin:special-display-config)))
-
-;; ParEditの設定
-;; (package-install 'paredit)
-(when (require 'paredit nil t)
-  (show-paren-mode 1)
-
-  (dolist (mode '(emacs-lisp-mode-hook lisp-mode-hook lisp-interacton-mode-hook
-                                       slime-mode-hook slime-repl-mode-hook))
-    (add-hook mode 'enable-paredit-mode))
-
-  (defun paredit-space-for-delimiter-predicate-lisp (endp delimiter)
-    (or endp
-        (cond ((eq (char-syntax delimiter) ?\()
-               ;; # または ,@ の後に ( を入力した場合、空白を入れないように設定
-               (not (looking-back "#\\|,@")))
-              (else t))))
-
-  (add-hook 'paredit-space-for-delimiter-predicates
-            #'paredit-space-for-delimiter-predicate-lisp))
-
-
 
 ;;; Helm
-;; (package-install 'helm)
+(package-install 'helm)
 (when (require 'helm-config nil t)
   (helm-mode 1)
   ;; 無効にしたい機能
@@ -353,12 +315,12 @@
     (setq ad-return-value (ad-get-arg 0)))
 
   ;; Helmの候補選択を楽に行う
-  ;; (package-install 'ace-jump-helm-line)
+  (package-install 'ace-jump-helm-line)
   (when (require 'ace-jump-helm-line nil t)
     (define-key helm-map (kbd "@") 'ace-jump-helm-line)
     (setq ace-jump-helm-line-default-action 'select))
 
-  ;; (package-install 'helm-swoop)
+  (package-install 'helm-swoop)
   (when (require 'helm-swoop nil t)
 
     ;; Change the keybinds to whatever you like :)
@@ -411,7 +373,7 @@
 
 
 ;;; auto-complete
-;; (package-install 'auto-complete)
+(package-install 'auto-complete)
 (when (require 'auto-complete nil t)
   (ac-config-default)
   (ac-set-trigger-key "TAB")
@@ -423,16 +385,21 @@
 
 
 ;;; avy
-;; (package-install 'avy)
+(package-install 'avy)
 (when (require 'avy nil t)
   (global-set-key (kbd "C-@") 'avy-goto-char)
-  (global-set-key (kbd "M-@") 'avy-goto-char-2))
+  (global-set-key (kbd "M-@") 'avy-goto-char-2)
+  (global-set-key (kbd "C-M-@") 'avy-goto-char-2))
+
+(package-install 'avy-zap)
+(when (require 'avy-zap nil t)
+  (global-set-key (kbd "M-z") 'avy-zap-up-to-char))
 
 
 
 ;;; multiple cursors
-;; (package-install 'multiple-cursors)
-;; (package-install 'smartrep)
+(package-install 'multiple-cursors)
+(package-install 'smartrep)
 (when (and (require 'multiple-cursors nil t)
            (require 'smartrep nil t))
 
@@ -455,7 +422,7 @@
       ("O"        . 'mc/reverse-regions))))
 
 ;;; easy-repeat
-;; (package-install 'easy-repeat)
+(package-install 'easy-repeat)
 (require 'easy-repeat nil t)
 
 
@@ -463,7 +430,7 @@
 ;;; Migemo
 ;; $ sudo apt-get install cmigemo
 ;; $ sudo apt-get install migemo
-;; (package-install 'migemo)
+(package-install 'migemo)
 (when (and (executable-find "cmigemo")
            (require 'migemo nil t))
   (setq migemo-options '("-q" "--emacs"))
@@ -477,7 +444,7 @@
 
 
 ;;; SKK
-;; (package-install 'ddskk)
+(package-install 'ddskk)
 ;;
 ;; 辞書のダウンロード:
 ;; M-x skk-get
@@ -509,9 +476,37 @@
   (setq skk-rom-kana-rule-list
         (append skk-rom-kana-rule-list skk-my-unnecessary-rule-list)))
 
+;; M-x skk-auto-replace-mode でマイナーモードのON/OFFを切り替えを行う。
+;; 見出し語のひらがなの先頭で skk-sticky-key を押して変換を行うと、以降の文章に同様の文字列
+;; に対してquery-replace を実行する
+;; 参考サイト: http://emacs.rubikitch.com/skk-auto-replace-mode
+(define-minor-mode skk-auto-replace-mode
+  "同じ見出し語をquery-replaceする。議事録校正のためのモード。"
+  nil " SKK置換")
+(defvar skk-my-kakutei-key nil "")
+(defadvice skk-start-henkan (before auto-replace activate)
+  (and (eq skk-henkan-mode 'on)
+       (setq skk-my-kakutei-key (buffer-substring skk-henkan-start-point (point)))))
+
+(defadvice skk-kakutei (after auto-replace activate)
+  (skk-replace-after-kakutei))
+
+(defun skk-replace-after-kakutei ()
+  (interactive)
+  (when (and skk-auto-replace-mode
+             skk-my-kakutei-key)
+    (unwind-protect
+        (perform-replace
+         skk-my-kakutei-key (buffer-substring skk-henkan-start-point (point))
+         t nil nil)
+     (setq skk-my-kakutei-key nil))))
+
+(provide 'mylisp-skk-replace)
+
+
 
 ;;; Magit
-;; (package-install 'magit)
+(package-install 'magit)
 (when (require 'magit nil t)
   (global-unset-key (kbd "C-x g"))
   (global-set-key (kbd "C-x g s") 'magit-status)
@@ -520,7 +515,7 @@
 
 
 ;;; flycheck
-;; (package-install 'flycheck)
+(package-install 'flycheck)
 (when (require 'flycheck nil t)
   ;; 保存時に実行する
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
@@ -533,13 +528,13 @@
 
 ;;; undohist
 ;; ファイルを閉じた後も履歴を保持する
-;; (package-install 'undohist)
+(package-install 'undohist)
 (require 'undohist nil t)
 
 
 ;;; undo-tree
 ;; undoの履歴を可視化する
-;; (package-install 'undo-tree)
+(package-install 'undo-tree)
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode t)
   (global-set-key (kbd "M-/") 'undo-tree-redo)
@@ -548,7 +543,7 @@
 
 
 ;;; expand-region
-;; (package-install 'expand-region)
+(package-install 'expand-region)
 (when (require 'expand-region nil t)
   (global-set-key (kbd "C-,")   'er/expand-region)
   (global-set-key (kbd "C-M-,") 'er/contract-region))
@@ -557,7 +552,7 @@
 
 ;;; foreign-regexp
 ;; Rubyの正規表現をEmacsで使用する
-;; (package-install 'foreign-regexp)
+(package-install 'foreign-regexp)
 (when (require 'foreign-regexp nil t)
   (custom-set-variables
    '(foreign-regexp/regexp-type 'ruby)
@@ -571,7 +566,7 @@
 
 ;;; rainbow-delimiters
 ;; 括弧の色付け
-;; (package-install 'rainbow-delimiters)
+(package-install 'rainbow-delimiters)
 (when (require 'rainbow-delimiters nil t)
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
@@ -579,7 +574,7 @@
 
 ;;; git-gutter
 ;; バージョン管理している場合、変更箇所を分かりやすく表示する
-;; (package-install 'git-gutter)
+(package-install 'git-gutter)
 (when (require 'git-gutter nil t)
   (global-git-gutter-mode +1))
 
@@ -587,7 +582,7 @@
 
 ;;; カーソル位置の履歴管理
 ;; point-undo
-;; (package-install 'point-undo)
+(package-install 'point-undo)
 (when (require 'point-undo nil t)
   (global-set-key [f7] 'point-undo)
   (global-set-key [M-f7] 'point-redo))
@@ -596,7 +591,7 @@
 
 ;;; goto-chg
 ;; 編集履歴によるカーソル位置の記憶
-;; (package-install 'goto-chg)
+(package-install 'goto-chg)
 (when (require 'goto-chg nil t)
   (global-set-key [f8] 'goto-last-change)
   (global-set-key [M-f8] 'goto-last-change-reverse))
@@ -605,7 +600,7 @@
 
 ;;; sequential-command
 ;; C-a C-a でバッファの先頭、C-e C-e でバッファの末尾に移動
-;; (package-install 'sequential-command)
+(package-install 'sequential-command)
 (when (require 'sequential-command-config nil t)
   (sequential-command-setup-keys))
 
@@ -621,7 +616,7 @@
 
 
 
-;;; Rubyの設定
+;;; RubyとRailsの設定
 ;; modeの設定
 (autoload 'ruby-mode "ruby-mode" "Mode for editing ruby source files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
@@ -654,15 +649,17 @@
 
 ;;; smartparens
 ;; 対応する括弧の入力
-;; (package-install 'smartparens)
+(package-install 'smartparens)
 (when (require 'smartparens-config nil t)
-  (smartparens-global-mode t)
-  (add-hook 'ruby-mode-hook #'smartparens-mode))
+  (smartparens-global-mode)
+  ;; ERBの括弧を補完するための設定を追加
+  (sp-with-modes '(web-mode)
+    (sp-local-pair "<%" "%>")))
 
 
 
 ;;; markdown-mode
-;; (package-install 'markdown-mode)
+(package-install 'markdown-mode)
 ;; $ sudo apt-get install markdown
 
 
