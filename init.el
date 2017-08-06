@@ -628,23 +628,12 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 
-;; endの補完
-;; (package-install 'ruby-electric)
-(when (require 'ruby-electric nil t)
-  (add-hook 'ruby-mode-hook '(lambda ()
-                               (ruby-electric-mode t)
-                               (smartparens-global-mode))))
-
 ;; endに対応する行のハイライト
-;; (package-install 'ruby-block)
+(package-install 'ruby-block)
 (when (require 'ruby-block nil t)
-  (ruby-block-mode t)
   (setq ruby-block-highlight-toggle t))
 
-
-
-;;; Rails
-;; (package-install 'projectile-rails)
+(package-install 'projectile-rails)
 (when (require 'projectile-rails nil t)
   (setq projectile-completion-system 'helm)
   (projectile-rails-global-mode))
@@ -678,3 +667,87 @@
 
 ;; 予定の一覧を閲覧
 (global-set-key (kbd "C-c a") 'org-agenda)
+
+
+
+;;; 色文字列に色をつける
+(package-install 'rainbow-mode)
+(setq rainbow-html-colors t)
+(setq rainbow-x-colors t)
+(setq rainbow-latex-colors t)
+(setq rainbow-ansi-colors t)
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'scss-mode-hook 'rainbow-mode)
+(add-hook 'html-mode-hook 'rainbow-mode)
+
+
+;;; リージョン選択時のキーバインドを設定
+;; 参考サイト http://emacs.rubikitch.com/selected
+(package-install 'selected)
+(when (require 'selected nil t)
+  ;; 他のパッケージよりもselectedの設定を優先させる
+  (setq selected-minor-mode-override t)
+  (selected-global-mode 1)
+  (define-key selected-keymap (kbd "q") #'selected-off)
+  (define-key selected-keymap (kbd "u") #'upcase-region)
+  (define-key selected-keymap (kbd "d") #'downcase-region)
+  (define-key selected-keymap (kbd "w") #'count-words-region)
+  (define-key selected-keymap (kbd "m") #'apply-macro-to-region-lines)
+
+  (setq selected-org-mode-map (make-sparse-keymap))
+  (define-key selected-org-mode-map (kbd "t") #'org-table-convert-region))
+
+
+
+;;; Web関連の設定
+(package-install 'web-mode)
+(when (require 'web-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
+
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+
+
+  (defun my-web-mode-hook ()
+    (setq web-mode-enable-auto-pairing nil))
+
+  (add-hook 'web-mode-hook  'my-web-mode-hook)
+
+  (defun sp-web-mode-is-code-context (id action context)
+    (and (eq action 'insert)
+         (not (or (get-text-property (point) 'part-side)
+                  (get-text-property (point) 'block-side)))))
+
+  (sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
+
+  ;; 参考サイト http://biwakonbu.com/?p=589
+  (custom-set-faces
+   '(web-mode-doctype-face           ((t (:foreground "#4A8ACA"))))
+   '(web-mode-html-tag-face          ((t (:foreground "#4A8ACA"))))
+   '(web-mode-html-attr-name-face    ((t (:foreground "#87CEEB"))))
+   '(web-mode-html-attr-equal-face   ((t (:foreground "#FFFFFF"))))
+   '(web-mode-html-attr-value-face   ((t (:foreground "#D78181"))))
+   '(web-mode-comment-face           ((t (:foreground "#587F35"))))
+   '(web-mode-server-comment-face    ((t (:foreground "#587F35"))))
+
+   '(web-mode-css-at-rule-face       ((t (:foreground "#DFCF44"))))
+   '(web-mode-comment-face           ((t (:foreground "#587F35"))))
+   '(web-mode-css-selector-face      ((t (:foreground "#DFCF44"))))
+   '(web-mode-css-pseudo-class       ((t (:foreground "#DFCF44"))))
+   '(web-mode-css-property-name-face ((t (:foreground "#87CEEB"))))
+   '(web-mode-css-string-face        ((t (:foreground "#D78181"))))))
+
+(package-install 'emmet-mode)
+(when (require 'emmet-mode nil t)
+  (add-hook 'web-mode-hook 'emmet-mode)
+  (eval-after-load "emmet-mode"
+    '(define-key emmet-mode-keymap (kbd "C-j") nil))
+  (define-key emmet-mode-keymap (kbd "C-i") 'emmet-expand-line))
+
+
+
+;;; JavaScript
+(package-install 'js3-mode)
+(require 'js3-mode nil t)
