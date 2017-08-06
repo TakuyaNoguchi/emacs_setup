@@ -77,9 +77,6 @@
 ;; 行末の空白を表示
 (setq-default show-trailing-whitespace t)
 
-;; 現在行を目立たせる
-(global-hl-line-mode)
-
 ;; バッファの最後でnewlineで新規行を追加するのを禁止する
 (setq next-line-add-newlines nil)
 
@@ -168,6 +165,8 @@
 ;; ファイル名が重複していたらディレクトリ名を追加する
 (when (require 'uniquify nil t)
   (setq uniqufy-buffer-name-style 'post-forward-angle-brackets))
+
+
 
 ;;; パッケージ管理
 (when (require 'package nil t)
@@ -484,43 +483,43 @@
   (defvar skk-my-unnecessary-rule-list
     '(("l" nil nil)))
   (setq skk-rom-kana-rule-list
-        (append skk-rom-kana-rule-list skk-my-unnecessary-rule-list)))
+        (append skk-rom-kana-rule-list skk-my-unnecessary-rule-list))
 
-;; M-x skk-auto-replace-mode でマイナーモードのON/OFFを切り替えを行う。
-;; 見出し語のひらがなの先頭で skk-sticky-key を押して変換を行うと、以降の文章に同様の文字列
-;; に対してquery-replace を実行する
-;; 参考サイト: http://emacs.rubikitch.com/skk-auto-replace-mode
-(define-minor-mode skk-auto-replace-mode
-  "同じ見出し語をquery-replaceする。議事録校正のためのモード。"
-  nil " SKK置換")
-(defvar skk-my-kakutei-key nil "")
-(defadvice skk-start-henkan (before auto-replace activate)
-  (and (eq skk-henkan-mode 'on)
-       (setq skk-my-kakutei-key (buffer-substring skk-henkan-start-point (point)))))
+  ;; M-x skk-auto-replace-mode でマイナーモードのON/OFFを切り替えを行う。
+  ;; 見出し語のひらがなの先頭で skk-sticky-key を押して変換を行うと、以降の文章に同様の文字列
+  ;; に対してquery-replace を実行する
+  ;; 参考サイト: http://emacs.rubikitch.com/skk-auto-replace-mode
+  (define-minor-mode skk-auto-replace-mode
+    "同じ見出し語をquery-replaceする。議事録校正のためのモード。"
+    nil " SKK置換")
+  (defvar skk-my-kakutei-key nil "")
+  (defadvice skk-start-henkan (before auto-replace activate)
+    (and (eq skk-henkan-mode 'on)
+         (setq skk-my-kakutei-key (buffer-substring skk-henkan-start-point (point)))))
 
-(defadvice skk-kakutei (after auto-replace activate)
-  (skk-replace-after-kakutei))
+  (defadvice skk-kakutei (after auto-replace activate)
+    (skk-replace-after-kakutei))
 
-(defun skk-replace-after-kakutei ()
-  (interactive)
-  (when (and skk-auto-replace-mode
-             skk-my-kakutei-key)
-    (unwind-protect
-        (perform-replace
-         skk-my-kakutei-key (buffer-substring skk-henkan-start-point (point))
-         t nil nil)
-     (setq skk-my-kakutei-key nil))))
+  (defun skk-replace-after-kakutei ()
+    (interactive)
+    (when (and skk-auto-replace-mode
+               skk-my-kakutei-key)
+      (unwind-protect
+          (perform-replace
+           skk-my-kakutei-key (buffer-substring skk-henkan-start-point (point))
+           t nil nil)
+        (setq skk-my-kakutei-key nil))))
 
-(provide 'mylisp-skk-replace)
+  (provide 'mylisp-skk-replace))
 
 
 
 ;;; Magit
 (package-install 'magit)
 (when (require 'magit nil t)
-  (global-unset-key (kbd "C-x g"))
-  (global-set-key (kbd "C-x g s") 'magit-status)
-  (global-set-key (kbd "C-x g b") 'magit-blame))
+  (global-unset-key (kbd "C-x m"))
+  (global-set-key (kbd "C-x m s") 'magit-status)
+  (global-set-key (kbd "C-x m b") 'magit-blame))
 
 
 
