@@ -674,7 +674,7 @@
 ;; $ sudo apt-get install markdown
 (package-install 'markdown-mode)
 (require 'markdown-mode nil t)
-(when (require 'gfm-mode nil t)
+(when (require 'markdown-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode)))
 
