@@ -2,6 +2,9 @@
 ;; ロードパス
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
+;; 起動時のメッセージを削除
+(setq inhibit-startup-message t)
+
 ;; 日本語環境
 (set-locale-environment nil)
 (set-language-environment "Japanese")
@@ -677,12 +680,25 @@
 ;; LOGBOOK に計測時間を格納する(折り畳み可能なセクション)
 (setq org-clock-into-drawer t)
 
+;; DONEにステータス変更時、メモを記載したい場合はtimeをnoteに変更
+(setq org-log-done 'time)
+
 ;; 現在開いているファイルの行へのリンクをコピー
 ;; コピー後、orgファイルを開き C-c C-l でリンクをペーストできる
 (global-set-key (kbd "C-c l") 'org-store-link)
 
-;; 予定の一覧を閲覧
+
 (global-set-key (kbd "C-c a") 'org-agenda)
+
+;; 予定の一覧を閲覧
+(setq org-agenda-files '("~/org/todo.org" "~/org/memo.org"))
+
+;; capture templates
+(setq org-capture-templates
+      '(("p" "Project Task" entry (file+headline (expand-file-name "~/org/todo.org") "Inbox")
+             "** TODO %?\n    %i\n    %a\n    %T")
+        ("m" "memo" entry (file (expand-file-name "~/org/memo.org"))
+             "* %?\n    %i\n    %a\n    %T")))
 
 ;; outlineの移動を楽にする
 (when (require 'smartrep nil t)
