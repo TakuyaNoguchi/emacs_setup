@@ -704,6 +704,8 @@
         ("m" "memo" entry (file (expand-file-name "~/org/memo.org"))
              "* %?\n    %i\n    %a\n    %T")))
 
+(global-set-key (kbd "C-c c") 'org-capture)
+
 ;; outlineの移動を楽にする
 (when (require 'smartrep nil t)
   (smartrep-define-key
