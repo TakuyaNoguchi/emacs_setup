@@ -31,6 +31,9 @@
 ;; バッファの再読み込み
 (global-set-key (kbd "<f5>") 'revert-buffer)
 
+;; 空行の挿入
+(global-set-key (kbd "C-:") 'open-line)
+
 ;; 右クリックを無効化
 (global-unset-key [down-mouse-3])
 
