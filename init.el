@@ -795,5 +795,6 @@
 
 
 ;;; JavaScript
-(package-install 'js3-mode)
-(require 'js3-mode nil t)
+(package-install 'js2-mode)
+(when (require 'js2-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.jsx?$" . js2-mode)))
