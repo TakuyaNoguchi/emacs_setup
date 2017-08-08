@@ -698,13 +698,13 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 
 ;; 予定の一覧を閲覧
-(setq org-agenda-files '("~/org/todo.org" "~/org/memo.org"))
+(setq org-agenda-files '("~/org/agenda/todo.org" "~/org/agenda/memo.org"))
 
 ;; capture templates
 (setq org-capture-templates
-      '(("p" "Project Task" entry (file+headline (expand-file-name "~/org/todo.org") "Inbox")
+      '(("p" "Project Task" entry (file+headline (expand-file-name "~/org/capture/todo.org") "Inbox")
              "** TODO %?\n    %i\n    %a\n    %T")
-        ("m" "memo" entry (file (expand-file-name "~/org/memo.org"))
+        ("m" "memo" entry (file (expand-file-name "~/org/capture/memo.org"))
              "* %?\n    %i\n    %a\n    %T")))
 
 (global-set-key (kbd "C-c c") 'org-capture)
