@@ -31,8 +31,8 @@
 ;; バッファの再読み込み
 (global-set-key (kbd "<f5>") 'revert-buffer)
 
-;; 空行の挿入
-(global-set-key (kbd "C-:") 'open-line)
+;; コマンドの繰り返しを割り当て
+(global-set-key (kbd "C-z") 'repeat)
 
 ;; 右クリックを無効化
 (global-unset-key [down-mouse-3])
@@ -338,13 +338,13 @@
     (add-hook 'ruby-mode-hook  'turn-on-ctags-auto-update-mode)
     (add-hook 'js3-mode-hook  'turn-on-ctags-auto-update-mode)
 
-    (global-set-key (kbd "M-.") 'helm-etags-plus-select)
+    (global-set-key (kbd "C-:") 'helm-etags-plus-select)
     ;;list all visited tags
-    (global-set-key (kbd "M-*") 'helm-etags-plus-history)
+    (global-set-key (kbd "M-.") 'helm-etags-plus-history)
     ;;go back directly
-    (global-set-key (kbd "M-,") 'helm-etags-plus-history-go-back)
+    (global-set-key (kbd "M-p") 'helm-etags-plus-history-go-back)
     ;;go forward directly
-    (global-set-key (kbd "M-/") 'helm-etags-plus-history-go-forward))
+    (global-set-key (kbd "M-n") 'helm-etags-plus-history-go-forward))
 
   (package-install 'helm-swoop)
   (when (require 'helm-swoop nil t)
