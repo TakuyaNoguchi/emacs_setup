@@ -186,7 +186,10 @@
 ;;; color theme の設定
 (package-install 'zenburn-theme)
 (when (require 'zenburn-theme nil t)
-  (load-theme 'zenburn t))
+  (load-theme 'zenburn t)
+
+  ;; カーソルの色
+  (set-cursor-color "pink"))
 
 
 
@@ -474,6 +477,14 @@
 ;; OSのIMEを無効化:
 ;; $ echo 'Emacs24*useXIM: false' >> ~/.Xresources
 (when (require 'skk nil t)
+  ;; カーソル色を変更
+  (setq skk-cursor-hiragana-color       "DodgerBlue1"
+        skk-cursor-katakana-color       "green"
+        skk-cursor-abbrev-color         "goldenrod"
+        skk-cursor-jisx0208-latin-color "goldenrod"
+        skk-cursor-jisx0201-color       "purple"
+        skk-cursor-latin-color          "red")
+
   ;; Use AZIK
   (setq skk-use-azik t)
   (delete "l" skk-rom-kana-base-rule-list)
