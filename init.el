@@ -858,8 +858,6 @@
            (message "File is unwritable, so stay in view-mode.")
          ad-do-it)))
 
-  (add-hook 'view-mode-hook 'view-mode-hook0)
-
   (package-install 'key-chord)
   (when (require 'key-chord nil t)
     (setq key-chord-two-keys-delay 0.04)
