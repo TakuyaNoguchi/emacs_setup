@@ -738,23 +738,6 @@
 (add-hook 'html-mode-hook 'rainbow-mode)
 
 
-;;; リージョン選択時のキーバインドを設定
-;; 参考サイト http://emacs.rubikitch.com/selected
-(package-install 'selected)
-(when (require 'selected nil t)
-  ;; 他のパッケージよりもselectedの設定を優先させる
-  (setq selected-minor-mode-override t)
-  (selected-global-mode 1)
-  (define-key selected-keymap (kbd "q") #'selected-off)
-  (define-key selected-keymap (kbd "u") #'upcase-region)
-  (define-key selected-keymap (kbd "d") #'downcase-region)
-  (define-key selected-keymap (kbd "w") #'count-words-region)
-  (define-key selected-keymap (kbd "m") #'apply-macro-to-region-lines)
-
-  (setq selected-org-mode-map (make-sparse-keymap))
-  (define-key selected-org-mode-map (kbd "t") #'org-table-convert-region))
-
-
 
 ;;; Web関連の設定
 (package-install 'web-mode)
