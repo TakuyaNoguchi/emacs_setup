@@ -792,3 +792,20 @@
 (package-install 'js2-mode)
 (when (require 'js2-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.jsx?$" . js2-mode)))
+
+
+
+;;; 検索結果の表示と編集
+(package-install 'color-moccur)
+(package-install 'moccur-edit)
+(when (require 'color-moccur nil t)
+  (global-set-key (kbd "M-o") 'occur-by-moccur)
+  ;; スペース区切りでAND検索をする
+  (setq moccur-split-word t)
+  ;; Migemoを使う
+  (when (and (executable-find "cmigemo")
+             (require 'migemo nil t))
+    (setq moccur-use-migemo t))
+
+  ;; moccur の結果を編集する
+  (require 'moccur-edit nil t))
