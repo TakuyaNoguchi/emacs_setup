@@ -816,3 +816,61 @@
 (package-install 'yaml-mode)
 (when (require 'yaml-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
+
+
+
+;;; view-mode
+;; 参考サイト: http://syohex.hatenablog.com/entry/20110114/1294958917
+(when (require 'view nil t)
+  ;; less like
+  (define-key view-mode-map (kbd "N") 'View-search-last-regexp-backward)
+  (define-key view-mode-map (kbd "?") 'View-search-regexp-backward )
+  (define-key view-mode-map (kbd "G") 'View-goto-line-last)
+  (define-key view-mode-map (kbd "b") 'View-scroll-page-backward)
+  (define-key view-mode-map (kbd "f") 'View-scroll-page-forward)
+  ;; vi/w3m like
+  (define-key view-mode-map (kbd "h") 'backward-char)
+  (define-key view-mode-map (kbd "j") 'next-line)
+  (define-key view-mode-map (kbd "k") 'previous-line)
+  (define-key view-mode-map (kbd "l") 'forward-char)
+  (define-key view-mode-map (kbd "J") 'View-scroll-line-forward)
+  (define-key view-mode-map (kbd "K") 'View-scroll-line-backward)
+  (define-key view-mode-map (kbd "C-f") 'scroll-up)
+  (define-key view-mode-map (kbd "SPC") 'scroll-up)
+  (define-key view-mode-map (kbd "C-b") 'scroll-down)
+  (define-key view-mode-map (kbd "C-SPC") 'scroll-down)
+
+  ;; 参考サイト: http://valvallow.blogspot.jp/2010/05/emacs-view-mode.html
+  ;; 書き込み不能なファイルを view-mode で開く
+  (defadvice find-file
+      (around find-file-switch-to-view-file (file &optional wild) activate)
+    (if (and (not (file-writable-p file))
+             (not (file-directory-p file)))
+        (view-file file)
+      ad-do-it))
+  ;; 書き込み不能なファイルの場合は view-mode を抜けないように
+  (defvar view-mode-force-exit nil)
+  (defmacro do-not-exit-view-mode-unless-writable-advice (f)
+    `(defadvice ,f (around do-not-exit-view-mode-unless-writable activate)
+       (if (and (buffer-file-name)
+                (not view-mode-force-exit)
+                (not (file-writable-p (buffer-file-name))))
+           (message "File is unwritable, so stay in view-mode.")
+         ad-do-it)))
+
+  (add-hook 'view-mode-hook 'view-mode-hook0)
+
+  (package-install 'key-chord)
+  (when (require 'key-chord nil t)
+    (setq key-chord-two-keys-delay 0.04)
+    (key-chord-mode 1)
+    (key-chord-define-global "jk" 'view-mode))
+
+  ;; 参考サイト: https://www-he.scphys.kyoto-u.ac.jp/member/shotakaha/dokuwiki/doku.php?id=toolbox:emacs:viewer:start
+  (package-install 'viewer)
+  (when (require 'viewer nil t)
+    (viewer-change-modeline-color-setup)
+    ;; 書き込み禁止ファイルの色
+    (setq viewer-modeline-color-unwritable "red")
+    ;; view-modeのファイルの色
+    (setq viewer-modeline-color-view "blue")))
