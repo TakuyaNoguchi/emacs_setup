@@ -809,3 +809,10 @@
 
   ;; moccur の結果を編集する
   (require 'moccur-edit nil t))
+
+
+
+;;; yaml-mode
+(package-install 'yaml-mode)
+(when (require 'yaml-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
