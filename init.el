@@ -336,7 +336,9 @@
 
   ;; TAGの生成
   (package-install 'helm-etags-plus)
-  (when (require 'helm-etags-plus nil t)
+  (package-install 'ctags-update)
+  (when (and (require 'helm-etags-plus nil t)
+             (require 'ctags-update nil t))
     (setq ctags-update-command "/usr/bin/ctags")
     (add-hook 'ruby-mode-hook  'turn-on-ctags-auto-update-mode)
     (add-hook 'js3-mode-hook  'turn-on-ctags-auto-update-mode)
