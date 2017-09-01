@@ -402,7 +402,7 @@
     ;; If nil, you can slightly boost invoke speed in exchange for text color
     (setq helm-swoop-speed-or-color nil)
 
-    ;; ;; Go to the opposite side of line from the end or beginning of line
+    ;; Go to the opposite side of line from the end or beginning of line
     (setq helm-swoop-move-to-line-cycle t)
 
     ;; Optional face for line numbers
@@ -414,7 +414,24 @@
 
     ;; If you would like to use migemo, enable helm's migemo feature
     (when (require 'migemo nil t)
-      (helm-migemo-mode 1))))
+      (helm-migemo-mode 1))
+
+    ;; $ sudo apt-get install silversearcher-ag
+    (package-install 'helm-ag)
+    (when (require (and (executable-find "ag")
+                        (require 'helm-ag nil t)))
+
+      (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
+      ;; 現在のシンボルをデフォルトのクエリにする
+      (setq helm-ag-insert-at-point 'symbol)
+      (global-set-key (kbd "C-M-g") 'helm-ag)
+
+      (when (require 'projectile nil t)
+        (defun helm-projectile-ag ()
+          "Projectileと連携"
+          (interactive)
+          (helm-ag (projectile-project-root)))))))
+
 
 
 ;;; auto-complete
