@@ -888,3 +888,38 @@
     (setq viewer-modeline-color-unwritable "red")
     ;; view-modeのファイルの色
     (setq viewer-modeline-color-view "blue")))
+
+
+
+;; Haskellの設定
+(package-install 'haskell-mode)
+(package-install 'ghc)
+
+(when (and (require 'haskell-mode nil t)
+           (require 'ghc nil t))
+
+  (defun my-haskell-mode-hook ()
+    (interactive)
+
+    ;; インデントの設定
+    (turn-on-haskell-indentation)
+    (turn-on-haskell-doc-mode)
+    (font-lock-mode)
+    (imenu-add-menubar-index)
+
+    (interactive-haskell-mode)
+
+    ;; ghci のコマンドを設定
+    (setq haskell-program-name "/usr/bin/stack ghci")
+    (inf-haskell-mode)
+    ;; ghc-mod を使えるように
+    (ghc-init))
+
+  (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+
+  (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-indentation-newline-and-indent)
+  (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
+
+  (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
+  (add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
+  (add-to-list 'auto-mode-alist '("\\.cabal$" . haskell-cabal-mode)))
