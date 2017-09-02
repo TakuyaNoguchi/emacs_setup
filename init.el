@@ -414,23 +414,36 @@
 
     ;; If you would like to use migemo, enable helm's migemo feature
     (when (require 'migemo nil t)
-      (helm-migemo-mode 1))
+      (helm-migemo-mode 1)))
 
-    ;; $ sudo apt-get install silversearcher-ag
-    (package-install 'helm-ag)
-    (when (require (and (executable-find "ag")
-                        (require 'helm-ag nil t)))
+  ;; $ sudo apt-get install silversearcher-ag
+  (package-install 'helm-ag)
+  (when (require (and (executable-find "ag")
+                      (require 'helm-ag nil t)))
 
-      (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
-      ;; 現在のシンボルをデフォルトのクエリにする
-      (setq helm-ag-insert-at-point 'symbol)
-      (global-set-key (kbd "C-M-g") 'helm-ag)
+    (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
+    ;; 現在のシンボルをデフォルトのクエリにする
+    (setq helm-ag-insert-at-point 'symbol)
+    (global-set-key (kbd "C-M-g") 'helm-ag)
 
-      (when (require 'projectile nil t)
-        (defun helm-projectile-ag ()
-          "Projectileと連携"
-          (interactive)
-          (helm-ag (projectile-project-root)))))))
+    (when (require 'projectile nil t)
+      (defun helm-projectile-ag ()
+        "Projectileと連携"
+        (interactive)
+        (helm-ag (projectile-project-root)))))
+
+  (defun helm-skip-dots (old-func &rest args)
+    "Skip . and .. initially in helm-find-files.  First call OLD-FUNC with ARGS."
+    (apply old-func args)
+    (let ((sel (helm-get-selection)))
+      (if (and (stringp sel) (string-match "/\\..$" sel))
+          (helm-next-line 2)))
+    (let ((sel (helm-get-selection))) ; if we reached .. move back
+      (if (and (stringp sel) (string-match "/\\.\\.$" sel))
+          (helm-previous-line 1))))
+
+  (advice-add #'helm-preselect :around #'helm-skip-dots)
+  (advice-add #'helm-ff-move-to-first-real-candidate :around #'helm-skip-dots))
 
 
 
