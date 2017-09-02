@@ -908,7 +908,7 @@
 
 
 
-;; Haskellの設定
+;;; Haskellの設定
 (package-install 'haskell-mode)
 (package-install 'ghc)
 
@@ -940,3 +940,21 @@
   (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.cabal$" . haskell-cabal-mode)))
+
+
+;;; テンプレートシステム
+(package-install 'yasnippet)
+(package-install 'helm-c-yasnippet)
+(when (and (require 'yasnippet nil t)
+           (require 'helm-c-yasnippet nil t))
+  (setq helm-yas-space-match-any-greedy t)
+  (global-set-key (kbd "C-M-y") 'helm-yas-complete)
+  (push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
+
+  (yas-global-mode 1)
+
+  (eval-after-load 'yasnippet
+  '(progn
+     (define-key yas-keymap (kbd "TAB") nil)
+     (define-key yas-keymap (kbd "C-c o") 'yas-next-field-or-maybe-expand)
+     (define-key yas-keymap (kbd "C-c C-o") 'yas-next-field-or-maybe-expand))))
