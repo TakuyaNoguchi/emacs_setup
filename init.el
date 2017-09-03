@@ -394,6 +394,9 @@
     (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
     (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
 
+    (define-key helm-swoop-map (kbd "C-w") 'backward-kill-word)
+    (define-key helm-multi-swoop-map (kbd "C-w") 'backward-kill-word)
+
     ;; Save buffer when helm-multi-swoop-edit complete
     (setq helm-multi-swoop-edit-save t)
 
