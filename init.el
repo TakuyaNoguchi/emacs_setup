@@ -924,6 +924,7 @@
 ;;; Haskellの設定
 (package-install 'haskell-mode)
 (package-install 'ghc)
+(package-install 'key-combo)
 
 (when (and (require 'haskell-mode nil t)
            (require 'ghc nil t))
@@ -943,7 +944,14 @@
     (setq haskell-program-name "/usr/bin/stack ghci")
     (inf-haskell-mode)
     ;; ghc-mod を使えるように
-    (ghc-init))
+    (ghc-init)
+
+    (when (require 'key-combo nil t)
+      (key-combo-define-local (kbd "-") '("-" " -> " "--"))
+      (key-combo-define-local (kbd "<") '("<" " <- " " <= " " =<< " "<<" "<"))
+      (key-combo-define-local (kbd ">") '(">" " >= " " >>= " ">"))
+      (key-combo-define-local (kbd "=") '("=" " = " " == " "=="))
+      (key-combo-define-local (kbd ":") '(":" " :: " "::"))))
 
   (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 
