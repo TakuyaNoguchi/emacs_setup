@@ -681,6 +681,13 @@
 
 
 
+;;; 繰り返し入力を楽にする
+(package-install 'key-combo)
+(when (require 'key-combo nil t)
+  (key-combo-load-default))
+
+
+
 ;;; sequential-command
 ;; C-a C-a でバッファの先頭、C-e C-e でバッファの末尾に移動
 (package-install 'sequential-command)
@@ -924,7 +931,6 @@
 ;;; Haskellの設定
 (package-install 'haskell-mode)
 (package-install 'ghc)
-(package-install 'key-combo)
 
 (when (and (require 'haskell-mode nil t)
            (require 'ghc nil t))
@@ -944,14 +950,7 @@
     (setq haskell-program-name "/usr/bin/stack ghci")
     (inf-haskell-mode)
     ;; ghc-mod を使えるように
-    (ghc-init)
-
-    (when (require 'key-combo nil t)
-      (key-combo-define-local (kbd "-") '("-" " -> " "--"))
-      (key-combo-define-local (kbd "<") '("<" " <- " " <= " " =<< " "<<" "<"))
-      (key-combo-define-local (kbd ">") '(">" " >= " " >>= " ">"))
-      (key-combo-define-local (kbd "=") '("=" " = " " == " "=="))
-      (key-combo-define-local (kbd ":") '(":" " :: " "::"))))
+    (ghc-init))
 
   (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
 
