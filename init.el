@@ -5,6 +5,9 @@
 ;; 起動時のメッセージを削除
 (setq inhibit-startup-message t)
 
+;; Warningは緊急性の高いもののみ表示する
+(setq warning-minimum-level :emergency)
+
 ;; 日本語環境
 (set-locale-environment nil)
 (set-language-environment "Japanese")
