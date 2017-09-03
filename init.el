@@ -65,6 +65,7 @@
 
 ;; ファイルの最終行に1行追加しないように
 (setq require-final-newline nil)
+(setq mode-require-final-newline nil)
 
 ;; 対応する括弧を光らせる
 (show-paren-mode 1)
