@@ -609,12 +609,21 @@
 (when (require 'flycheck nil t)
   ;; 保存時に実行する
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
+
+  (setq flycheck-idle-change-delay
+        (if flycheck-current-errors 0.3 3.0))
+
   (global-flycheck-mode)
   (define-key global-map (kbd "C-c n") 'flycheck-next-error)
   (define-key global-map (kbd "C-c p") 'flycheck-previous-error)
   (define-key global-map (kbd "C-c d") 'flycheck-list-errors)
 
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+
+  (add-hook 'ruby-mode-hook
+            '(lambda ()
+               (when (executable-find "rubocop")
+                 (setq flycheck-checker 'ruby-rubocop)))))
 
 ;;; undohist
 ;; ファイルを閉じた後も履歴を保持する
@@ -724,6 +733,9 @@
   (setq projectile-completion-system 'helm)
   (projectile-rails-global-mode))
 
+(package-install 'rbenv)
+(when (require 'rbenv nil t)
+  (global-rbenv-mode))
 
 
 ;;; smartparens
