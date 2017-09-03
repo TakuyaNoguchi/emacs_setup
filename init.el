@@ -978,3 +978,44 @@
      (define-key yas-keymap (kbd "TAB") nil)
      (define-key yas-keymap (kbd "C-c o") 'yas-next-field-or-maybe-expand)
      (define-key yas-keymap (kbd "C-c C-o") 'yas-next-field-or-maybe-expand))))
+
+
+
+;;; モードラインの表示を簡潔にする
+(package-install 'diminish)
+(require 'diminish nil t)
+
+;; 参考サイト: http://syohex.hatenablog.com/entry/20130131/1359646452
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+    (yas-minor-mode . " Ys")
+    (paredit-mode . " Pe")
+    (eldoc-mode . "")
+    (abbrev-mode . "")
+    (undo-tree-mode . " Ut")
+    (elisp-slime-nav-mode . " EN")
+    (helm-mode . "")
+    (helm-gtags-mode . "")
+    (helm-migemo-mode . "")
+    (flycheck-mode . " Fc")
+    (git-gutter-mode . "")
+    (ruby-block-mode . "")
+    ;; Major modes
+    (lisp-interaction-mode . "Li")
+    (python-mode . "Py")
+    (ruby-mode   . "Rb")
+    (emacs-lisp-mode . "El")
+    (markdown-mode . "Md")))
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
