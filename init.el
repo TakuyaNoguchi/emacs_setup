@@ -681,10 +681,9 @@
 
 
 
-;;; 繰り返し入力を楽にする
-(package-install 'key-combo)
-(when (require 'key-combo nil t)
-  (key-combo-load-default))
+;;; 演算子の前後にスペースを挿入
+(package-install 'electric-spacing)
+(require 'electric-spacing nil t)
 
 
 
