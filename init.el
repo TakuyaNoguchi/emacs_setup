@@ -1059,4 +1059,4 @@
 
 (package-install 'flyspell-correct-helm)
 (when (require 'flyspell-correct-helm nil t)
-  (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic))
+  (define-key flyspell-mode-map (kbd "C-M-:") 'flyspell-correct-previous-word-generic))
