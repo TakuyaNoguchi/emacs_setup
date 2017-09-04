@@ -795,6 +795,8 @@
 
 (global-set-key (kbd "C-c c") 'org-capture)
 
+(define-key org-mode-map (kbd "C-c o") 'org-insert-heading-respect-content)
+
 ;; outlineの移動を楽にする
 (when (require 'smartrep nil t)
   (smartrep-define-key
