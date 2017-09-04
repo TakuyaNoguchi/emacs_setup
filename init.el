@@ -1037,3 +1037,24 @@
   (global-set-key (kbd "C-M-SPC") 'bm-toggle)
   (global-set-key (kbd "M-[") 'bm-previous)
   (global-set-key (kbd "M-]") 'bm-next))
+
+
+
+;; 英語のスペルチェック
+;; $ echo "lang en_US" >> ~/.aspell.conf
+(setq-default ispell-program-name "aspell")
+(eval-after-load "ispell"
+  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+;; バッファ内の全てで有効
+(mapc (lambda (hook)
+        (add-hook hook 'flyspell-mode))
+      '(org-mode-hook text-mode-hook))
+
+;; コメント内でのみ有効
+(mapc (lambda (hook)
+        (add-hook hook 'flyspell-prog-mode))
+      '(ruby-mode-hook web-mode-hook))
+
+(package-install 'flyspell-correct-helm)
+(when (require 'flyspell-correct-helm nil t)
+  (define-key flyspell-mode-map (kbd "C-;") 'flyspell-correct-previous-word-generic))
