@@ -997,3 +997,33 @@
             (setq mode-name mode-str)))))
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
+
+
+
+;;; シンボルの色付け
+(package-install 'highlight-symbol)
+(when (require 'highlight-symbol nil t)
+  (setq highlight-symbol-colors
+        '("LightSeaGreen" "HotPink"
+          "SlateBlue1" "DarkOrange"
+          "SpringGreen1" "tan" "DodgerBlue1"))
+  (global-set-key (kbd "C-c C-l") 'highlight-symbol-at-point))
+
+
+
+;;; 任意の行をマーキング
+(package-install 'bm)
+(when (require 'bm nil t)
+  (setq-default bm-buffer-persistence nil)
+  (setq bm-restore-repository-on-load t)
+  (add-hook 'find-file-hook 'bm-buffer-restore)
+  (add-hook 'kill-buffer-hook 'bm-buffer-save)
+  (add-hook 'after-save-hook 'bm-buffer-save)
+  (add-hook 'after-revert-hook 'bm-buffer-restore)
+  (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
+  (add-hook 'kill-emacs-hook '(lambda nil
+                                (bm-buffer-save-all)
+                                (bm-repository-save)))
+  (global-set-key (kbd "M-SPC") 'bm-toggle)
+  (global-set-key (kbd "M-[") 'bm-previous)
+  (global-set-key (kbd "M-]") 'bm-next))
