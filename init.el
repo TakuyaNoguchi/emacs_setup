@@ -241,6 +241,16 @@
         try-expand-list
         try-expand-line
         try-complete-lisp-symbol))
+;; ruby-modeの時、シンボルの補完に関する設定
+;; 参考サイト: https://emacs.stackexchange.com/questions/13078/use-hippie-expand-to-complete-ruby-symbols-without-prefix
+(defun hippie-expand-ruby-symbols (orig-fun &rest args)
+  (if (eq major-mode 'ruby-mode)
+      (let ((table (make-syntax-table ruby-mode-syntax-table)))
+        (modify-syntax-entry ?: "." table)
+        (with-syntax-table table (apply orig-fun args)))
+    (apply orig-fun args)))
+
+(advice-add 'hippie-expand :around #'hippie-expand-ruby-symbols)
 
 ;; コメントアウト
 (global-set-key (kbd "M-;") 'comment-dwim)
