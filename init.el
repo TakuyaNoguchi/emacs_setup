@@ -447,7 +447,9 @@
       (defun helm-projectile-ag ()
         "Projectileと連携"
         (interactive)
-        (helm-ag (projectile-project-root)))))
+        (helm-ag (projectile-project-root)))
+
+      (global-set-key (kbd "C-c C-M-a") 'helm-projectile-ag)))
 
   (defun helm-skip-dots (old-func &rest args)
     "Skip . and .. initially in helm-find-files.  First call OLD-FUNC with ARGS."
