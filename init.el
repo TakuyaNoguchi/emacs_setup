@@ -1046,6 +1046,6 @@
 
 
 
-;;; keychain(SSHの秘密鍵のパスワード入力を省略するためのツール)の設定
+;;; keychain(SSHの秘密鍵のパスワード入力を省略する)の設定
 (package-install 'keychain-environment)
 (require 'keychain-environment nil t)
