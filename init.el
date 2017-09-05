@@ -1048,4 +1048,5 @@
 
 ;;; keychain(SSHの秘密鍵のパスワード入力を省略する)の設定
 (package-install 'keychain-environment)
-(require 'keychain-environment nil t)
+(when (require 'keychain-environment nil t)
+  (keychain-refresh-environment))
