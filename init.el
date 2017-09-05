@@ -1043,3 +1043,9 @@
   (global-set-key (kbd "C-M-SPC") 'bm-toggle)
   (global-set-key (kbd "M-[") 'bm-previous)
   (global-set-key (kbd "M-]") 'bm-next))
+
+
+
+;;; keychain(SSHの秘密鍵のパスワード入力を省略するためのツール)の設定
+(package-install 'keychain-environment)
+(require 'keychain-environment nil t)
