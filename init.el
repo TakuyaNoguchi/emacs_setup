@@ -441,7 +441,7 @@
     (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
     ;; 現在のシンボルをデフォルトのクエリにする
     (setq helm-ag-insert-at-point 'symbol)
-    (global-set-key (kbd "C-M-g") 'helm-ag)
+    (global-set-key (kbd "C-M-a") 'helm-ag)
 
     (when (require 'projectile nil t)
       (defun helm-projectile-ag ()
