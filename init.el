@@ -657,6 +657,7 @@
 (package-install 'expand-region)
 (when (require 'expand-region nil t)
   (global-set-key (kbd "C-,")   'er/expand-region)
+  (define-key org-mode-map (kbd "C-,") 'er/expand-region)
   (global-set-key (kbd "C-M-,") 'er/contract-region))
 
 
@@ -798,8 +799,6 @@
              "* %?\n    %i\n    %a\n    %T")))
 
 (global-set-key (kbd "C-c c") 'org-capture)
-
-(define-key org-mode-map (kbd "C-c o") 'org-insert-heading-respect-content)
 
 ;; outlineの移動を楽にする
 (when (require 'smartrep nil t)
