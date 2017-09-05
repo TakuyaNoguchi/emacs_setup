@@ -733,6 +733,8 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 
+(setq ruby-insert-encoding-magic-comment nil)
+
 ;; endに対応する行のハイライト
 (package-install 'ruby-block)
 (when (require 'ruby-block nil t)
