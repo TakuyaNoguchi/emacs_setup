@@ -441,13 +441,14 @@
     (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
     ;; 現在のシンボルをデフォルトのクエリにする
     (setq helm-ag-insert-at-point 'symbol)
-    (global-set-key (kbd "C-M-g") 'helm-ag)
+    (global-set-key (kbd "C-M-g") 'helm-ag))
 
-    (when (require 'projectile nil t)
-      (defun helm-projectile-ag ()
-        "Projectileと連携"
-        (interactive)
-        (helm-ag (projectile-project-root)))))
+  (package-install 'helm-projectile)
+  (when (require 'helm-projectile nil t)
+    (helm-projectile-on)
+    (global-set-key (kbd "C-c C-x C-f") 'helm-projectile-find-file)
+    (global-set-key (kbd "C-c C-x C-r") 'helm-projectile-recentf)
+    (global-set-key (kbd "C-c C-M-g") 'helm-projectile-ag))
 
   (defun helm-skip-dots (old-func &rest args)
     "Skip . and .. initially in helm-find-files.  First call OLD-FUNC with ARGS."
