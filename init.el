@@ -768,6 +768,10 @@
 (when (require 'rbenv nil t)
   (global-rbenv-mode))
 
+(package-install 'rspec-mode)
+(when (require 'rspec-mode nil t)
+  (eval-after-load 'rspec-mode
+    '(rspec-install-snippets)))
 
 ;;; smartparens
 ;; 対応する括弧の入力
