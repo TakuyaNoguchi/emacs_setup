@@ -1050,3 +1050,10 @@
 (package-install 'keychain-environment)
 (when (require 'keychain-environment nil t)
   (keychain-refresh-environment))
+
+
+
+;; ダブルクォートとシングルクォートをトグルする
+(package-install 'toggle-quotes)
+(when (require 'toggle-quotes nil t)
+  (global-set-key (kbd "C-c C-:") 'toggle-quotes))
