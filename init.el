@@ -761,7 +761,8 @@
   (setq projectile-completion-system 'helm)
   (projectile-rails-global-mode)
 
-  (push "*projectile-rails-generate*" popwin:special-display-config))
+  (push "*projectile-rails-generate*" popwin:special-display-config)
+  (push "*projectile-rails-compilation*" popwin:special-display-config))
 
 (package-install 'rbenv)
 (when (require 'rbenv nil t)
