@@ -24,6 +24,10 @@
 ;; Warningは緊急性の高いもののみ表示する
 (setq warning-minimum-level :emergency)
 
+;; *Help* などのウィンドウを操作しやすくする
+(when (require 'popwin nil t)
+  (popwin-mode 1))
+
 ;; 日本語環境
 (set-locale-environment nil)
 (set-language-environment "Japanese")
@@ -755,7 +759,9 @@
 (package-install 'projectile-rails)
 (when (require 'projectile-rails nil t)
   (setq projectile-completion-system 'helm)
-  (projectile-rails-global-mode))
+  (projectile-rails-global-mode)
+
+  (push "*projectile-rails-generate*" popwin:special-display-config))
 
 (package-install 'rbenv)
 (when (require 'rbenv nil t)
