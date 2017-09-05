@@ -9,6 +9,15 @@
 ;; ロードパス
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
+;; zshのパスを設定
+;; 必要なパスは ~/.zshenv に記載する
+;; 参考サイト: http://d.hatena.ne.jp/zonu_exe/20120509/1336583187
+(let ((zshpath (shell-command-to-string "/usr/bin/zsh -c 'printenv PATH'")))
+  (let ((pathlst (split-string zshpath ":")))
+    (setq exec-path pathlst))
+  (setq eshell-path-env zshpath)
+  (setenv "PATH" zshpath))
+
 ;; 起動時のメッセージを削除
 (setq inhibit-startup-message t)
 
