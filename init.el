@@ -1,3 +1,10 @@
+;;; パッケージ管理
+(when (require 'package nil t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (fset 'package-desc-vers 'package--ac-desc-version)
+  (package-initialize))
+
 ;;; 基本設定
 ;; ロードパス
 (add-to-list 'load-path "~/.emacs.d/elisp")
@@ -175,15 +182,6 @@
 ;; ファイル名が重複していたらディレクトリ名を追加する
 (when (require 'uniquify nil t)
   (setq uniqufy-buffer-name-style 'post-forward-angle-brackets))
-
-
-
-;;; パッケージ管理
-(when (require 'package nil t)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-  (fset 'package-desc-vers 'package--ac-desc-version)
-  (package-initialize))
 
 
 
