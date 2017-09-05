@@ -1076,3 +1076,44 @@
 (package-install 'toggle-quotes)
 (when (require 'toggle-quotes nil t)
   (global-set-key (kbd "C-c C-:") 'toggle-quotes))
+
+
+
+;;; Google翻訳の設定
+;; 参考サイト: http://blog.shibayu36.org/entry/2016/05/29/123342
+(package-install 'google-translate)
+(when (and (require 'google-translate nil t)
+           (require 'google-translate-default-ui nil t))
+  (defvar google-translate-english-chars "[:ascii:]"
+    "これらの文字が含まれているときは英語とみなす")
+  (defun google-translate-enja-or-jaen (&optional string)
+    "regionか現在位置の単語を翻訳する。C-u付きでquery指定も可能"
+    (interactive)
+    (setq string
+          (cond ((stringp string) string)
+                (current-prefix-arg
+                 (read-string "Google Translate: "))
+                ((use-region-p)
+                 (buffer-substring (region-beginning) (region-end)))
+                (t
+                 (thing-at-point 'word))))
+    (let* ((asciip (string-match
+                    (format "\\`[%s]+\\'" google-translate-english-chars)
+                    string)))
+      (run-at-time 0.1 nil 'deactivate-mark)
+      (google-translate-translate
+       (if asciip "en" "ja")
+       (if asciip "ja" "en")
+       string)))
+
+  (push "*Google Translate*" popwin:special-display-config)
+
+  (global-set-key (kbd "C-M-t") 'google-translate-enja-or-jaen))
+
+
+
+;;; Codic で検索
+(package-install 'codic)
+(when (require 'codic nil t)
+  (global-set-key (kbd "C-c C-d") 'codic)
+  (push "*Codic Result*" popwin:special-display-config))
