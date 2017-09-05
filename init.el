@@ -657,8 +657,10 @@
 (package-install 'expand-region)
 (when (require 'expand-region nil t)
   (global-set-key (kbd "C-,")   'er/expand-region)
-  (define-key org-mode-map (kbd "C-,") 'er/expand-region)
-  (global-set-key (kbd "C-M-,") 'er/contract-region))
+  (global-set-key (kbd "C-M-,") 'er/contract-region)
+  (eval-after-load "org"
+    '(progn
+       (define-key org-mode-map (kbd "C-,") 'er/expand-region))))
 
 
 
