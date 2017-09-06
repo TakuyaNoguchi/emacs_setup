@@ -295,8 +295,6 @@
 (package-install 'helm)
 (when (require 'helm-config nil t)
   (helm-mode 1)
-  ;; 無効にしたい機能
-  ;;(add-to-list 'helm-completing-read-handlers-alist '(kill-buffer . nil))
 
   (setq recentf-save-file "~/.emacs.d/.recentf")
   (setq recentf-exclude '(".recentf"
@@ -305,9 +303,9 @@
   (global-set-key (kbd "M-x")     'helm-M-x)
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-x C-r") 'helm-recentf)
-  (global-set-key (kbd "C-c C-r") 'helm-recentf)
   (global-set-key (kbd "M-y")     'helm-show-kill-ring)
-  (global-set-key (kbd "C-c i")   'helm-imenu)
+  ;; 定義された関数を検索するのに便利
+  (global-set-key (kbd "C-c C-f")   'helm-imenu)
   (global-set-key (kbd "C-x b")   'helm-mini)
   (global-set-key (kbd "C-x C-b")   'helm-buffers-list)
   (define-key helm-map (kbd "C-h") 'delete-backward-char)
@@ -1121,3 +1119,12 @@
 (when (require 'codic nil t)
   (global-set-key (kbd "C-c C-d") 'codic)
   (push '("*Codic Result*" :height 20 :stick t) popwin:special-display-config))
+
+
+
+;;; プログラムを素早く実行するためのプラグイン
+(package-install 'quickrun)
+(when (require 'quickrun nil t)
+  (global-set-key (kbd "C-c C-c") 'quickrun)
+  (global-set-key (kbd "C-c C-a") 'quickrun-with-arg)
+  (global-set-key (kbd "C-c C-r") 'quickrun-region))
