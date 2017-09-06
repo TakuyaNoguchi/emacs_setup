@@ -24,6 +24,10 @@
 ;; Warningは緊急性の高いもののみ表示する
 (setq warning-minimum-level :emergency)
 
+;; URLをブラウザで開く
+(global-set-key (kbd "C-c C-o") 'browse-url-xdg-open)
+(global-set-key (kbd "C-c o") 'browse-url-xdg-open)
+
 ;; *Help* などのウィンドウを操作しやすくする
 (when (require 'popwin nil t)
   (popwin-mode 1))
@@ -1106,7 +1110,7 @@
        (if asciip "ja" "en")
        string)))
 
-  (push "*Google Translate*" popwin:special-display-config)
+  (push '("*Google Translate*" :height 20 :stick t) popwin:special-display-config)
 
   (global-set-key (kbd "C-M-t") 'google-translate-enja-or-jaen))
 
@@ -1116,4 +1120,4 @@
 (package-install 'codic)
 (when (require 'codic nil t)
   (global-set-key (kbd "C-c C-d") 'codic)
-  (push "*Codic Result*" popwin:special-display-config))
+  (push '("*Codic Result*" :height 20 :stick t) popwin:special-display-config))
