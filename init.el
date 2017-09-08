@@ -1122,21 +1122,4 @@
 
   (push '("*Google Translate*" :height 20 :stick t) popwin:special-display-config)
 
-  (global-set-key (kbd "C-M-t") 'google-translate-enja-or-jaen))
-
-
-
-;;; Codic で検索
-(package-install 'codic)
-(when (require 'codic nil t)
-  (global-set-key (kbd "C-c C-d") 'codic)
-  (push '("*Codic Result*" :height 20 :stick t) popwin:special-display-config))
-
-
-
-;;; プログラムを素早く実行するためのプラグイン
-(package-install 'quickrun)
-(when (require 'quickrun nil t)
-  (global-set-key (kbd "C-c C-c") 'quickrun)
-  (global-set-key (kbd "C-c C-a") 'quickrun-with-arg)
-  (global-set-key (kbd "C-c C-r") 'quickrun-region))
+  (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen))
