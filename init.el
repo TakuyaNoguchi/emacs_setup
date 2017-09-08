@@ -688,7 +688,7 @@
 
   (global-set-key (kbd "M-%") 'foreign-regexp/query-replace)
   (global-set-key (kbd "M-s") 'foreign-regexp/isearch-forward)
-  (global-set-key (kbd "M-s") 'foreign-regexp/isearch-backward))
+  (global-set-key (kbd "M-r") 'foreign-regexp/isearch-backward))
 
 
 
