@@ -382,7 +382,7 @@
              (require 'ctags-update nil t))
     (setq ctags-update-command "/usr/bin/ctags")
     (add-hook 'ruby-mode-hook  'turn-on-ctags-auto-update-mode)
-    (add-hook 'js3-mode-hook  'turn-on-ctags-auto-update-mode)
+    (add-hook 'js2-mode-hook  'turn-on-ctags-auto-update-mode)
 
     (global-set-key (kbd "C-:") 'helm-etags-plus-select)
     ;;list all visited tags
@@ -774,6 +774,17 @@
 (when (require 'rspec-mode nil t)
   (eval-after-load 'rspec-mode
     '(rspec-install-snippets)))
+
+
+
+;;; JavaScriptの設定
+(package-install 'js2-mode)
+(when (require 'js2-mode nil t)
+  (add-hook 'js2-mode-hook
+            (lambda () (setq js2-basic-offset 2)))
+  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode)))
+
+
 
 ;;; smartparens
 ;; 対応する括弧の入力
