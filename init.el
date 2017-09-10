@@ -775,7 +775,7 @@
 (when (require 'rspec-mode nil t)
   (eval-after-load 'rspec-mode
     '(rspec-install-snippets))
-  (push '("*rspec-compilation*" :height 30) popwin:special-display-config))
+  (push '("*rspec-compilation*" :height 25) popwin:special-display-config))
 
 
 
@@ -1121,7 +1121,7 @@
        (if asciip "ja" "en")
        string)))
 
-  (push '("*Google Translate*" :height 30 :stick t) popwin:special-display-config)
+  (push '("*Google Translate*" :height 25 :stick t) popwin:special-display-config)
 
   (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen))
 
