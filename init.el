@@ -1123,3 +1123,16 @@
   (push '("*Google Translate*" :height 20 :stick t) popwin:special-display-config)
 
   (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen))
+
+
+
+;;; SQLの設定
+(package-install 'sql)
+(package-install 'sql-indent)
+(when (and (require 'sql nil t)
+           (require 'sql-indent nil t))
+  (defun sql-mode-hooks()
+    (setq sql-indent-offset 2)
+    (setq indent-tabs-mode nil))
+
+  (add-hook 'sql-mode-hook 'sql-mode-hooks))
