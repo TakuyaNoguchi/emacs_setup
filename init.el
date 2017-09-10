@@ -203,9 +203,9 @@
 
 
 ;;; color theme の設定
-(package-install 'zenburn-theme)
-(when (require 'zenburn-theme nil t)
-  (load-theme 'zenburn t)
+(package-install 'solarized-theme)
+(when (require 'solarized-theme nil t)
+  (load-theme 'solarized-dark t)
 
   ;; カーソルの色
   (set-cursor-color "pink"))
