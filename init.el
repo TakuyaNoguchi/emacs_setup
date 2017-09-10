@@ -1127,6 +1127,7 @@
 
 
 ;;; SQLの設定
+;; M-x sql-mysql でMySQLのプロセスを起動する
 (package-install 'sql)
 (package-install 'sql-indent)
 (when (and (require 'sql nil t)
@@ -1135,4 +1136,9 @@
     (setq sql-indent-offset 2)
     (setq indent-tabs-mode nil))
 
-  (add-hook 'sql-mode-hook 'sql-mode-hooks))
+  (add-hook 'sql-mode-hook 'sql-mode-hooks)
+
+  (add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            ;; 「;」をタイプしたら SQL 文を実行
+            (setq sql-electric-stuff 'semicolon)))
