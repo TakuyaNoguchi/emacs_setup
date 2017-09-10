@@ -774,7 +774,8 @@
 (package-install 'rspec-mode)
 (when (require 'rspec-mode nil t)
   (eval-after-load 'rspec-mode
-    '(rspec-install-snippets)))
+    '(rspec-install-snippets))
+  (push "*rspec-compilation*" popwin:special-display-config))
 
 
 
