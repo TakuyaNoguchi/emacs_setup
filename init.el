@@ -398,15 +398,19 @@
   (when (require 'helm-swoop nil t)
 
     ;; Change the keybinds to whatever you like :)
-    (global-set-key (kbd "M-i") 'helm-swoop)
-    (global-set-key (kbd "M-I") 'helm-swoop-back-to-last-point)
-    (global-set-key (kbd "C-c M-i") 'helm-multi-swoop)
-    (global-set-key (kbd "C-x M-i") 'helm-multi-swoop-all)
+    (global-set-key (kbd "M-o") 'helm-swoop)
+    (global-set-key (kbd "C-M-o") 'helm-swoop)
+    (global-set-key (kbd "C-c M-o") 'helm-multi-swoop)
+    (global-set-key (kbd "C-c C-M-o") 'helm-multi-swoop)
+    (global-set-key (kbd "C-x M-o") 'helm-multi-swoop)
+    (global-set-key (kbd "C-x C-M-o") 'helm-multi-swoop)
 
     ;; When doing isearch, hand the word over to helm-swoop
-    (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
+    (define-key isearch-mode-map (kbd "M-o") 'helm-swoop-from-isearch)
+    (define-key isearch-mode-map (kbd "C-M-o") 'helm-swoop-from-isearch)
     ;; From helm-swoop to helm-multi-swoop-all
-    (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
+    (define-key helm-swoop-map (kbd "M-o") 'helm-multi-swoop-all-from-helm-swoop)
+    (define-key helm-swoop-map (kbd "C-M-o") 'helm-multi-swoop-all-from-helm-swoop)
     ;; When doing evil-search, hand the word over to helm-swoop
     ;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
 
@@ -913,22 +917,6 @@
 (when (require 'js2-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.jsx?$" . js2-mode)))
 
-
-
-;;; 検索結果の表示と編集
-(package-install 'color-moccur)
-(package-install 'moccur-edit)
-(when (require 'color-moccur nil t)
-  (global-set-key (kbd "M-o") 'occur-by-moccur)
-  ;; スペース区切りでAND検索をする
-  (setq moccur-split-word t)
-  ;; Migemoを使う
-  (when (and (executable-find "cmigemo")
-             (require 'migemo nil t))
-    (setq moccur-use-migemo t))
-
-  ;; moccur の結果を編集する
-  (require 'moccur-edit nil t))
 
 
 
