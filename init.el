@@ -75,8 +75,10 @@
 ;; .#* とかのバックアップファイルを作らない
 (setq auto-save-default nil)
 
-;; Ctrl-j と Ctrl-m の入れ替え
-(electric-indent-mode -1)
+;; インデントの設定
+(electric-indent-mode 1)
+(global-set-key (kbd "C-j") 'newline)
+(global-set-key (kbd "C-m") 'electric-newline-and-maybe-indent)
 
 ;; メニューバーを消す
 (menu-bar-mode -1)
