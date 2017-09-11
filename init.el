@@ -512,7 +512,8 @@
 (when (require 'avy nil t)
   (global-set-key (kbd "C-@") 'avy-goto-char-in-line)
   (global-set-key (kbd "M-@") 'avy-goto-char)
-  (global-set-key (kbd "C-M-@") 'avy-goto-char-2))
+  (global-set-key (kbd "C-M-@") 'avy-goto-char-2)
+  (global-set-key (kbd "C-M-g") 'avy-goto-line))
 
 (package-install 'avy-zap)
 (when (require 'avy-zap nil t)
