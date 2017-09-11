@@ -453,7 +453,7 @@
   (when (require (and (executable-find "ag")
                       (require 'helm-ag nil t)))
 
-    (setq helm-ag-base-command "ag --nocolor --nogroup --ignore-case")
+    (setq helm-ag-base-command "ag --nocolor --nogroup")
     ;; 現在のシンボルをデフォルトのクエリにする
     (setq helm-ag-insert-at-point 'symbol)
     (global-set-key (kbd "C-M-a") 'helm-ag)
