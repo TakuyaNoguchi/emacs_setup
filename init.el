@@ -1133,4 +1133,4 @@
   (add-hook 'sql-interactive-mode-hook
           (lambda ()
             ;; 「;」をタイプしたら SQL 文を実行
-            (setq sql-electric-stuff 'semicolon)))
+            (setq sql-electric-stuff 'semicolon))))
