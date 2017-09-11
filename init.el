@@ -231,7 +231,9 @@
   ;; header-lineの先頭に[<->]を表示しない
   (setq elscreen-tab-display-control nil)
 
-  (global-set-key (kbd "C-z x") 'elscreen-kill))
+  (global-set-key (kbd "C-z x") 'elscreen-kill)
+  (global-set-key (kbd "C-z z") 'repeat)
+  (global-set-key (kbd "C-z C-z") 'repeat))
 
 
 
