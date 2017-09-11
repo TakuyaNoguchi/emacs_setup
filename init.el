@@ -422,6 +422,9 @@
     (define-key helm-swoop-map (kbd "C-w") 'backward-kill-word)
     (define-key helm-multi-swoop-map (kbd "C-w") 'backward-kill-word)
 
+    (define-key helm-swoop-map (kbd "C-l") 'skk-mode)
+    (define-key helm-multi-swoop-map (kbd "C-l") 'skk-mode)
+
     ;; Save buffer when helm-multi-swoop-edit complete
     (setq helm-multi-swoop-edit-save t)
 
