@@ -9,6 +9,9 @@
 ;; ロードパス
 (add-to-list 'load-path "~/.emacs.d/elisp")
 
+;; 外部パッケージによって変更されたカスタム変数は別ファイルに記述する
+(setq custom-file (locate-user-emacs-file "custom.el"))
+
 ;; zshのパスを設定
 ;; 必要なパスは ~/.zshenv に記載する
 ;; 参考サイト: http://d.hatena.ne.jp/zonu_exe/20120509/1336583187
