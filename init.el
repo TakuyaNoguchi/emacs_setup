@@ -148,9 +148,10 @@
 (setq diff-switches '("-u" "-p" "-N"))
 
 ;; 以前開いたファイルを再度開いたとき、元のカーソル位置を復元する
+(package-install 'saveplace)
 (when (require 'saveplace nil t)
-  (setq-default save-place t)
-  (setq save-place-file "~/.emacs.d/saved-places"))
+  (setq save-place-file "~/.emacs.d/saved-places")
+  (save-place-mode 1))
 
 ;; cua-modeをオン
 (cua-mode t)
