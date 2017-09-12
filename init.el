@@ -538,7 +538,34 @@
       ("d"        . 'mc/mark-all-like-this-dwim)
       ("i"        . 'mc/insert-numbers)
       ("o"        . 'mc/sort-regions)
-      ("O"        . 'mc/reverse-regions))))
+      ("O"        . 'mc/reverse-regions)))
+
+  ;; multiple cursor 起動時に連番を挿入
+  ;; 参考サイト: http://qiita.com/ShingoFukuyama/items/3ad7e24cb2d8f55b4cc5
+  (defvar mc/insert-custom-numbers-hist nil)
+  (defvar mc/insert-custom-numbers-inc 1)
+  (defvar mc/insert-custom-numbers-pad "%01d")
+
+  (defun mc/insert-custom-numbers (start inc pad)
+    "Insert increasing numbers for each cursor specifically."
+    (interactive
+     (list (read-number "Start from: " 0)
+           (read-number "Increment by: " 1)
+           (read-string "Padding (%01d): " nil mc/insert-custom-numbers-hist "%01d")))
+    (setq mc--insert-custom-numbers-number start)
+    (setq mc/insert-custom-numbers-inc inc)
+    (setq mc/insert-custom-numbers-pad pad)
+    (mc/for-each-cursor-ordered
+     (mc/execute-command-for-fake-cursor
+      'mc--insert-custom-number-and-increase
+      cursor)))
+
+  (defun mc--insert-custom-number-and-increase ()
+    (interactive)
+    (insert (format mc/insert-custom-numbers-pad mc--insert-custom-numbers-number))
+    (setq mc--insert-custom-numbers-number (+ mc--insert-custom-numbers-number mc/insert-custom-numbers-inc)))
+
+  (define-key mc/keymap (kbd "C-c i") 'mc/insert-custom-numbers))
 
 
 
