@@ -1157,6 +1157,14 @@
 
 
 
+;;; 変数の命名に困ったときに実行する(単語のみ)
+(package-install 'codic)
+(when (require 'codic nil t)
+  (push '("*Codic Result*" :height 25 :stick t) popwin:special-display-config)
+  (global-set-key (kbd "C-M-c") 'codic))
+
+
+
 ;;; SQLの設定
 ;; M-x sql-mysql でMySQLのプロセスを起動する
 (package-install 'sql)
