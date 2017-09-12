@@ -151,7 +151,10 @@
 (package-install 'saveplace)
 (when (require 'saveplace nil t)
   (setq save-place-file "~/.emacs.d/saved-places")
-  (save-place-mode 1))
+
+  (if (<= 25 emacs-major-version)
+      (save-place-mode 1)
+    (setq-default save-place t)))
 
 ;; cua-modeをオン
 (cua-mode t)
