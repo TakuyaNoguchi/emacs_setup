@@ -811,6 +811,12 @@
   (push "*projectile-rails-generate*" popwin:special-display-config)
   (push "*projectile-rails-compilation*" popwin:special-display-config))
 
+;; Rubyのリファクタリング支援
+;; https://github.com/ajvargo/ruby-refactor
+(package-install 'ruby-refactor)
+(when (require 'ruby-refactor nil t)
+  (add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch))
+
 (package-install 'rbenv)
 (when (require 'rbenv nil t)
   (global-rbenv-mode))
@@ -954,6 +960,11 @@
 (when (require 'js2-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.jsx?$" . js2-mode)))
 
+;; JavaScriptのリファクタリング支援
+(package-install 'js2-refactor)
+(when (require 'js2-refactor nil t)
+  (add-hook 'js2-mode-hook #'js2-refactor-mode)
+  (js2r-add-keybindings-with-prefix "C-c C-r"))
 
 
 
