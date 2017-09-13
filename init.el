@@ -961,7 +961,13 @@
 ;;; JavaScript
 (package-install 'js2-mode)
 (when (require 'js2-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.jsx?$" . js2-mode)))
+  (add-to-list 'auto-mode-alist '("\\.jsx?$" . js2-mode))
+
+  ;; デフォルトのもの以外でチェックから除外するキーワード
+  (setq-default js2-global-externs
+                '("module" "require" "buster" "sinon" "assert" "refute"
+                  "setTimeout" "clearTimeout" "setInterval" "clearInterval"
+                  "JSON")))
 
 ;; JavaScriptのリファクタリング支援
 (package-install 'js2-refactor)
