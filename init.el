@@ -815,6 +815,8 @@
 ;; https://github.com/ajvargo/ruby-refactor
 (package-install 'ruby-refactor)
 (when (require 'ruby-refactor nil t)
+  ;; C-c C-r e は直感的ではないため、キーバインドを追加。
+  (define-key ruby-refactor-mode-map (kbd "C-c C-r m") 'ruby-refactor-extract-to-method)
   (add-hook 'ruby-mode-hook 'ruby-refactor-mode-launch))
 
 (package-install 'rbenv)
