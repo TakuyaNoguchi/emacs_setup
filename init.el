@@ -397,6 +397,7 @@
     (add-hook 'js2-mode-hook  'turn-on-ctags-auto-update-mode)
 
     (global-set-key (kbd "C-]") 'helm-etags-plus-select)
+    (global-set-key (kbd "C-M-]") 'helm-etags-plus-history-go-back)
     ;;list all visited tags
     (global-set-key (kbd "M-.") 'helm-etags-plus-history)
     ;;go back directly
