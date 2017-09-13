@@ -384,7 +384,7 @@
   ;; Helmの候補選択を楽に行う
   (package-install 'ace-jump-helm-line)
   (when (require 'ace-jump-helm-line nil t)
-    (define-key helm-map (kbd "@") 'ace-jump-helm-line)
+    (define-key helm-map (kbd "C-@") 'ace-jump-helm-line)
     (setq ace-jump-helm-line-default-action 'select))
 
   ;; TAGの生成
@@ -396,7 +396,7 @@
     (add-hook 'ruby-mode-hook  'turn-on-ctags-auto-update-mode)
     (add-hook 'js2-mode-hook  'turn-on-ctags-auto-update-mode)
 
-    (global-set-key (kbd "C-:") 'helm-etags-plus-select)
+    (global-set-key (kbd "C-]") 'helm-etags-plus-select)
     ;;list all visited tags
     (global-set-key (kbd "M-.") 'helm-etags-plus-history)
     ;;go back directly
@@ -408,19 +408,15 @@
   (when (require 'helm-swoop nil t)
 
     ;; Change the keybinds to whatever you like :)
-    (global-set-key (kbd "M-o") 'helm-swoop)
-    (global-set-key (kbd "C-M-o") 'helm-swoop)
-    (global-set-key (kbd "C-c M-o") 'helm-multi-swoop)
-    (global-set-key (kbd "C-c C-M-o") 'helm-multi-swoop)
-    (global-set-key (kbd "C-x M-o") 'helm-multi-swoop)
-    (global-set-key (kbd "C-x C-M-o") 'helm-multi-swoop)
+    (global-set-key (kbd "C-:") 'helm-swoop)
+    (global-set-key (kbd "M-:") 'helm-multi-swoop)
+    (global-set-key (kbd "C-M-:") 'helm-multi-swoop-all)
 
     ;; When doing isearch, hand the word over to helm-swoop
-    (define-key isearch-mode-map (kbd "M-o") 'helm-swoop-from-isearch)
-    (define-key isearch-mode-map (kbd "C-M-o") 'helm-swoop-from-isearch)
+    (define-key isearch-mode-map (kbd "C-:") 'helm-swoop-from-isearch)
+    (define-key isearch-mode-map (kbd "C-M-:") 'helm-multi-swoop-all-from-isearch)
     ;; From helm-swoop to helm-multi-swoop-all
-    (define-key helm-swoop-map (kbd "M-o") 'helm-multi-swoop-all-from-helm-swoop)
-    (define-key helm-swoop-map (kbd "C-M-o") 'helm-multi-swoop-all-from-helm-swoop)
+    (define-key helm-swoop-map (kbd "C-M-:") 'helm-multi-swoop-all-from-helm-swoop)
     ;; When doing evil-search, hand the word over to helm-swoop
     ;; (define-key evil-motion-state-map (kbd "M-i") 'helm-swoop-from-evil-search)
 
