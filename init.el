@@ -163,6 +163,9 @@
 
 ;; フォントの設定
 (set-frame-font "ricty-13")
+(custom-set-faces
+ '(variable-pitch ((t (:family "Ricty"))))
+ '(fixed-pitch ((t (:family "Ricty")))))
 
 ;; タブ文字の設定
 (setq-default indent-tabs-mode nil)
