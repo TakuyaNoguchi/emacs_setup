@@ -404,7 +404,7 @@
     (global-set-key (kbd "C-]") 'helm-etags-plus-select)
     (global-set-key (kbd "C-M-]") 'helm-etags-plus-history-go-back)
     ;;list all visited tags
-    (global-set-key (kbd "M-.") 'helm-etags-plus-history)
+    (global-set-key (kbd "C-M-.") 'helm-etags-plus-history)
     ;;go back directly
     (global-set-key (kbd "M-p") 'helm-etags-plus-history-go-back)
     ;;go forward directly
@@ -832,6 +832,14 @@
     '(rspec-install-snippets))
   (push '("*rspec-compilation*" :height 25) popwin:special-display-config))
 
+;; Ruby のREPL
+;; $ gem i pry
+;; $ gem i pry-doc
+;; $ gem i method_source
+(package-install 'robe)
+(when (require 'robe nil t)
+  (add-hook 'ruby-mode-hook 'robe-mode)
+  (add-hook 'robe-mode-hook 'ac-robe-setup))
 
 
 ;;; JavaScriptの設定
