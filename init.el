@@ -881,6 +881,9 @@
 ;; DONEにステータス変更時、メモを記載したい場合はtimeをnoteに変更
 (setq org-log-done 'time)
 
+;; コードブロックのシンタックスハイライト
+(setq org-src-fontify-natively t)
+
 ;; 現在開いているファイルの行へのリンクをコピー
 ;; コピー後、orgファイルを開き C-c C-l でリンクをペーストできる
 (global-set-key (kbd "C-c l") 'org-store-link)
