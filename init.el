@@ -214,6 +214,8 @@
 ;;; color theme の設定
 (package-install 'solarized-theme)
 (when (require 'solarized-theme nil t)
+  ;; org-mode の見出しの大きさを変更しない
+  (setq solarized-scale-org-headlines nil)
   (load-theme 'solarized-dark t)
 
   ;; カーソルの色
