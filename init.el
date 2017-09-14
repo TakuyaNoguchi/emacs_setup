@@ -841,6 +841,10 @@
   (add-hook 'ruby-mode-hook 'robe-mode)
   (add-hook 'robe-mode-hook 'ac-robe-setup))
 
+(package-install 'yard-mode)
+(when (require 'yard-mode nil t)
+  (add-hook 'ruby-mode-hook 'yard-mode)
+  (add-hook 'ruby-mode-hook 'eldoc-mode))
 
 ;;; JavaScriptの設定
 (package-install 'js2-mode)
