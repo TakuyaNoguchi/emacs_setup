@@ -415,7 +415,7 @@
 
     ;; Change the keybinds to whatever you like :)
     (global-set-key (kbd "C-:") 'helm-swoop)
-    (global-set-key (kbd "M-:") 'helm-multi-swoop)
+    (global-set-key (kbd "C-c C-:") 'helm-multi-swoop)
     (global-set-key (kbd "C-M-:") 'helm-multi-swoop-all)
 
     ;; When doing isearch, hand the word over to helm-swoop
