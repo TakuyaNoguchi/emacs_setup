@@ -846,14 +846,14 @@
   (add-hook 'ruby-mode-hook 'yard-mode)
   (add-hook 'ruby-mode-hook 'eldoc-mode))
 
-;;; JavaScriptの設定
-(package-install 'js2-mode)
-(when (require 'js2-mode nil t)
-  (add-hook 'js2-mode-hook
-            (lambda () (setq js2-basic-offset 2)))
-  (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(package-install 'slim-mode)
+(when (require 'slim-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.slim?\\'" . slim-mode)))
 
-  (add-to-list 'auto-mode-alist '("\\.jsx$" . js2-jsx-mode)))
+;;; yaml-mode
+(package-install 'yaml-mode)
+(when (require 'yaml-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
 
 
 
@@ -991,13 +991,6 @@
 (when (require 'js2-refactor nil t)
   (add-hook 'js2-mode-hook #'js2-refactor-mode)
   (js2r-add-keybindings-with-prefix "C-c C-r"))
-
-
-
-;;; yaml-mode
-(package-install 'yaml-mode)
-(when (require 'yaml-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
 
 
 
