@@ -530,6 +530,7 @@ two curly braces, otherwise do a regular newline and indent"
 (when (require 'avy nil t)
   (global-set-key (kbd "C-@") 'avy-goto-char-in-line)
   (global-set-key (kbd "M-@") 'avy-goto-char)
+  (global-set-key (kbd "C-c C-@") 'avy-goto-char)
   (global-set-key (kbd "C-M-@") 'avy-goto-char-2))
 
 (package-install 'avy-zap)
