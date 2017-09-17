@@ -77,7 +77,22 @@
 
 ;; インデントの設定
 (electric-indent-mode 1)
-(global-set-key (kbd "C-j") 'newline)
+;; 括弧の間で改行したときにカーソルを適切な位置に移動する
+;; 参考サイト: https://gist.github.com/brianloveswords/e23cedf3a80bab675fe5
+(defun my-fancy-newline ()
+  "Add two newlines and put the cursor at the right indentation
+between them if a newline is attempted when the cursor is between
+two curly braces, otherwise do a regular newline and indent"
+  (interactive)
+  (if (and (equal (char-before) 123) ; {
+           (equal (char-after) 125)) ; }
+      (progn (newline-and-indent)
+             (split-line)
+             (indent-for-tab-command))
+    (newline-and-indent)))
+
+;; I set mine to C-j, you do you, don't let me tell you how to live your life.
+(global-set-key (kbd "C-j") 'my-fancy-newline)
 (global-set-key (kbd "C-m") 'electric-newline-and-maybe-indent)
 
 ;; メニューバーを消す
@@ -283,9 +298,6 @@
     (apply orig-fun args)))
 
 (advice-add 'hippie-expand :around #'hippie-expand-ruby-symbols)
-
-;; 空行の挿入を割り当て
-(global-set-key (kbd "C-c C-j") 'open-line)
 
 ;; コメントアウト
 (global-set-key (kbd "M-;") 'comment-dwim)
