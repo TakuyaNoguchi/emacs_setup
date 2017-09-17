@@ -854,7 +854,16 @@
 (when (require 'yaml-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
 
+;;; scss-mode
+(package-install 'scss-mode)
+(when (require 'scss-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
 
+  (add-hook 'scss-mode-hook
+            (lambda()
+              (custom-set-variables
+               '(css-indent-offset 2)
+               '(scss-compile-at-save nil)))))
 
 ;;; smartparens
 ;; 対応する括弧の入力
