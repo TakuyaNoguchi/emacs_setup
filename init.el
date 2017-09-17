@@ -272,6 +272,7 @@
         try-expand-list
         try-expand-line
         try-complete-lisp-symbol))
+
 ;; ruby-modeの時、シンボルの補完に関する設定
 ;; 参考サイト: https://emacs.stackexchange.com/questions/13078/use-hippie-expand-to-complete-ruby-symbols-without-prefix
 (defun hippie-expand-ruby-symbols (orig-fun &rest args)
@@ -282,6 +283,9 @@
     (apply orig-fun args)))
 
 (advice-add 'hippie-expand :around #'hippie-expand-ruby-symbols)
+
+;; 空行の挿入を割り当て
+(global-set-key (kbd "C-c C-j") 'open-line)
 
 ;; コメントアウト
 (global-set-key (kbd "M-;") 'comment-dwim)
