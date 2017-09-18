@@ -31,6 +31,9 @@
 (global-set-key (kbd "C-c C-o") 'browse-url-xdg-open)
 (global-set-key (kbd "C-c o") 'browse-url-xdg-open)
 
+;; 行の整列をするコマンドにキーバインドを割り当て
+(global-set-key (kbd "C-c C-;") 'align-regexp)
+
 ;; *Help* などのウィンドウを操作しやすくする
 (when (require 'popwin nil t)
   (popwin-mode 1))
