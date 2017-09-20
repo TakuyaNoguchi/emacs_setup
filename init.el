@@ -340,7 +340,7 @@ two curly braces, otherwise do a regular newline and indent"
   (global-set-key (kbd "C-x C-r") 'helm-recentf)
   (global-set-key (kbd "M-y")     'helm-show-kill-ring)
   ;; 定義された関数を検索するのに便利
-  (global-set-key (kbd "C-c C-f")   'helm-imenu)
+  (global-set-key (kbd "C-c C-M-f") 'helm-imenu)
   (global-set-key (kbd "C-x b")   'helm-mini)
   (global-set-key (kbd "C-x C-b")   'helm-buffers-list)
   (define-key helm-map (kbd "C-h") 'delete-backward-char)
@@ -825,10 +825,14 @@ two curly braces, otherwise do a regular newline and indent"
 (when (require 'ruby-block nil t)
   (setq ruby-block-highlight-toggle t))
 
+(package-install 'projectile)
 (package-install 'projectile-rails)
-(when (require 'projectile-rails nil t)
+(when (and (require 'projectile nil t)
+           (require 'projectile-rails nil t))
   (setq projectile-completion-system 'helm)
   (projectile-rails-global-mode)
+
+  (global-set-key (kbd "C-c C-f") 'projectile-find-file)
 
   (push "*projectile-rails-generate*" popwin:special-display-config)
   (push "*projectile-rails-compilation*" popwin:special-display-config))
