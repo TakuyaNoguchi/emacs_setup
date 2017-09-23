@@ -1271,3 +1271,68 @@ two curly braces, otherwise do a regular newline and indent"
   (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.cabal$" . haskell-cabal-mode)))
+
+
+
+;; 繰り返し特定のキーを入力したときの挙動を設定
+(package-install 'key-combo)
+(when (require 'key-combo nil t)
+  (global-key-combo-mode t)
+
+  (defvar my-haskell-mode-hooks
+    '(haskell-mode-hook))
+
+  (defvar my-key-combos-for-haskell
+    '(("-" . ("-" " -> " "--"))
+      ("<" . ("<" " <- " " <= " " =<< " "<<" "<"))
+      (">" . (">" " >= " " >>= " ">"))
+      ("=" . ("=" " = " " == " "=="))
+      (":" . (":" " :: " "::"))))
+
+  (key-combo-define-hook my-haskell-mode-hooks
+                         'my-key-combo-haskell-hook
+                         my-key-combos-for-haskell)
+
+  (defvar my-ruby-mode-hooks
+    '(ruby-mode-hook))
+
+  (setq my-key-combos-for-ruby
+      '((","  . (", " ","))
+        ("="  . (" = " " == " " === " "="))
+        ("=>" . " => ")
+        ("=~" . " =~ ")
+        ("=*" . " =* ")
+        ("+"  . (" + " " += " "+"))
+        ("+=" . " += ")
+        ("-"  . (" - " " -= " "-"))
+        ("-=" . " -= ")
+        (">"  . (" > " " >= " ">"))
+        (">=" . " >= ")
+        ("%"  . (" % " " %= " "%"))
+        ("%="  . " %= ")
+        ("!="  . " != " )
+        ("!~" . " !~ ")
+        ("~" . (" =~ " "~"))
+        ("&"  . (" & " " && " "&"))
+        ("&=" . " &= ")
+        ("&&=" . " &&= ")
+        ("*"  . (" * " "**" "*"))
+        ("*="  . " *= " )
+        ("<" . (" < " " <= " "<"))
+        ("<=" . " <= ")
+        ("<<=" . " <<= ")
+        ("||"  . (" || " "||"))
+        ("|=" . " |= ")
+        ("||=" . " ||= ")
+        ("/" . ("/`!!'/" " / " "// "))
+        ("/=" . " /= ")
+        ("/*" . "/* `!!' */")
+        ("{" . ("{`!!'}" "{"))
+        ("{|" . "{ |`!!'|  }")
+        ("\"" . ("\"`!!'\"" "\""))
+        ("'" . ("'`!!''" "'"))
+        ("(" . ("(`!!')" "("))))
+
+  (key-combo-define-hook my-ruby-mode-hooks
+                         'my-key-combo-ruby-hook
+                         my-key-combos-for-ruby))
