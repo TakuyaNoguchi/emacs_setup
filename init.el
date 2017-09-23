@@ -1283,11 +1283,15 @@ two curly braces, otherwise do a regular newline and indent"
     '(haskell-mode-hook))
 
   (defvar my-key-combos-for-haskell
-    '(("-" . ("-" " -> " "--"))
-      ("<" . ("<" " <- " " <= " " =<< " "<<" "<"))
-      (">" . (">" " >= " " >>= " ">"))
-      ("=" . ("=" " = " " == " "=="))
-      (":" . (":" " :: " "::"))))
+    '(("+"  . (" + " " ++ " "+"))
+      ("-"  . (" - " " -> " "-"))
+      ("<"  . (" < " " << " "<"))
+      ("<=" . " <= ")
+      ("<-" . " <- ")
+      (">"  . (" > " " >> " " >>= " ">"))
+      (">=" . " >= ")
+      ("="  . (" = " " == " "="))
+      (":"  . (" : " " :: " ":"))))
 
   (key-combo-define-hook my-haskell-mode-hooks
                          'my-key-combo-haskell-hook
