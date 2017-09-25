@@ -970,6 +970,8 @@ two curly braces, otherwise do a regular newline and indent"
 
 
   (defun my-web-mode-hook ()
+    ;; クリップボードからペーストした時に勝手にインデントされるのを防ぐ
+    (setq web-mode-enable-auto-indentation nil)
     (setq web-mode-enable-auto-pairing nil))
 
   (add-hook 'web-mode-hook  'my-web-mode-hook)
