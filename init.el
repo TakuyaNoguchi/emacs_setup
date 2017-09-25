@@ -908,7 +908,11 @@ two curly braces, otherwise do a regular newline and indent"
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
 
-  (define-key gfm-mode-map (kbd "C-c C-c") 'markdown-insert-gfm-code-block))
+  (define-key gfm-mode-map (kbd "C-c C-c") 'markdown-insert-gfm-code-block)
+
+  (add-hook 'gfm-mode-hook
+            (lambda ()
+              (electric-indent-local-mode -1))))
 
 
 
