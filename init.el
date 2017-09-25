@@ -1337,7 +1337,7 @@ two curly braces, otherwise do a regular newline and indent"
         ("\""  . ("\"`!!'\"" "\""))
         ("'"   . ("'`!!''" "'"))
         ("("   . ("(`!!')" "("))
-        ("`"   . ("``!!'`" "`")))))
+        ("`"   . ("``!!'`" "`"))))
 
   (key-combo-define-hook my-ruby-mode-hooks
                          'my-key-combo-ruby-hook
