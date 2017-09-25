@@ -906,7 +906,9 @@ two curly braces, otherwise do a regular newline and indent"
 (require 'markdown-mode nil t)
 (when (require 'markdown-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode)))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+
+  (define-key gfm-mode-map (kbd "C-c C-c") 'markdown-insert-gfm-code-block))
 
 
 
