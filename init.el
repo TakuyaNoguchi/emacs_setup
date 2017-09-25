@@ -949,7 +949,11 @@ two curly braces, otherwise do a regular newline and indent"
 (when (require 'smartrep nil t)
   (smartrep-define-key
       org-mode-map "C-c" '(("C-n" . (outline-next-visible-heading 1))
-                           ("C-p" . (outline-previous-visible-heading 1)))))
+                           ("C-p" . (outline-previous-visible-heading 1))))
+
+  (smartrep-define-key
+      ruby-mode-map "C-c" '(("C-p" . (ruby-beginning-of-block))
+                            ("C-n" . (ruby-end-of-block)))))
 
 
 ;;; 色文字列に色をつける
