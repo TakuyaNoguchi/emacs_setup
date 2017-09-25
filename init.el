@@ -1024,6 +1024,10 @@ two curly braces, otherwise do a regular newline and indent"
 (when (require 'js2-mode nil t)
   (add-to-list 'auto-mode-alist '("\\.jsx?$" . js2-mode))
 
+  ;; インデントを2に設定
+  (add-hook 'js2-mode-hook
+            (lambda () (setq js2-basic-offset 2)))
+
   ;; デフォルトのもの以外でチェックから除外するキーワード
   (setq-default js2-global-externs
                 '("module" "require" "buster" "sinon" "assert" "refute"
