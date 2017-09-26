@@ -81,6 +81,7 @@
 ;; インデントの設定
 (electric-indent-mode 1)
 
+(global-set-key (kbd "C-j") 'newline)
 (global-set-key (kbd "C-m") 'electric-newline-and-maybe-indent)
 
 ;; メニューバーを消す
