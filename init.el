@@ -939,7 +939,12 @@
 
   (smartrep-define-key
       ruby-mode-map "C-c" '(("C-p" . (ruby-beginning-of-block))
-                            ("C-n" . (ruby-end-of-block)))))
+                            ("C-n" . (ruby-end-of-block))))
+
+  (when (require 'js2-mode nil t)
+    (smartrep-define-key
+        js2-mode-map "C-c" '(("C-n" . (end-of-defun))
+                             ("C-p" . (beginning-of-defun))))))
 
 
 ;;; 色文字列に色をつける
