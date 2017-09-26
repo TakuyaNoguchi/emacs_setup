@@ -804,6 +804,9 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 
+(define-key ruby-mode-map (kbd "C-c C-p") 'ruby-beginning-of-block)
+(define-key ruby-mode-map (kbd "C-c C-n") 'ruby-end-of-block)
+
 (setq ruby-insert-encoding-magic-comment nil)
 
 ;; endに対応する行のハイライト
@@ -937,10 +940,6 @@
       org-mode-map "C-c" '(("C-n" . (outline-next-visible-heading 1))
                            ("C-p" . (outline-previous-visible-heading 1))))
 
-  (smartrep-define-key
-      ruby-mode-map "C-c" '(("C-p" . (ruby-beginning-of-block))
-                            ("C-n" . (ruby-end-of-block))))
-
   (when (require 'js2-mode nil t)
     (smartrep-define-key
         js2-mode-map "C-c" '(("C-n" . (end-of-defun))
@@ -1023,7 +1022,10 @@
   (setq-default js2-global-externs
                 '("module" "require" "buster" "sinon" "assert" "refute"
                   "setTimeout" "clearTimeout" "setInterval" "clearInterval"
-                  "JSON")))
+                  "JSON"))
+
+  (define-key js2-mode-map (kbd "C-c C-p") 'beginning-of-defun)
+  (define-key js2-mode-map (kbd "C-c C-n") 'end-of-defun))
 
 ;; JavaScriptのリファクタリング支援
 (package-install 'js2-refactor)
