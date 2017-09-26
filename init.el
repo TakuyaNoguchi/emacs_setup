@@ -804,8 +804,25 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 
-(define-key ruby-mode-map (kbd "C-c C-p") 'ruby-beginning-of-block)
-(define-key ruby-mode-map (kbd "C-c C-n") 'ruby-end-of-block)
+;; 参考サイト: http://syohex.hatenablog.com/entry/20130107/1357571652
+(defun my/ruby-beginning-of-defun (&optional arg)
+  (interactive "p")
+  (and (re-search-backward (concat "^\\s-+\\(" ruby-block-beg-re "\\)\\_>")
+                           nil 'move)
+       (progn (back-to-indentation) t)))
+
+(defun my/ruby-end-of-defun (&optional arg)
+  (interactive "p")
+  (and (re-search-forward (concat "^\\s-+\\(" ruby-block-end-re "\\)\\($\\|\\b[^_]\\)")
+                          nil 'move (or arg 1))
+       (progn (beginning-of-line) t))
+  (forward-line 1)
+  (back-to-indentation))
+
+(eval-after-load "ruby-mode"
+  '(progn
+     (define-key ruby-mode-map (kbd "C-c C-p") 'my/ruby-beginning-of-defun)
+     (define-key ruby-mode-map (kbd "C-c C-n") 'my/ruby-end-of-defun)))
 
 (setq ruby-insert-encoding-magic-comment nil)
 
@@ -938,12 +955,7 @@
 (when (require 'smartrep nil t)
   (smartrep-define-key
       org-mode-map "C-c" '(("C-n" . (outline-next-visible-heading 1))
-                           ("C-p" . (outline-previous-visible-heading 1))))
-
-  (when (require 'js2-mode nil t)
-    (smartrep-define-key
-        js2-mode-map "C-c" '(("C-n" . (end-of-defun))
-                             ("C-p" . (beginning-of-defun))))))
+                           ("C-p" . (outline-previous-visible-heading 1)))))
 
 
 ;;; 色文字列に色をつける
