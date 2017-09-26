@@ -80,22 +80,7 @@
 
 ;; インデントの設定
 (electric-indent-mode 1)
-;; 括弧の間で改行したときにカーソルを適切な位置に移動する
-;; 参考サイト: https://gist.github.com/brianloveswords/e23cedf3a80bab675fe5
-(defun my-fancy-newline ()
-  "Add two newlines and put the cursor at the right indentation
-between them if a newline is attempted when the cursor is between
-two curly braces, otherwise do a regular newline and indent"
-  (interactive)
-  (if (and (equal (char-before) 123) ; {
-           (equal (char-after) 125)) ; }
-      (progn (newline-and-indent)
-             (split-line)
-             (indent-for-tab-command))
-    (newline-and-indent)))
 
-;; I set mine to C-j, you do you, don't let me tell you how to live your life.
-(global-set-key (kbd "C-j") 'my-fancy-newline)
 (global-set-key (kbd "C-m") 'electric-newline-and-maybe-indent)
 
 ;; メニューバーを消す
@@ -1353,8 +1338,46 @@ two curly braces, otherwise do a regular newline and indent"
         ("\""  . ("\"`!!'\"" "\""))
         ("'"   . ("'`!!''" "'"))
         ("("   . ("(`!!')" "("))
+        ("["   . ("[`!!']" "["))
         ("`"   . ("``!!'`" "`"))))
 
   (key-combo-define-hook my-ruby-mode-hooks
                          'my-key-combo-ruby-hook
-                         my-key-combos-for-ruby))
+                         my-key-combos-for-ruby)
+
+  (defvar my-js2-mode-hooks
+    '(js2-mode-hook))
+
+  (setq my-key-combos-for-javascript
+      '((","   . (", " ","))
+        ("="   . (" = " " == " " === " "="))
+        ("=>"  . " => ")
+        ("*="  . " *= ")
+        ("+"   . (" + " "++" "+"))
+        ("+="  . " += ")
+        ("-"   . ("-" " - " "--" "-"))
+        ("-="  . " -= ")
+        (">"   . (" > " ">"))
+        (">="  . " >= ")
+        ("%"   . (" % " " %= " "%"))
+        ("%="  . " %= ")
+        ("!="  . " != " )
+        ("!=="  . " !== " )
+        ("&"   . (" & " " && " "&"))
+        ("&="  . " &= ")
+        ("*"   . (" * " "**" "*"))
+        ("*="  . " *= " )
+        ("<"   . (" < " "<"))
+        ("<="  . " <= ")
+        ("||"  . (" || " "||"))
+        ("|="  . " |= ")
+        ("/"   . ( " / " "/`!!'/" "/"))
+        ("/="  . " /= ")
+        ("{"   . ("{\n`!!'\n}" "{`!!'}" "{"))
+        ("\""  . ("\"`!!'\"" "\""))
+        ("("   . ("(`!!')" "("))
+        ("["   . ("[`!!']" "["))))
+
+  (key-combo-define-hook my-js2-mode-hooks
+                         'my-key-combo-js2-hook
+                         my-key-combos-for-javascript))
