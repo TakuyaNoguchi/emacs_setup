@@ -121,9 +121,6 @@
 ;; yesとnoの入力をyとnで入力できるように設定
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-;; 行末の空白を表示
-(setq-default show-trailing-whitespace t)
-
 ;; バッファの最後でnewlineで新規行を追加するのを禁止する
 (setq next-line-add-newlines nil)
 
@@ -179,18 +176,7 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 
-;; 行末の改行を削除
-;; 参考サイト: http://pokutuna.hatenablog.com/entry/20111117/1321523457
-;; 削除を実行しない拡張子
-(setq delete-trailing-whitespace-exclude-patterns (list "\\.md$" "\\.markdown$"))
 
-(defun delete-trailing-whitespace-with-exclude-pattern ()
-  (interactive)
-  (cond ((equal nil (loop for pattern in delete-trailing-whitespace-exclude-patterns
-                          thereis (string-match pattern buffer-file-name)))
-         (delete-trailing-whitespace))))
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace-with-exclude-pattern)
 
 ;; リージョンを選択せずに Ctrl-w を押下したときに、カーソルの前の単語を削除する。
 ;; 参考サイト: http://d.hatena.ne.jp/plonk123/20121016/1350412750
@@ -230,7 +216,37 @@
   (load-theme 'solarized-dark t)
 
   ;; カーソルの色
-  (set-cursor-color "pink"))
+  (set-cursor-color "pink")
+
+  (when (require 'whitespace nil t)
+    (setq whitespace-style
+          '(face       ; faceで可視化
+            trailing   ; 行末
+            tabs       ; タブ
+            tab-mark   ; >> を表示する
+            ))
+
+    (setq whitespace-trailing-regexp  "\\([ \u00A0]+\\)$")
+
+    (defvar my/background-color (face-background 'default))
+    (set-face-attribute 'whitespace-trailing nil
+                        :foreground my/background-color
+                        :background "Red"
+                        :underline t)
+    (set-face-attribute 'whitespace-tab nil
+                        :foreground my/background-color
+                        :background "Chartreuse"
+                        :underline nil)
+
+    (global-whitespace-mode t)
+
+    ;; 保存前に自動でクリーンアップ
+    (setq whitespace-action '(auto-cleanup))
+
+    ;; 行末の空白を削除したくないモード
+    (add-hook 'markdown-mode-hook
+              (lambda ()
+                (set (make-local-variable 'whitespace-action) nil)))))
 
 
 
