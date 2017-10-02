@@ -231,7 +231,7 @@
     (defvar my/background-color (face-background 'default))
     (set-face-attribute 'whitespace-trailing nil
                         :foreground my/background-color
-                        :background "Cyan"
+                        :background "Chartreuse"
                         :underline t)
     (set-face-attribute 'whitespace-tab nil
                         :foreground my/background-color
