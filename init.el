@@ -888,6 +888,14 @@
 ;; $ gem i pry
 ;; $ gem i pry-doc
 ;; $ gem i method_source
+(package-install 'inf-ruby)
+(when (require 'inf-ruby nil t)
+    (setq inf-ruby-default-implementation "pry")
+    (setq inf-ruby-eval-binding "Pry.toplevel_binding")
+
+    ;; riなどのエスケープシーケンスを処理し、色付けする
+    (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on))
+
 (package-install 'robe)
 (package-install 'helm-robe)
 (when (require 'robe nil t)
