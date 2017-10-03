@@ -5,10 +5,6 @@
   (fset 'package-desc-vers 'package--ac-desc-version)
   (package-initialize))
 
-;;; 基本設定
-;; ロードパス
-(add-to-list 'load-path "~/.emacs.d/elisp")
-
 ;; 外部パッケージによって変更されたカスタム変数は別ファイルに記述する
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
@@ -818,16 +814,6 @@
 (package-install 'sequential-command)
 (when (require 'sequential-command-config nil t)
   (sequential-command-setup-keys))
-
-
-
-;;; dmacro
-;; 繰り返し処理を楽にする
-;; $ mkdir -p ~/.emacs.d/elisp
-;; $ wget http://www.pitecan.com/DynamicMacro/dmacro.el -P ~/.emacs.d/elisp
-(defconst *dmacro-key* (kbd "C-t") "繰返し指定キー")
-(global-set-key *dmacro-key* 'dmacro-exec)
-(autoload 'dmacro-exec "dmacro" nil t)
 
 
 
