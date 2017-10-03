@@ -886,9 +886,14 @@
 ;; $ gem i pry-doc
 ;; $ gem i method_source
 (package-install 'robe)
+(package-install 'helm-robe)
 (when (require 'robe nil t)
   (add-hook 'ruby-mode-hook 'robe-mode)
-  (add-hook 'robe-mode-hook 'ac-robe-setup))
+  (add-hook 'robe-mode-hook 'ac-robe-setup)
+
+  (when (require 'helm-robe nil t)
+    (custom-set-variables
+     '(robe-completing-read-func 'helm-robe-completing-read))))
 
 (package-install 'yard-mode)
 (when (require 'yard-mode nil t)
