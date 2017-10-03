@@ -1470,3 +1470,14 @@
   (key-combo-define-hook my-js2-mode-hooks
                          'my-key-combo-js2-hook
                          my-key-combos-for-javascript))
+
+
+
+;; ssh接続をするためのパッケージ
+(package-install 'ssh)
+(when (require 'ssh nil t)
+  (add-hook 'ssh-mode-hook
+            (lambda ()
+              (setq ssh-directory-tracking-mode t)
+              (shell-dirtrack-mode t)
+              (setq dirtrackp nil))))
