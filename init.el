@@ -31,6 +31,9 @@
 (global-set-key (kbd "C-c C-o") 'browse-url-xdg-open)
 (global-set-key (kbd "C-c o") 'browse-url-xdg-open)
 
+;; C-x C-d にも diredを割り当て
+(global-set-key (kbd "C-x C-d") 'dired)
+
 ;; 行の整列をするコマンドにキーバインドを割り当て
 (global-set-key (kbd "C-c C-;") 'align-regexp)
 
