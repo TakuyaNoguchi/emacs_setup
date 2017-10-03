@@ -31,6 +31,18 @@
 (global-set-key (kbd "C-c C-o") 'browse-url-xdg-open)
 (global-set-key (kbd "C-c o") 'browse-url-xdg-open)
 
+;; ウィンドウの移動
+(defun reverse-other-window ()
+  (interactive)
+  (other-window -1))
+
+(global-set-key (kbd "C-t") 'other-window)
+(global-set-key (kbd "M-t") 'reverse-other-window)
+(global-set-key (kbd "C-M-t") 'reverse-other-window)
+
+;;Shift + 矢印キーで出来るように
+(windmove-default-keybindings)
+
 ;; C-x C-d にも diredを割り当て
 (global-set-key (kbd "C-x C-d") 'dired)
 
