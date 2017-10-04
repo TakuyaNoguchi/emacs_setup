@@ -1150,7 +1150,7 @@
 
   (eval-after-load 'yasnippet
   '(progn
-     (define-key yas-keymap (kbd "C-M-i") nil)
+     (define-key yas-keymap (kbd "TAB") nil)
      (define-key yas-keymap (kbd "C-c o") 'yas-next-field-or-maybe-expand)
      (define-key yas-keymap (kbd "C-c C-o") 'yas-next-field-or-maybe-expand))))
 
