@@ -270,6 +270,17 @@
 
 
 
+;;; Shellの設定
+(eval-after-load "term"
+  '(progn
+     (define-key term-raw-map (kbd "C-h") 'term-send-backspace)
+     (define-key term-raw-map (kbd "C-y") 'term-paste)
+     (define-key term-raw-map (kbd "C-t") 'other-window)
+     (define-key term-raw-map (kbd "M-t") 'reverse-other-window)
+     (define-key term-raw-map (kbd "C-M-t") 'reverse-other-window)))
+
+
+
 (package-install 'elscreen)
 (when (require 'elscreen nil t)
   ;; プレフィクスキーはC-z
