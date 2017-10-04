@@ -1312,7 +1312,7 @@
 
 
 
-;; Haskellの設定
+;;; Haskellの設定
 (package-install 'haskell-mode)
 (package-install 'ghc)
 (when (and (require 'haskell-mode nil t)
@@ -1343,7 +1343,7 @@
 
 
 
-;; 繰り返し特定のキーを入力したときの挙動を設定
+;;; 繰り返し特定のキーを入力したときの挙動を設定
 (package-install 'key-combo)
 (when (require 'key-combo nil t)
   (global-key-combo-mode t)
@@ -1482,7 +1482,7 @@
 
 
 
-;; ssh接続をするためのパッケージ
+;;; ssh接続をするためのパッケージ
 (package-install 'ssh)
 (when (require 'ssh nil t)
   (add-hook 'ssh-mode-hook
@@ -1493,7 +1493,7 @@
 
 
 
-;; C言語の基本的な設定
+;;; C言語の基本的な設定
 (add-hook 'c-mode-common-hook
           (lambda ()
             (c-set-style "gnu")
