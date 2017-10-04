@@ -953,14 +953,15 @@
 ;;; markdown-mode
 ;; $ sudo apt-get install markdown
 (package-install 'markdown-mode)
-(require 'markdown-mode nil t)
-(when (require 'markdown-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
+(package-install 'polymode)
+(when (and (require 'markdown-mode nil t)
+           (require 'poly-markdown nil t))
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . poly-markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . poly-markdown-mode))
 
-  (define-key gfm-mode-map (kbd "C-c C-c") 'markdown-insert-gfm-code-block)
+  (define-key poly-markdown-mode-map (kbd "C-c C-c") 'markdown-insert-gfm-code-block)
 
-  (add-hook 'gfm-mode-hook
+  (add-hook 'poly-markdown-mode-hook
             (lambda ()
               (electric-indent-local-mode -1))))
 
