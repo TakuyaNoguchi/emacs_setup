@@ -1498,5 +1498,4 @@
           (lambda ()
             (c-set-style "gnu")
             (setq c-basic-offset 4)
-            (setq c-auto-newline t)
             (c-set-offset 'statement-cont 'c-lineup-math)))
