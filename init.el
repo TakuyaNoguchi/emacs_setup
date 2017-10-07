@@ -1327,6 +1327,12 @@
 
     ;; ghci のコマンドを設定
     (setq haskell-program-name "/usr/bin/stack ghci")
+
+    ;; flycheckの設定
+    (when (require 'flycheck nil t)
+      (setq flycheck-checker 'haskell-hlint)
+      (setq flycheck-disabled-checkers '(haskell-ghc)))
+
     (ghc-init))
 
   (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
