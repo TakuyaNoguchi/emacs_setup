@@ -1324,9 +1324,6 @@
     ;; インデントの設定
     (turn-on-haskell-indentation)
     (turn-on-haskell-doc-mode)
-    (font-lock-mode)
-    (imenu-add-menubar-index)
-    (inf-haskell-mode)
 
     ;; ghci のコマンドを設定
     (setq haskell-program-name "/usr/bin/stack ghci")
