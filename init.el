@@ -755,8 +755,9 @@
             (lambda ()
               ;; $ stack install hlint
               (when (executable-find "hlint")
-                (setq flycheck-checker 'haskell-hlint)
-                (setq flycheck-disabled-checkers '(haskell-ghc))))))
+                (setq flycheck-checker 'haskell-hlint)))))
+
+
 
 ;;; undohist
 ;; ファイルを閉じた後も履歴を保持する
