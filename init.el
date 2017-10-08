@@ -1507,12 +1507,3 @@
               (setq ssh-directory-tracking-mode t)
               (shell-dirtrack-mode t)
               (setq dirtrackp nil))))
-
-
-
-;;; C言語の基本的な設定
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (c-set-style "gnu")
-            (setq c-basic-offset 4)
-            (c-set-offset 'statement-cont 'c-lineup-math)))
