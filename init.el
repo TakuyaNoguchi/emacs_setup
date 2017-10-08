@@ -749,13 +749,7 @@
             (lambda ()
               ;; $ sudo apt-get install shellcheck
               (when (executable-find "shellcheck")
-                (setq flycheck-checker 'sh-shellcheck))))
-
-  (add-hook 'haskell-mode-hook
-            (lambda ()
-              ;; $ stack install hlint
-              (when (executable-find "hlint")
-                (setq flycheck-checker 'haskell-hlint)))))
+                (setq flycheck-checker 'sh-shellcheck)))))
 
 
 
