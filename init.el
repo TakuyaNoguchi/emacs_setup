@@ -740,9 +740,23 @@
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
   (add-hook 'ruby-mode-hook
-            '(lambda ()
-               (when (executable-find "rubocop")
-                 (setq flycheck-checker 'ruby-rubocop)))))
+            (lambda ()
+              ;; $ gem i rubocop --no-document
+              (when (executable-find "rubocop")
+                (setq flycheck-checker 'ruby-rubocop))))
+
+  (add-hook 'sh-mode-hook
+            (lambda ()
+              ;; $ sudo apt-get install shellcheck
+              (when (executable-find "shellcheck")
+                (setq flycheck-checker 'sh-shellcheck))))
+
+  (add-hook 'haskell-mode-hook
+            (lambda ()
+              ;; $ stack install hlint
+              (when (executable-find "hlint")
+                (setq flycheck-checker 'haskell-hlint)
+                ((setq )etq flycheck-disabled-checkers '(haskell-ghc))))))
 
 ;;; undohist
 ;; ファイルを閉じた後も履歴を保持する
