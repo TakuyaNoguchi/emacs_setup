@@ -1325,8 +1325,7 @@
 (package-install 'haskell-mode)
 (package-install 'ghc)
 (when (and (require 'haskell-mode nil t)
-           (require 'ghc nil t)
-           (require 'key-combo nil t))
+           (require 'ghc nil t))
   (defun my-haskell-mode-hook ()
     (interactive)
 
@@ -1398,7 +1397,8 @@
       ("{;"  . "{`!!' }")
       ("{-"  . " {-\n`!!'\n-}")
       ("&"   . (" && " "&"))
-      ("|"   . (" | " " || " "|"))))
+      ("|"   . (" | " " || " "|"))
+      ("!!"  . " !! ")))
 
   (key-combo-define-hook my-haskell-mode-hooks
                          'my-key-combo-haskell-hook
@@ -1441,8 +1441,7 @@
         ("'"   . ("'`!!''" "'"))
         ("("   . ("(`!!')" "("))
         ("["   . ("[`!!']" "["))
-        ("`"   . ("``!!'`" "`"))
-        ("!!"  . " !! ")))
+        ("`"   . ("``!!'`" "`"))))
 
   (key-combo-define-hook my-ruby-mode-hooks
                          'my-key-combo-ruby-hook
