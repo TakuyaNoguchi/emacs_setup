@@ -1331,7 +1331,11 @@
 
     ;; インデントの設定
     (turn-on-haskell-indentation)
+
     (turn-on-haskell-doc-mode)
+    (font-lock-mode)
+    (imenu-add-menubar-index)
+    (inf-haskell-mode)
 
     ;; ghci のコマンドを設定
     (setq haskell-program-name "/usr/bin/stack ghci")
@@ -1339,6 +1343,7 @@
     (ghc-init))
 
   (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
+  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 
   (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-indentation-newline-and-indent)
   (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
@@ -1355,7 +1360,7 @@
   (global-key-combo-mode t)
 
   (defvar my-haskell-mode-hooks
-    '(haskell-mode-hook))
+    '(haskell-mode-hook haskell-interactive-mode-hook))
 
   (defvar my-key-combos-for-haskell
     '(("+"   . (" + " "+"))
