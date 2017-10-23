@@ -1401,7 +1401,8 @@
       ("|"   . (" | " " || " "|"))
       ("|;"  . " || ")
       ("!!"  . " !! ")
-      ("!;"  . " !! ")))
+      ("!;"  . " !! ")
+      ("_;"  . " _")))
 
   (key-combo-define-hook my-haskell-mode-hooks
                          'my-key-combo-haskell-hook
