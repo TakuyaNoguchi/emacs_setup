@@ -1257,7 +1257,7 @@
 ;; ダブルクォートとシングルクォートをトグルする
 (package-install 'toggle-quotes)
 (when (require 'toggle-quotes nil t)
-  (global-set-key (kbd "C-c C-:") 'toggle-quotes))
+  (global-set-key (kbd "C-x C-:") 'toggle-quotes))
 
 
 
