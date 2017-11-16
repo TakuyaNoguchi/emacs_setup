@@ -869,6 +869,7 @@
 ;; endに対応する行のハイライト
 (package-install 'ruby-block)
 (when (require 'ruby-block nil t)
+  (ruby-block-mode t)
   (setq ruby-block-highlight-toggle t))
 
 (package-install 'projectile)
@@ -1446,7 +1447,7 @@
         ("|;"  . " || ")
         ("|="  . " |= ")
         ("|;=" . " ||= ")
-        ("/"   . ( " / " "/`!!'/" "/"))
+        ("/"   . ("/`!!'/" " / " "/"))
         ("/="  . " /= ")
         ("{"   . (" { `!!'}" "{"))))
 
