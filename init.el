@@ -162,6 +162,8 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 ;; diffのオプション
 (setq diff-switches '("-u" "-p" "-N"))
+;; diffのバッファを上下ではなく左右に並べる
+(setq ediff-split-window-function 'split-window-horizontally)
 
 ;; 以前開いたファイルを再度開いたとき、元のカーソル位置を復元する
 (package-install 'saveplace)
