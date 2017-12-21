@@ -180,7 +180,9 @@
 (setq cua-enable-cua-keys nil)
 
 ;; フォントの設定
-(set-frame-font "ricty-13")
+;; org-modeのテーブルが崩れないようにフォントサイズは 1.5 の倍数にする
+;; 参考サイト: http://oogatta.hatenadiary.jp/entry/20130816/1376621767
+(set-frame-font "ricty-13.5")
 (custom-set-faces
  '(variable-pitch ((t (:family "Ricty"))))
  '(fixed-pitch ((t (:family "Ricty")))))
