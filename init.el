@@ -982,11 +982,8 @@
 
 
 ;;; org-mode
-;; 見出しをインデント
-(setq org-startup-indented t)
-
-;; インデントの幅を設定
-(setq org-indent-indentation-per-level 2)
+;; 見出しのアスタリスクの表示に関する設定
+(setq org-indent-mode-turns-on-hiding-stars nil)
 
 ;; LOGBOOK に計測時間を格納する(折り畳み可能なセクション)
 (setq org-clock-into-drawer t)
