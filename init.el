@@ -1008,11 +1008,17 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 
 ;; 予定の一覧を閲覧
-(setq org-agenda-files '("~/org/agenda/todo.org" "~/org/agenda/memo.org"))
+(defvar org-agenda-directory (expand-file-name "~/org/agenda/"))
+(setq org-agenda-files
+      (mapcar (lambda (file-path)
+                (concat org-agenda-directory file-path))
+              (directory-files
+               org-agenda-directory nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)")))
 
 ;; capture templates
+(defvar org-capture-file (expand-file-name "~/org/capture/todo.org"))
 (setq org-capture-templates
-      '(("p" "Project Task" entry (file+headline (expand-file-name "~/org/capture/todo.org") "Inbox")
+      '(("p" "Project Task" entry (file+headline org-capture-file "Inbox")
          "** TODO %?\n    %i\n    %a\n    %T")
         ("m" "memo" entry (file (expand-file-name "~/org/capture/memo.org"))
          "* %?\n    %i\n    %a\n    %T")))
