@@ -998,8 +998,13 @@
 ;; コピー後、orgファイルを開き C-c C-l でリンクをペーストできる
 (global-set-key (kbd "C-c l") 'org-store-link)
 
-
 (global-set-key (kbd "C-c a") 'org-agenda)
+
+;; org-modeでGFM形式のMarkdownをexportできるようにする
+;; C-c C-e のメニューに「g」が追加される。
+(package-install 'ox-gfm)
+(eval-after-load "org"
+  '(require 'ox-gfm nil t))
 
 ;; 予定の一覧を閲覧
 (defvar org-agenda-directory (expand-file-name "~/org/agenda/"))
