@@ -8,6 +8,11 @@
 ;; 外部パッケージによって変更されたカスタム変数は別ファイルに記述する
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
+;; emacsclient を使用するための設定
+(when (require 'server nil t)
+  (unless (server-running-p)
+    (server-start)))
+
 ;; zshのパスを設定
 ;; 必要なパスは ~/.zshenv に記載する
 ;; 参考サイト: http://d.hatena.ne.jp/zonu_exe/20120509/1336583187
