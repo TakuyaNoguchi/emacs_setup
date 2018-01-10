@@ -987,6 +987,16 @@
 
 
 ;;; org-mode
+;; タスクの状態
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)")))
+
+;; 見出し間の移動、タスクの状態の変更を楽に行えるキーバインドを有効化
+;; 参考サイト: https://qiita.com/takaxp/items/a5a3383d7358c58240d0
+(setq org-use-speed-commands t)
+;; 見出しで d を押下したときにタスクのステータスを 'DONE' に変更
+(add-to-list 'org-speed-commands-user '("d" org-todo "DONE"))
+
 ;; 見出しのアスタリスクの表示に関する設定
 (setq org-indent-mode-turns-on-hiding-stars nil)
 
@@ -1014,10 +1024,8 @@
 ;; 予定の一覧を閲覧
 (defvar org-agenda-directory (expand-file-name "~/org/agenda/"))
 (setq org-agenda-files
-      (mapcar (lambda (file-path)
-                (concat org-agenda-directory file-path))
-              (directory-files
-               org-agenda-directory nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)")))
+      (directory-files-recursively
+       org-agenda-directory "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))
 
 ;; capture templates
 (defvar org-capture-task-file (expand-file-name "~/org/agenda/capture_task.org"))
