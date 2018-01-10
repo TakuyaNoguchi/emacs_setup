@@ -987,10 +987,6 @@
 
 
 ;;; org-mode
-;; タスクの状態
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "WAIT(w)" "|" "DONE(d)")))
-
 ;; 見出し間の移動、タスクの状態の変更を楽に行えるキーバインドを有効化
 ;; 参考サイト: https://qiita.com/takaxp/items/a5a3383d7358c58240d0
 (setq org-use-speed-commands t)
