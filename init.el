@@ -987,6 +987,10 @@
 
 
 ;;; org-mode
+;; タスクの状態
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d)")))
+
 ;; 見出し間の移動、タスクの状態の変更を楽に行えるキーバインドを有効化
 ;; 参考サイト: https://qiita.com/takaxp/items/a5a3383d7358c58240d0
 (setq org-use-speed-commands t)
@@ -1016,6 +1020,9 @@
 (package-install 'ox-gfm)
 (eval-after-load "org"
   '(require 'ox-gfm nil t))
+
+;; 時間計測を開始後、自動でSTARTED状態に変更
+(setq org-clock-in-switch-to-state "STARTED")
 
 ;; 予定の一覧を閲覧
 (defvar org-agenda-directory (expand-file-name "~/org/agenda/"))
