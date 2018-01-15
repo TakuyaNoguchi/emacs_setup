@@ -1033,11 +1033,16 @@
 ;; capture templates
 (defvar org-capture-task-file (expand-file-name "~/org/agenda/capture_task.org"))
 (defvar org-capture-memo-file (expand-file-name "~/org/agenda/capture_memo.org"))
+(defvar org-interrupt-task (expand-file-name "~/org/agenda/interrupt_task.org"))
 (setq org-capture-templates
       '(("p" "Project Task" entry (file org-capture-task-file)
          "** TODO %?   %T\n%a")
-        ("m" "memo" entry (file org-capture-memo-file)
-         "* %?   %T\n%a")))
+        ("m" "Memo" entry (file org-capture-memo-file)
+         "* %?   %T\n%a")
+        ("i" "Interrupt Task" entry
+         (file org-interrupt-task)
+         "* %?\n" :clock-in t :clock-resume t)
+        ))
 
 (global-set-key (kbd "C-c c") 'org-capture)
 
