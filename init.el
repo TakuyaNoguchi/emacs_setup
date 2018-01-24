@@ -989,13 +989,17 @@
 ;;; org-mode
 ;; タスクの状態
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "STARTED(s)" "|" "DONE(d)")))
+      '((sequence "TODO(t)" "STARTED(s)" "LATER(l)" "|" "DONE(d)")))
 
 ;; 見出し間の移動、タスクの状態の変更を楽に行えるキーバインドを有効化
 ;; 参考サイト: https://qiita.com/takaxp/items/a5a3383d7358c58240d0
 (setq org-use-speed-commands t)
 ;; 見出しで t を押下したときにタスクのステータスを 'TODO' に変更
 (add-to-list 'org-speed-commands-user '("t" org-todo "TODO"))
+;; 見出しで s を押下したときにタスクのステータスを 'STARTED' に変更
+(add-to-list 'org-speed-commands-user '("s" org-todo "STARTED"))
+;; 見出しで l を押下したときにタスクのステータスを 'LATER' に変更
+(add-to-list 'org-speed-commands-user '("l" org-todo "LATER"))
 ;; 見出しで d を押下したときにタスクのステータスを 'DONE' に変更
 (add-to-list 'org-speed-commands-user '("d" org-todo "DONE"))
 
