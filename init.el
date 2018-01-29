@@ -1058,6 +1058,103 @@
       org-mode-map "C-c" '(("C-n" . (outline-next-visible-heading 1))
                            ("C-p" . (outline-previous-visible-heading 1)))))
 
+;; 時間計測の設定
+;; 参考サイト: https://qiita.com/takaxp/items/6b2d1e05e7ce4517274d
+(package-install 'org-tree-slide)
+
+;; 1分未満を記録しない
+(setq org-clock-out-remove-zero-time-clocks t)
+
+;; Emacs終了時にorg-clock-inしているタスクの時間計測を終了
+(defun my:org-clock-out-and-save-when-exit ()
+  "Save buffers and stop clocking when kill emacs."
+  (when (org-clocking-p)
+    (org-clock-out)
+    (save-some-buffers t)))
+(add-hook 'kill-emacs-hook #'my:org-clock-out-and-save-when-exit)
+
+;; 記録中のタスク名をフレームタイトルに表示するように変更
+(setq org-clock-clocked-in-display 'frame-title)
+
+(when (require 'org-tree-slide nil t)
+  (with-eval-after-load "org-tree-slide"
+    ;; ナローイング用基本設定の適用
+    (org-tree-slide-narrowing-control-profile)
+    ;; 高速動作用(推奨)
+    (setq org-tree-slide-modeline-display 'outside)
+    ;; DONEなタスクも表示する
+    (setq org-tree-slide-skip-done nil)
+
+    ;; タスクの時間計測を開始
+    (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
+
+    ;; タスクの切り替え
+    (define-key org-tree-slide-mode-map (kbd "<f9>")
+      'org-tree-slide-move-previous-tree)
+    (define-key org-tree-slide-mode-map (kbd "<f10>")
+      'org-tree-slide-move-next-tree)
+
+    (when (require 'org-clock nil t)
+      ;; org-clock-in を拡張
+      ;; 発動条件1）タスクが DONE になっていないこと（変更可）
+      ;; 発動条件2）アウトラインレベルが4まで．それ以上に深いレベルでは計測しない（変更可）
+      (defun my:org-clock-in ()
+        (setq vc-display-status nil) ;; モードライン節約
+        (when (and (looking-at (concat "^\\*+ " org-not-done-regexp))
+                   (memq (org-outline-level) '(1 2 3 4)))
+          (org-clock-in)))
+
+      ;; org-clock-out を拡張
+      (defun my:org-clock-out ()
+        (setq vc-display-status t) ;; モードライン節約解除
+        (when (org-clocking-p)
+          (org-clock-out)))
+
+      ;; org-clock-in をナローイング時に呼び出す．
+      (add-hook 'org-tree-slide-after-narrow-hook #'my:org-clock-in)
+
+      ;; org-clock-out を適切なタイミングで呼び出す．
+      (add-hook 'org-tree-slide-before-move-next-hook #'my:org-clock-out)
+      (add-hook 'org-tree-slide-before-move-previous-hook #'my:org-clock-out)
+      (add-hook 'org-tree-slide-mode-stop-hook #'my:org-clock-out)
+
+      ;; 一時的にナローイングを解く時にも計測を止めたい人向け
+      (add-hook 'org-tree-slide-before-content-view-hook #'my:org-clock-out))
+
+    (package-install 'org-clock-today)
+
+    (when (require 'org-clock-today nil t)
+      (with-eval-after-load "org-clock-today"
+        (defun advice:org-clock-today-update-mode-line ()
+          "Calculate the total clocked time of today and update the mode line."
+          (setq org-clock-today-string
+                (if (org-clock-is-active)
+                    (save-excursion
+                      (save-restriction
+                        (with-current-buffer (org-clock-is-active)
+                          (widen)
+                          (let* ((current-sum (org-clock-sum-today))
+                                 (open-time-difference (time-subtract
+                                                        (float-time)
+                                                        (float-time org-clock-start-time)))
+                                 (open-seconds (time-to-seconds open-time-difference))
+                                 (open-minutes (/ open-seconds 60))
+                                 (total-minutes (+ current-sum
+                                                   open-minutes)))
+                            (concat " " (org-minutes-to-clocksum-string total-minutes))))))
+                  ""))
+          (force-mode-line-update))
+        (advice-add 'org-clock-today-update-mode-line :override
+                    #'advice:org-clock-today-update-mode-line)
+
+        (defun advice:org-clock-sum-today (&optional headline-filter)
+          "Sum the times for each subtree for today."
+          (let ((range (org-clock-special-range 'today nil t)))
+            (org-clock-sum (car range) (cadr range)
+                           headline-filter :org-clock-minutes-today)))
+        (advice-add 'org-clock-sum-today :override #'advice:org-clock-sum-today)))))
+
+
 
 ;;; 色文字列に色をつける
 (package-install 'rainbow-mode)
