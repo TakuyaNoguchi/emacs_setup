@@ -1349,25 +1349,6 @@
 
 
 
-;;; 任意の行をマーキング
-(package-install 'bm)
-(when (require 'bm nil t)
-  (setq-default bm-buffer-persistence nil)
-  (setq bm-restore-repository-on-load t)
-  (add-hook 'find-file-hook 'bm-buffer-restore)
-  (add-hook 'kill-buffer-hook 'bm-buffer-save)
-  (add-hook 'after-save-hook 'bm-buffer-save)
-  (add-hook 'after-revert-hook 'bm-buffer-restore)
-  (add-hook 'vc-before-checkin-hook 'bm-buffer-save)
-  (add-hook 'kill-emacs-hook '(lambda nil
-                                (bm-buffer-save-all)
-                                (bm-repository-save)))
-  (global-set-key (kbd "C-M-SPC") 'bm-toggle)
-  (global-set-key (kbd "M-[") 'bm-previous)
-  (global-set-key (kbd "M-]") 'bm-next))
-
-
-
 ;;; keychain(SSHの秘密鍵のパスワード入力を省略する)の設定
 (package-install 'keychain-environment)
 (when (require 'keychain-environment nil t)
