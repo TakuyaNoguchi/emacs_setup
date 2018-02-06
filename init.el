@@ -727,8 +727,10 @@
 (package-install 'magit)
 (when (require 'magit nil t)
   (global-unset-key (kbd "C-x m"))
-  (global-set-key (kbd "C-x m s") 'magit-status)
-  (global-set-key (kbd "C-x m b") 'magit-blame))
+  (global-set-key (kbd "C-x m b") 'magit-blame)
+  (global-set-key (kbd "C-x m d") 'magit-diff)
+  (global-set-key (kbd "C-x m l") 'magit-log)
+  (global-set-key (kbd "C-x m s") 'magit-status))
 
 
 
