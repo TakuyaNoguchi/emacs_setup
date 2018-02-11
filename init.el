@@ -930,6 +930,7 @@
 (when (require 'robe nil t)
   (add-hook 'ruby-mode-hook 'robe-mode)
   (add-hook 'robe-mode-hook 'ac-robe-setup)
+  (define-key ruby-mode-map (kbd "C-c C-.") 'robe-start)
 
   (when (require 'helm-robe nil t)
     (custom-set-variables
