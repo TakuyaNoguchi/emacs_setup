@@ -1736,3 +1736,10 @@
   (define-key symbol-overlay-map (kbd "p") 'symbol-overlay-jump-prev)
   (define-key symbol-overlay-map (kbd "n") 'symbol-overlay-jump-next)
   (define-key symbol-overlay-map (kbd "C-g") 'symbol-overlay-remove-all))
+
+
+
+;;; 画面分割したバッファの位置を入れ替える
+(package-install 'swap-buffers)
+(when (require 'swap-buffers nil t)
+  (global-set-key (kbd "C-x 4") 'swap-buffers))
