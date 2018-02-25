@@ -1674,3 +1674,14 @@
               (setq ssh-directory-tracking-mode t)
               (shell-dirtrack-mode t)
               (setq dirtrackp nil))))
+
+
+
+;;; 定義元へJumpするためのパッケージ
+(package-install 'dumb-jump)
+(when (require 'dumb-jump nil t)
+  (setq dumb-jump-mode t)
+  (setq dumb-jump-selector 'helm)
+  (setq dumb-jump-use-visible-window nil)
+  (global-set-key (kbd "C-c C-d") 'dumb-jump-go)
+  (global-set-key (kbd "C-c C-M-d") 'dumb-jump-back))
