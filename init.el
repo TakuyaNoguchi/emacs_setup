@@ -1415,6 +1415,19 @@
 
 
 
+;;; Google検索
+(package-install 'google-this)
+(setq google-this-keybind (kbd "C-c C-t"))
+(when (require 'google-this nil t)
+  (google-this-mode 1)
+  (setq google-this-location-suffix "co.jp")
+  (defun google-this-url () "URL for google searches."
+         ;; 100件/日本語ページ/5年以内
+         (concat google-this-base-url google-this-location-suffix
+                 "/search?q=%s&hl=ja&num=100&as_qdr=y5&lr=lang_ja")))
+
+
+
 ;;; Google翻訳の設定
 ;; 参考サイト: http://blog.shibayu36.org/entry/2016/05/29/123342
 (package-install 'google-translate)
@@ -1444,7 +1457,7 @@
 
   (push '("*Google Translate*" :height 25 :stick t) popwin:special-display-config)
 
-  (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen))
+  (global-set-key (kbd "C-c C-t j") 'google-translate-enja-or-jaen))
 
 
 
