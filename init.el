@@ -512,9 +512,6 @@
     ;; Face name is `helm-swoop-line-number-face`
     (setq helm-swoop-use-line-number-face t)
 
-    ;; If you prefer fuzzy matching
-    (setq helm-swoop-use-fuzzy-match t)
-
     ;; If you would like to use migemo, enable helm's migemo feature
     (when (require 'migemo nil t)
       (helm-migemo-mode 1)))
