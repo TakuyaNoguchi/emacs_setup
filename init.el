@@ -1711,3 +1711,15 @@
   ;; neotree ウィンドウを表示する毎、 カレントディレクトリを表示
   (setq neo-smart-open t)
   (global-set-key (kbd "C-c C-,") 'neotree-toggle))
+
+
+
+;;; シンボルをハイライト
+(package-install 'symbol-overlay)
+(when (require 'symbol-overlay nil t)
+  (add-hook 'prog-mode-hook #'symbol-overlay-mode)
+  (add-hook 'markdown-mode-hook #'symbol-overlay-mode)
+  (global-set-key (kbd "M-i") 'symbol-overlay-put)
+  (define-key symbol-overlay-map (kbd "p") 'symbol-overlay-jump-prev)
+  (define-key symbol-overlay-map (kbd "n") 'symbol-overlay-jump-next)
+  (define-key symbol-overlay-map (kbd "C-g") 'symbol-overlay-remove-all))
