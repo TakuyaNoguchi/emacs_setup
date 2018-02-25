@@ -1335,6 +1335,25 @@
 
 
 
+;;; テンプレートシステム
+(package-install 'yasnippet)
+(package-install 'helm-c-yasnippet)
+(when (and (require 'yasnippet nil t)
+           (require 'helm-c-yasnippet nil t))
+  (setq helm-yas-space-match-any-greedy t)
+  (global-set-key (kbd "C-M-y") 'helm-yas-complete)
+  (push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
+
+  (yas-global-mode 1)
+
+  (eval-after-load 'yasnippet
+  '(progn
+     (define-key yas-keymap (kbd "TAB") nil)
+     (define-key yas-keymap (kbd "C-c C-n") 'yas-next-field-or-maybe-expand)
+     (define-key yas-keymap (kbd "C-c C-p") 'yas-prev-field))))
+
+
+
 ;;; モードラインの表示を簡潔にする
 (package-install 'diminish)
 (require 'diminish nil t)
