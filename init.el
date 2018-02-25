@@ -1697,8 +1697,8 @@
   (setq dumb-jump-mode t)
   (setq dumb-jump-selector 'helm)
   (setq dumb-jump-use-visible-window nil)
-  (global-set-key (kbd "C-c C-d") 'dumb-jump-go)
-  (global-set-key (kbd "C-c C-M-d") 'dumb-jump-back))
+  (global-set-key (kbd "C-c C-]") 'dumb-jump-go)
+  (global-set-key (kbd "C-c C-M-]") 'dumb-jump-back))
 
 
 
@@ -1710,7 +1710,7 @@
   (setq neo-persist-show nil)
   ;; neotree ウィンドウを表示する毎、 カレントディレクトリを表示
   (setq neo-smart-open t)
-  (global-set-key (kbd "C-c C-,") 'neotree-toggle))
+  (global-set-key (kbd "C-M-o") 'neotree-toggle))
 
 
 
