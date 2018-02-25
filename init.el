@@ -1685,3 +1685,15 @@
   (setq dumb-jump-use-visible-window nil)
   (global-set-key (kbd "C-c C-d") 'dumb-jump-go)
   (global-set-key (kbd "C-c C-M-d") 'dumb-jump-back))
+
+
+
+;;; ディレクトリ構成を確認するパッケージ
+(package-install 'neotree)
+(when (require 'neotree nil t)
+  (setq neo-theme 'classic)
+  ;; delete-other-window で neotree ウィンドウを削除しない
+  (setq neo-persist-show nil)
+  ;; neotree ウィンドウを表示する毎、 カレントディレクトリを表示
+  (setq neo-smart-open t)
+  (global-set-key (kbd "C-c C-,") 'neotree-toggle))
