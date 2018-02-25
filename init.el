@@ -552,15 +552,35 @@
 
 
 
-;;; auto-complete
-(package-install 'auto-complete)
-(when (require 'auto-complete nil t)
-  (ac-config-default)
-  (ac-set-trigger-key "TAB")
-  ;; 補完メニュー表示時にC-n/C-pで補完候補選択
-  (setq ac-use-menu-map t)
-   ;; 曖昧マッチ
-  (setq ac-use-fuzzy t))
+(package-install 'company)
+(when (require 'company nil t)
+  ;; 全バッファで有効
+  (global-company-mode)
+  ;; ソート順
+  (setq company-transformers '(company-sort-by-backend-importance))
+  ;; デフォルトは0.5
+  (setq company-idle-delay 0)
+  ;; デフォルトは4
+  (setq company-minimum-prefix-length 3)
+  ;; 候補の選択の際、上下を繋げる
+  (setq company-selection-wrap-around t)
+  (setq completion-ignore-case t)
+  (setq company-dabbrev-downcase nil)
+
+  ;; C-n, C-pで補完候補を次/前の候補を選択
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-search-map (kbd "C-n") 'company-select-next)
+  (define-key company-search-map (kbd "C-p") 'company-select-previous)
+
+  ;; C-sで絞り込む
+  (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+  ;; TABで候補を設定
+  (define-key company-active-map (kbd "C-i") 'company-complete-selection)
+  ;; TABで候補を設定
+  (define-key company-active-map [tab] 'company-complete-selection)
+  ;; C-fで候補を設定
+  (define-key company-active-map (kbd "C-f") 'company-complete-selection))
 
 
 
@@ -943,7 +963,8 @@
 (package-install 'helm-robe)
 (when (require 'robe nil t)
   (add-hook 'ruby-mode-hook 'robe-mode)
-  (add-hook 'robe-mode-hook 'ac-robe-setup)
+  (eval-after-load 'company
+    '(push 'company-robe company-backends))
   (define-key ruby-mode-map (kbd "C-c C-.") 'robe-start)
 
   (when (require 'helm-robe nil t)
