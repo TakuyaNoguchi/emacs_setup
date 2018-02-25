@@ -578,6 +578,20 @@
 
 
 
+;;; 検索を便利にする
+(package-install 'swiper)
+(when (require 'swiper nil t)
+  (global-set-key (kbd "C-s") 'swiper)
+  (defvar swiper-include-line-number-in-search t) ;; line-numberでも検索可能
+
+  ;; migemo + swiper
+  (package-install 'avy-migemo)
+  (require 'avy-migemo)
+  (avy-migemo-mode 1)
+  (require 'avy-migemo-e.g.swiper))
+
+
+
 ;;; multiple cursors
 (package-install 'multiple-cursors)
 (package-install 'smartrep)
