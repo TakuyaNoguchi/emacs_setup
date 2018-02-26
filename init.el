@@ -1694,18 +1694,6 @@
 
 
 
-;;; ディレクトリ構成を確認するパッケージ
-(package-install 'neotree)
-(when (require 'neotree nil t)
-  (setq neo-theme 'classic)
-  ;; delete-other-window で neotree ウィンドウを削除しない
-  (setq neo-persist-show nil)
-  ;; neotree ウィンドウを表示する毎、 カレントディレクトリを表示
-  (setq neo-smart-open t)
-  (global-set-key (kbd "C-M-o") 'neotree-toggle))
-
-
-
 ;;; シンボルをハイライト
 (package-install 'symbol-overlay)
 (when (require 'symbol-overlay nil t)
