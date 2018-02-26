@@ -8,6 +8,10 @@
 ;; 外部パッケージによって変更されたカスタム変数は別ファイルに記述する
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
+;; ダイアログを表示しないように
+(defalias 'message-box 'message)
+(setq use-dialog-box nil)
+
 ;; emacsclient を使用するための設定
 (when (require 'server nil t)
   (unless (server-running-p)
