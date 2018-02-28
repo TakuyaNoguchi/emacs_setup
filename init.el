@@ -233,8 +233,46 @@
 
 
 ;;; EWW
-(setq eww-search-prefix "https://www.google.co.jp/search?hl=ja&num=100&as_qdr=y5&lr=lang_ja&q=")
-(global-set-key (kbd "C-c C-t") 'eww-search-words)
+(when (require 'eww nil t)
+  (setq eww-search-prefix "https://www.google.co.jp/search?hl=ja&num=100&as_qdr=y5&lr=lang_ja&q=")
+  (global-set-key (kbd "C-c C-t") 'eww-search-words)
+
+  ;; リンクをキーボードでクリック出来るように
+  (package-install 'eww-lnum)
+  (when (require 'eww-lnum nil t)
+    (with-eval-after-load "eww"
+      (define-key eww-mode-map "f" 'eww-lnum-follow)
+      (define-key eww-mode-map "F" 'eww-lnum-universal))
+    (defun eww-lnum-read-interactive--not-truncate-lines (&rest them)
+      (let ((truncate-lines nil))
+        (apply them)))
+    (advice-add 'eww-lnum-read-interactive :around
+                'eww-lnum-read-interactive--not-truncate-lines))
+
+  ;; 背景・文字色を無効化
+  (defvar eww-disable-colorize t)
+  (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
+    (unless eww-disable-colorize
+      (funcall orig start end fg)))
+  (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
+  (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+
+  ;; 参考サイト: http://emacs.rubikitch.com/eww-image/
+  (defun eww-disable-images ()
+    "ewwで画像表示させない"
+    (interactive)
+    (setq-local shr-put-image-function 'shr-put-image-alt)
+    (eww-reload))
+  (defun eww-enable-images ()
+    "ewwで画像表示させる"
+    (interactive)
+    (setq-local shr-put-image-function 'shr-put-image)
+    (eww-reload))
+  (defun shr-put-image-alt (spec alt &optional flags)
+    (insert alt))
+  (defun eww-mode-hook--disable-image ()
+    (setq-local shr-put-image-function 'shr-put-image-alt))
+  (add-hook 'eww-mode-hook 'eww-mode-hook--disable-image))
 
 
 
