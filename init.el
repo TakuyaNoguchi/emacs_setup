@@ -1164,6 +1164,24 @@
                            headline-filter :org-clock-minutes-today)))
         (advice-add 'org-clock-sum-today :override #'advice:org-clock-sum-today)))))
 
+;; 祝日をorg-modeのカレンダーに表示
+;; 参考サイト: http://emacs.rubikitch.com/japanese-holidays/
+(package-install 'japanese-holidays)
+(with-eval-after-load "calendar"
+  (when (require 'japanese-holidays nil t)
+    (setq calendar-holidays
+          (append japanese-holidays holiday-local-holidays holiday-other-holidays))
+    ;; 祝日をカレンダーに表示
+    (setq calendar-mark-holidays-flag t)
+    (setq japanese-holiday-weekend '(0 6)    ; 土日を祝日として表示
+          japanese-holiday-weekend-marker    ; 土曜日を水色で表示
+          '(holiday nil nil nil nil nil japanese-holiday-saturday))
+    (add-hook 'calendar-today-visible-hook 'japanese-holiday-mark-weekend)
+    (add-hook 'calendar-today-invisible-hook 'japanese-holiday-mark-weekend)
+    (add-hook 'calendar-today-visible-hook 'calendar-mark-today)
+    ;; org-agendaで祝日を表示する
+    (setq org-agenda-include-diary t)))
+
 
 
 ;;; 色文字列に色をつける
