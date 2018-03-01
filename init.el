@@ -1710,8 +1710,6 @@
   (add-hook 'prog-mode-hook #'symbol-overlay-mode)
   (add-hook 'markdown-mode-hook #'symbol-overlay-mode)
   (global-set-key (kbd "M-i") 'symbol-overlay-put)
-  (define-key symbol-overlay-map (kbd "p") 'symbol-overlay-jump-prev)
-  (define-key symbol-overlay-map (kbd "n") 'symbol-overlay-jump-next)
   (define-key symbol-overlay-map (kbd "C-g") 'symbol-overlay-remove-all))
 
 
