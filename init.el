@@ -235,7 +235,7 @@
 ;;; EWW
 (when (require 'eww nil t)
   (setq eww-search-prefix "https://www.google.co.jp/search?hl=ja&num=100&as_qdr=y5&lr=lang_ja&q=")
-  (global-set-key (kbd "C-c C-t") 'eww-search-words)
+  (global-set-key (kbd "C-c C-s") 'eww-search-words)
 
   ;; リンクをキーボードでクリック出来るように
   (package-install 'eww-lnum)
@@ -1404,17 +1404,6 @@
 
 
 
-;;; シンボルの色付け
-(package-install 'highlight-symbol)
-(when (require 'highlight-symbol nil t)
-  (setq highlight-symbol-colors
-        '("LightSeaGreen" "HotPink"
-          "SlateBlue1" "DarkOrange"
-          "SpringGreen1" "tan" "DodgerBlue1"))
-  (global-set-key (kbd "C-c C-l") 'highlight-symbol-at-point))
-
-
-
 ;;; keychain(SSHの秘密鍵のパスワード入力を省略する)の設定
 (package-install 'keychain-environment)
 (when (require 'keychain-environment nil t)
@@ -1458,7 +1447,7 @@
 
   (push '("*Google Translate*" :height 25 :stick t) popwin:special-display-config)
 
-  (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen))
+  (global-set-key (kbd "C-c C-t") 'google-translate-enja-or-jaen))
 
 
 
