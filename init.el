@@ -237,25 +237,45 @@
   (setq eww-search-prefix "https://www.google.co.jp/search?hl=ja&num=100&as_qdr=y5&lr=lang_ja&q=")
   (global-set-key (kbd "C-c C-s") 'eww-search-words)
 
-  ;; リンクをキーボードでクリック出来るように
-  (package-install 'eww-lnum)
-  (when (require 'eww-lnum nil t)
-    (with-eval-after-load "eww"
-      (define-key eww-mode-map "f" 'eww-lnum-follow)
-      (define-key eww-mode-map "F" 'eww-lnum-universal))
-    (defun eww-lnum-read-interactive--not-truncate-lines (&rest them)
-      (let ((truncate-lines nil))
-        (apply them)))
-    (advice-add 'eww-lnum-read-interactive :around
-                'eww-lnum-read-interactive--not-truncate-lines))
+  ;; キーバイント
+  (define-key eww-mode-map "N" 'eww-next-url)
+  (define-key eww-mode-map "P" 'eww-previous-url)
+  (define-key eww-mode-map "l" 'eww-back-url)
+  (define-key eww-mode-map "r" 'eww-forward-url)
+  (define-key eww-mode-map "H" 'eww-list-histories)
+  (define-key eww-mode-map "&" 'eww-browse-with-external-browser)
+  (define-key eww-mode-map "b" 'eww-add-bookmark)
+  (define-key eww-mode-map "B" 'eww-list-bookmarks)
+  (define-key eww-mode-map "q" 'quit-window)
+  (define-key eww-mode-map "r" 'eww-reload)
+  (define-key eww-mode-map "c 0" 'eww-copy-page-url)
+  (define-key eww-mode-map "p" 'scroll-down)
+  (define-key eww-mode-map "n" 'scroll-up)
 
-  ;; 背景・文字色を無効化
+  ;; リンクをキーボードでクリック出来るように
+  (package-install 'ace-link)
+  (when (require 'ace-link nil t)
+    (with-eval-after-load "eww"
+      (define-key eww-mode-map "f" 'ace-link-eww)
+      (ace-link-setup-default)))
+
+  ;; 色の設定
   (defvar eww-disable-colorize t)
   (defun shr-colorize-region--disable (orig start end fg &optional bg &rest _)
     (unless eww-disable-colorize
       (funcall orig start end fg)))
   (advice-add 'shr-colorize-region :around 'shr-colorize-region--disable)
   (advice-add 'eww-colorize-region :around 'shr-colorize-region--disable)
+  (defun eww-disable-color ()
+    "eww で文字色を反映させない"
+    (interactive)
+    (setq-local eww-disable-colorize t)
+    (eww-reload))
+  (defun eww-enable-color ()
+    "eww で文字色を反映させる"
+    (interactive)
+    (setq-local eww-disable-colorize nil)
+    (eww-reload))
 
   ;; 参考サイト: http://emacs.rubikitch.com/eww-image/
   (defun eww-disable-images ()
@@ -272,7 +292,14 @@
     (insert alt))
   (defun eww-mode-hook--disable-image ()
     (setq-local shr-put-image-function 'shr-put-image-alt))
-  (add-hook 'eww-mode-hook 'eww-mode-hook--disable-image))
+  (add-hook 'eww-mode-hook 'eww-mode-hook--disable-image)
+
+  ;; 現在の URL をクリップボードにコピー
+  ;; 参考サイト: http://futurismo.biz/archives/2989
+  (defun eww-copy-page-org-link ()
+    (interactive)
+    (my/copy-org-link (eww-current-url) (eww-current-title)))
+  (define-key eww-mode-map (kbd "0") 'eww-copy-page-org-link))
 
 
 
