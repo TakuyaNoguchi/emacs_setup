@@ -1718,3 +1718,11 @@
 (package-install 'swap-buffers)
 (when (require 'swap-buffers nil t)
   (global-set-key (kbd "C-x 4") 'swap-buffers))
+
+
+
+;;; 開発中のログラムを実行
+(package-install 'quickrun)
+(when (require 'quickrun nll t)
+  (global-set-key (kbd "C-c C-c") 'quickrun)
+  (global-set-key (kbd "C-c C-M-c") 'quickrun-with-arg))
