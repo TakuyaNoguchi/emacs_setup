@@ -1607,7 +1607,7 @@
         ("|="  . " |= ")
         ("|;=" . " ||= ")
         ("/="  . " /= ")
-        ("{"   . (" { `!!'}" "{"))))
+        ("{"   . (" { `!!'}" "{}"))))
 
   (key-combo-define-hook my-ruby-mode-hooks
                          'my-key-combo-ruby-hook
