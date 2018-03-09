@@ -32,6 +32,9 @@
 ;; Warningは緊急性の高いもののみ表示する
 (setq warning-minimum-level :emergency)
 
+;; カーソルの前の式をkillする
+(global-set-key (kbd "C-M-k") 'backward-kill-sexp)
+
 ;; URLをブラウザで開く
 (global-set-key (kbd "C-c C-o") 'browse-url-xdg-open)
 (global-set-key (kbd "C-c o") 'browse-url-xdg-open)
