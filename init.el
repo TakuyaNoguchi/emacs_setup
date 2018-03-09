@@ -1474,7 +1474,7 @@
 
   (push '("*Google Translate*" :height 25 :stick t) popwin:special-display-config)
 
-  (global-set-key (kbd "C-c C-t") 'google-translate-enja-or-jaen))
+  (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen))
 
 
 
