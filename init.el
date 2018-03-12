@@ -912,15 +912,6 @@
 
 
 
-;;; goto-chg
-;; 編集履歴によるカーソル位置の記憶
-(package-install 'goto-chg)
-(when (require 'goto-chg nil t)
-  (global-set-key [f8] 'goto-last-change)
-  (global-set-key [M-f8] 'goto-last-change-reverse))
-
-
-
 ;;; sequential-command
 ;; C-a C-a でバッファの先頭、C-e C-e でバッファの末尾に移動
 (package-install 'sequential-command)
@@ -1139,6 +1130,13 @@
 
 ;; outlineの移動を楽にする
 (when (require 'smartrep nil t)
+  ;; 編集履歴によるカーソル位置の記憶
+  (package-install 'goto-chg)
+  (when (require 'goto-chg nil t)
+    (smartrep-define-key
+        global-map "C-c" '(("C-/" . goto-last-change)
+                           ("C-M-/" . goto-last-change-reverse))))
+
   (smartrep-define-key
       org-mode-map "C-c" '(("C-n" . (outline-next-visible-heading 1))
                            ("C-p" . (outline-previous-visible-heading 1)))))
@@ -1727,17 +1725,6 @@
               (setq ssh-directory-tracking-mode t)
               (shell-dirtrack-mode t)
               (setq dirtrackp nil))))
-
-
-
-;;; 定義元へJumpするためのパッケージ
-(package-install 'dumb-jump)
-(when (require 'dumb-jump nil t)
-  (setq dumb-jump-mode t)
-  (setq dumb-jump-selector 'helm)
-  (setq dumb-jump-use-visible-window nil)
-  (global-set-key (kbd "C-c C-]") 'dumb-jump-go)
-  (global-set-key (kbd "C-c C-M-]") 'dumb-jump-back))
 
 
 
