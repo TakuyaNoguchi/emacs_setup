@@ -383,6 +383,13 @@
 
 
 
+;;; キルリングの操作を楽にする(M-w で行単位、M-w w で単語単位など)
+(package-install 'easy-kill)
+(when (require 'easy-kill nil t)
+  (global-set-key (kbd "M-w") 'easy-kill))
+
+
+
 ;;; 基本キーバインド
 ;; バックスペース
 (global-set-key (kbd "C-h") 'delete-backward-char)
