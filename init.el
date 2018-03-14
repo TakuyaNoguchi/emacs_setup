@@ -1135,6 +1135,7 @@
   (when (require 'goto-chg nil t)
     (smartrep-define-key
         global-map "C-c" '(("C-/" . goto-last-change)
+                           ("M-/" . goto-last-change-reverse)
                            ("C-M-/" . goto-last-change-reverse))))
 
   (smartrep-define-key
@@ -1750,3 +1751,15 @@
 (when (require 'quickrun nil t)
   (global-set-key (kbd "C-c C-c") 'quickrun)
   (global-set-key (kbd "C-c C-M-c") 'quickrun-with-arg))
+
+
+
+;;; 定義元へJumpするためのパッケージ
+(package-install 'dumb-jump)
+(when (require 'dumb-jump nil t)
+  (setq dumb-jump-mode t)
+  (setq dumb-jump-selector 'helm)
+  (setq dumb-jump-use-visible-window nil)
+  (global-set-key (kbd "C-c C-]") 'dumb-jump-go)
+  (global-set-key (kbd "C-c M-]") 'dumb-jump-back)
+  (global-set-key (kbd "C-c C-M-]") 'dumb-jump-back))
