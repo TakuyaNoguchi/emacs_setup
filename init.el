@@ -1515,96 +1515,10 @@
 
 
 
-;;; Haskellの設定
-(package-install 'haskell-mode)
-(package-install 'ghc)
-(when (and (require 'haskell-mode nil t)
-           (require 'ghc nil t))
-  (defun my-haskell-mode-hook ()
-    (interactive)
-
-    ;; インデントの設定
-    (turn-on-haskell-indentation)
-
-    (turn-on-haskell-doc-mode)
-    (font-lock-mode)
-    (imenu-add-menubar-index)
-
-    ;; ghci のコマンドを設定
-    (setq haskell-program-name "/usr/bin/stack ghci")
-
-    (ghc-init))
-
-  (add-hook 'haskell-mode-hook 'my-haskell-mode-hook)
-  (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
-
-  (define-key haskell-indentation-mode-map (kbd "C-j") 'haskell-indentation-newline-and-indent)
-  (define-key haskell-indentation-mode-map (kbd "RET") 'newline)
-
-  (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
-  (add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
-  (add-to-list 'auto-mode-alist '("\\.cabal$" . haskell-cabal-mode)))
-
-
-
 ;;; 繰り返し特定のキーを入力したときの挙動を設定
 (package-install 'key-combo)
 (when (require 'key-combo nil t)
   (global-key-combo-mode t)
-
-  (defvar my-haskell-mode-hooks
-    '(haskell-mode-hook haskell-interactive-mode-hook))
-
-  (defvar my-key-combos-for-haskell
-    '(("+"   . (" + " "+"))
-      ("+;"  . " ++ ")
-      ("-"   . ("-" " - " "-"))
-      ("-;"  . "--")
-      ("*"   . (" * " "*"))
-      ("*;"  . "**")
-      ("/"   . (" / " "/"))
-      ("/="  . " /= ")
-      ("->"  . " -> ")
-      ("=>"  . " => ")
-      ("<"   . (" < " " << " "<"))
-      ("<;"  . " << ")
-      ("<="  . " <= ")
-      ("<-"  . " <- ")
-      ("<$"  . " <$> ")
-      (">"   . (" > " " >> " ">"))
-      (">;"  . " >> ")
-      (">="  . " >= ")
-      (">>=" . " >>= ")
-      (">;=" . " >>= ")
-      ("="   . (" = " " == " "="))
-      ("=;"  . " == ")
-      (":"   . (" : " ":"))
-      (":;"  . " :: ")
-      ("$"   . (" $ " "$"))
-      ("$!"  . " $! ")
-      (";"   . (" . " ";"))
-      ("."   . ("." " . " "."))
-      (".;"  . "..")
-      (".:"  . "...")
-      (","   . (", " ","))
-      ("';"  . " '`!!''")
-      ("\";" . " \"`!!'\"")
-      ("`;"  . " ``!!'`")
-      ("(;"  . " (`!!')")
-      ("[;"  . " [`!!']")
-      ("{;"  . " {`!!' }")
-      ("{-"  . " {-\n`!!'\n-}")
-      ("&"   . (" & " " && " "&"))
-      ("&;"  . " && ")
-      ("|"   . (" | " " || " "|"))
-      ("|;"  . " || ")
-      ("!!"  . " !! ")
-      ("!;"  . " !! ")
-      ("_;"  . " _")))
-
-  (key-combo-define-hook my-haskell-mode-hooks
-                         'my-key-combo-haskell-hook
-                         my-key-combos-for-haskell)
 
   (defvar my-ruby-mode-hooks
     '(ruby-mode-hook))
