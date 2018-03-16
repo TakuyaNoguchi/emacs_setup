@@ -859,6 +859,7 @@
 (package-install 'undo-tree)
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode t)
+  (global-set-key (kbd "C-M-u") 'undo-tree-visualize)
   (global-set-key (kbd "M-/") 'undo-tree-redo)
   (global-set-key (kbd "C-M-/") 'undo-tree-redo))
 
@@ -1676,6 +1677,40 @@
   (setq dumb-jump-mode t)
   (setq dumb-jump-selector 'helm)
   (setq dumb-jump-use-visible-window nil)
+  (global-set-key (kbd "C-M-n") 'dumb-jump-go)
   (global-set-key (kbd "C-c C-]") 'dumb-jump-go)
+  (global-set-key (kbd "C-M-p") 'dumb-jump-back)
   (global-set-key (kbd "C-c M-]") 'dumb-jump-back)
   (global-set-key (kbd "C-c C-M-]") 'dumb-jump-back))
+
+
+
+;; ファイラー
+;;; 参考サイト: http://kiririmode.hatenablog.jp/entry/20150806/1438786800
+(package-install 'neotree)
+(when (require 'neotree nil t)
+  (global-set-key (kbd "C-q") 'neotree-toggle)
+  ;; 隠しファイルをデフォルトで表示
+  (setq neo-show-hidden-files t)
+
+  ;; neotree 上でファイルの新規作成時、自動的にファイルを開く
+  (setq neo-create-file-auto-open t)
+
+  ;; delete-other-window で neotree ウィンドウを削除しない
+  (setq neo-persist-show t)
+
+  ;; プレフィックスなしのキーバインドに変更
+  (setq neo-keymap-style 'concise)
+
+  ;; neotree ウィンドウの表示の毎に current file のあるディレクトリを表示
+  (setq neo-smart-open t)
+
+  ;; VC のステータスによって表示の face 等を変更
+  (setq neo-vc-integration '(face char))
+
+  ;; popwin との共存
+  (when neo-persist-show
+    (add-hook 'popwin:before-popup-hook
+              (lambda () (setq neo-persist-show nil)))
+    (add-hook 'popwin:after-popup-hook
+              (lambda () (setq neo-persist-show t)))))
