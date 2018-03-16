@@ -1690,6 +1690,7 @@
 (package-install 'neotree)
 (when (require 'neotree nil t)
   (global-set-key (kbd "C-q") 'neotree-toggle)
+  (global-set-key (kbd "C-c C-q") 'neotree-projectile-action)
   ;; 隠しファイルをデフォルトで表示
   (setq neo-show-hidden-files t)
 
