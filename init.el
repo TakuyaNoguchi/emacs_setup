@@ -657,7 +657,7 @@
 
 (package-install 'avy-zap)
 (when (require 'avy-zap nil t)
-  (global-set-key (kbd "C-M-d") 'avy-zap-up-to-char)
+  (global-set-key (kbd "C-M-z") 'avy-zap-up-to-char)
   (global-set-key (kbd "M-z") 'avy-zap-up-to-char))
 
 
@@ -1677,9 +1677,7 @@
   (setq dumb-jump-mode t)
   (setq dumb-jump-selector 'helm)
   (setq dumb-jump-use-visible-window nil)
-  (global-set-key (kbd "C-M-n") 'dumb-jump-go)
   (global-set-key (kbd "C-c C-]") 'dumb-jump-go)
-  (global-set-key (kbd "C-M-p") 'dumb-jump-back)
   (global-set-key (kbd "C-c M-]") 'dumb-jump-back)
   (global-set-key (kbd "C-c C-M-]") 'dumb-jump-back))
 
