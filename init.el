@@ -1691,6 +1691,8 @@
 (when (require 'neotree nil t)
   (global-set-key (kbd "C-q") 'neotree-toggle)
   (global-set-key (kbd "C-c C-q") 'neotree-projectile-action)
+  (define-key neotree-mode-map (kbd "C-c C-q") 'neotree-toggle)
+
   ;; 隠しファイルをデフォルトで表示
   (setq neo-show-hidden-files t)
 
