@@ -657,6 +657,7 @@
 
 (package-install 'avy-zap)
 (when (require 'avy-zap nil t)
+  (global-set-key (kbd "C-M-d") 'avy-zap-up-to-char)
   (global-set-key (kbd "M-z") 'avy-zap-up-to-char))
 
 
