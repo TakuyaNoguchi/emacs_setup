@@ -966,7 +966,7 @@
   (setq projectile-completion-system 'helm)
   (projectile-rails-global-mode)
 
-  (global-set-key (kbd "C-c C-f") 'projectile-find-file)
+  (global-set-key (kbd "C-x C-M-f") 'projectile-find-file)
 
   (push "*projectile-rails-generate*" popwin:special-display-config)
   (push "*projectile-rails-compilation*" popwin:special-display-config))
