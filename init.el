@@ -1689,7 +1689,12 @@
 (when (require 'neotree nil t)
   (global-set-key (kbd "C-q") 'neotree-toggle)
   (global-set-key (kbd "C-c C-q") 'neotree-projectile-action)
+
   (define-key neotree-mode-map (kbd "C-c C-q") 'neotree-toggle)
+  (define-key neotree-mode-map (kbd "j") 'neotree-next-line)
+  (define-key neotree-mode-map (kbd "k") 'neotree-previous-line)
+  (define-key neotree-mode-map (kbd "h") 'neotree-select-up-node)
+  (define-key neotree-mode-map (kbd "l") 'neotree-select-down-node)
 
   ;; 隠しファイルをデフォルトで表示
   (setq neo-show-hidden-files t)
