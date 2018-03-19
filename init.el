@@ -186,6 +186,11 @@
       (save-place-mode 1)
     (setq-default save-place t)))
 
+;; キーバインドの割り当て(minor-modeの競合の管理など)を楽にするパッケージ
+;; 参考サイト: http://emacs.rubikitch.com/bind-key/
+(package-install 'bind-key)
+(require 'bind-key nil t)
+
 ;; cua-modeをオン
 (cua-mode t)
 ;; CUAキーバインドを無効化
@@ -937,8 +942,8 @@
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 
 (with-eval-after-load "ruby-mode"
-  (define-key ruby-mode-map (kbd "C-M-p") 'ruby-beginning-of-block)
-  (define-key ruby-mode-map (kbd "C-M-n") 'ruby-end-of-block))
+  (bind-key* (kbd "C-M-p") 'ruby-beginning-of-block ruby-mode-map)
+  (bind-key* (kbd "C-M-n") 'ruby-end-of-block ruby-mode-map))
 
 (setq ruby-insert-encoding-magic-comment nil)
 
