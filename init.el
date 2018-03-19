@@ -901,8 +901,13 @@
 ;;; git-gutter
 ;; バージョン管理している場合、変更箇所を分かりやすく表示する
 (package-install 'git-gutter)
-(when (require 'git-gutter nil t)
-  (global-git-gutter-mode +1))
+(when (and (require 'smartrep nil t)
+           (require 'git-gutter nil t))
+  (global-git-gutter-mode +1)
+
+  (smartrep-define-key
+      global-map "C-c" '(("C-n" . 'git-gutter:next-hunk)
+                         ("C-p" . 'git-gutter:previous-hunk))))
 
 
 
@@ -930,26 +935,6 @@
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
-
-;; 参考サイト: http://syohex.hatenablog.com/entry/20130107/1357571652
-(defun my/ruby-beginning-of-defun (&optional arg)
-  (interactive "p")
-  (and (re-search-backward (concat "^\\s-+\\(" ruby-block-beg-re "\\)\\_>")
-                           nil 'move)
-       (progn (back-to-indentation) t)))
-
-(defun my/ruby-end-of-defun (&optional arg)
-  (interactive "p")
-  (and (re-search-forward (concat "^\\s-+\\(" ruby-block-end-re "\\)\\($\\|\\b[^_]\\)")
-                          nil 'move (or arg 1))
-       (progn (beginning-of-line) t))
-  (forward-line 1)
-  (back-to-indentation))
-
-(eval-after-load "ruby-mode"
-  '(progn
-     (define-key ruby-mode-map (kbd "C-c C-p") 'my/ruby-beginning-of-defun)
-     (define-key ruby-mode-map (kbd "C-c C-n") 'my/ruby-end-of-defun)))
 
 (setq ruby-insert-encoding-magic-comment nil)
 
@@ -1139,11 +1124,7 @@
     (smartrep-define-key
         global-map "C-c" '(("C-/" . goto-last-change)
                            ("M-/" . goto-last-change-reverse)
-                           ("C-M-/" . goto-last-change-reverse))))
-
-  (smartrep-define-key
-      org-mode-map "C-c" '(("C-n" . (outline-next-visible-heading 1))
-                           ("C-p" . (outline-previous-visible-heading 1)))))
+                           ("C-M-/" . goto-last-change-reverse)))))
 
 ;; 時間計測の設定
 ;; 参考サイト: https://qiita.com/takaxp/items/6b2d1e05e7ce4517274d
@@ -1337,10 +1318,7 @@
   (setq-default js2-global-externs
                 '("module" "require" "buster" "sinon" "assert" "refute"
                   "setTimeout" "clearTimeout" "setInterval" "clearInterval"
-                  "JSON"))
-
-  (define-key js2-mode-map (kbd "C-c C-p") 'beginning-of-defun)
-  (define-key js2-mode-map (kbd "C-c C-n") 'end-of-defun))
+                  "JSON")))
 
 ;; JavaScriptのリファクタリング支援
 (package-install 'js2-refactor)
