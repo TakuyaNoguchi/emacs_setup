@@ -1154,7 +1154,7 @@
     (setq org-tree-slide-skip-done nil)
 
     ;; タスクの時間計測を開始
-    (global-set-key (kbd "<f8>") 'org-tree-slide-mode)
+    (define-key org-mode-map (kbd "<f8>") 'org-tree-slide-mode)
 
     ;; タスクの切り替え
     (define-key org-tree-slide-mode-map (kbd "<f9>")
