@@ -936,6 +936,9 @@
 (add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 
+(define-key ruby-mode-map (kbd "C-M-p") 'ruby-beginning-of-block)
+(define-key ruby-mode-map (kbd "C-M-n") 'ruby-end-of-block)
+
 (setq ruby-insert-encoding-magic-comment nil)
 
 ;; endに対応する行のハイライト
