@@ -458,16 +458,15 @@
   (helm-mode 1)
 
   (setq recentf-save-file "~/.emacs.d/.recentf")
-  (setq recentf-exclude '(".recentf"
-                          "/elpa/"))
+  (setq recentf-exclude '(".recentf" "/elpa/"))
 
   (global-set-key (kbd "M-x")     'helm-M-x)
   (global-set-key (kbd "C-x C-f") 'helm-find-files)
   (global-set-key (kbd "C-x C-r") 'helm-recentf)
   (global-set-key (kbd "M-y")     'helm-show-kill-ring)
   ;; 定義された関数を検索するのに便利
-  (global-set-key (kbd "C-c C-i") 'helm-imenu)
-  (global-set-key (kbd "C-x b")   'helm-mini)
+  (global-set-key (kbd "C-c C-f") 'helm-imenu)
+  (global-set-key (kbd "C-c C-b")   'helm-mini)
   (global-set-key (kbd "C-x C-b")   'helm-buffers-list)
   (define-key helm-map (kbd "C-h") 'delete-backward-char)
   (define-key helm-map (kbd "C-w") 'backward-kill-word)
