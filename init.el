@@ -1657,18 +1657,6 @@
 
 
 
-;;; 定義元へJumpするためのパッケージ
-(package-install 'dumb-jump)
-(when (require 'dumb-jump nil t)
-  (setq dumb-jump-mode t)
-  (setq dumb-jump-selector 'helm)
-  (setq dumb-jump-use-visible-window nil)
-  (global-set-key (kbd "C-c C-]") 'dumb-jump-go)
-  (global-set-key (kbd "C-c M-]") 'dumb-jump-back)
-  (global-set-key (kbd "C-c C-M-]") 'dumb-jump-back))
-
-
-
 ;; ファイラー
 ;;; 参考サイト: http://kiririmode.hatenablog.jp/entry/20150806/1438786800
 (package-install 'neotree)
