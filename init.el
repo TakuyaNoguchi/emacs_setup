@@ -666,6 +666,14 @@
 
 
 
+;;; window の分割が多くなったときの移動を楽にする
+(package-install 'ace-window)
+(when (require 'ace-window nil t)
+  (global-set-key (kbd "C-x o") 'ace-window)
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+
+
+
 ;;; multiple cursors
 (package-install 'multiple-cursors)
 (package-install 'smartrep)
