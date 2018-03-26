@@ -1484,14 +1484,6 @@
 
 
 
-;;; 変数の命名に困ったときに実行する(単語のみ)
-(package-install 'codic)
-(when (require 'codic nil t)
-  (push '("*Codic Result*" :height 25 :stick t) popwin:special-display-config)
-  (global-set-key (kbd "C-M-c") 'codic))
-
-
-
 ;;; SQLの設定
 ;; M-x sql-mysql でMySQLのプロセスを起動する
 (package-install 'sql)
@@ -1662,43 +1654,3 @@
 (when (require 'quickrun nil t)
   (global-set-key (kbd "C-c C-c") 'quickrun)
   (global-set-key (kbd "C-c C-M-c") 'quickrun-with-arg))
-
-
-
-;; ファイラー
-;;; 参考サイト: http://kiririmode.hatenablog.jp/entry/20150806/1438786800
-(package-install 'neotree)
-(when (require 'neotree nil t)
-  (global-set-key (kbd "C-q") 'neotree-toggle)
-  (global-set-key (kbd "C-c C-q") 'neotree-projectile-action)
-
-  (define-key neotree-mode-map (kbd "C-c C-q") 'neotree-toggle)
-  (define-key neotree-mode-map (kbd "j") 'neotree-next-line)
-  (define-key neotree-mode-map (kbd "k") 'neotree-previous-line)
-  (define-key neotree-mode-map (kbd "h") 'neotree-select-up-node)
-  (define-key neotree-mode-map (kbd "l") 'neotree-select-down-node)
-
-  ;; 隠しファイルをデフォルトで表示
-  (setq neo-show-hidden-files t)
-
-  ;; neotree 上でファイルの新規作成時、自動的にファイルを開く
-  (setq neo-create-file-auto-open t)
-
-  ;; delete-other-window で neotree ウィンドウを削除しない
-  (setq neo-persist-show t)
-
-  ;; プレフィックスなしのキーバインドに変更
-  (setq neo-keymap-style 'concise)
-
-  ;; neotree ウィンドウの表示の毎に current file のあるディレクトリを表示
-  (setq neo-smart-open t)
-
-  ;; VC のステータスによって表示の face 等を変更
-  (setq neo-vc-integration '(face char))
-
-  ;; popwin との共存
-  (when neo-persist-show
-    (add-hook 'popwin:before-popup-hook
-              (lambda () (setq neo-persist-show nil)))
-    (add-hook 'popwin:after-popup-hook
-              (lambda () (setq neo-persist-show t)))))
