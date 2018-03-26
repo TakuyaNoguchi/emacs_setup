@@ -1652,5 +1652,4 @@
 ;;; 開発中のログラムを実行
 (package-install 'quickrun)
 (when (require 'quickrun nil t)
-  (global-set-key (kbd "C-c C-c") 'quickrun)
-  (global-set-key (kbd "C-c C-M-c") 'quickrun-with-arg))
+  (global-set-key (kbd "C-c C-c") 'quickrun-with-arg))
