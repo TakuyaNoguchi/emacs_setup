@@ -466,8 +466,6 @@
   (global-set-key (kbd "M-y")     'helm-show-kill-ring)
   ;; 定義された関数を検索
   (global-set-key (kbd "C-c C-f") 'helm-imenu)
-  ;; git-grep を実行
-  (global-set-key (kbd "C-c C-M-f") 'helm-grep-do-git-grep)
   (global-set-key (kbd "C-c C-b")   'helm-mini)
   (global-set-key (kbd "C-x C-b")   'helm-buffers-list)
   (define-key helm-map (kbd "C-h") 'delete-backward-char)
