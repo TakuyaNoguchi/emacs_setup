@@ -1280,6 +1280,9 @@
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
 
+  (setq web-mode-style-padding 2)
+  (setq web-mode-script-padding 2)
+
 
   (defun my-web-mode-hook ()
     ;; クリップボードからペーストした時に勝手にインデントされるのを防ぐ
