@@ -1644,6 +1644,12 @@
   (define-key symbol-overlay-map (kbd "C-g") 'symbol-overlay-remove-all))
 
 
+;;; yankした箇所をハイライト
+(package-install 'volatile-highlights)
+(when (require 'volatile-highlights nil t)
+  (volatile-highlights-mode t))
+
+
 
 ;;; 画面分割したバッファの位置を入れ替える
 (package-install 'swap-buffers)
