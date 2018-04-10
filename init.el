@@ -1647,7 +1647,11 @@
 ;;; yankした箇所をハイライト
 (package-install 'volatile-highlights)
 (when (require 'volatile-highlights nil t)
-  (volatile-highlights-mode t))
+  (volatile-highlights-mode t)
+
+  (when (require 'undo-tree nil t)
+    (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
+    (vhl/install-extension 'undo-tree)))
 
 
 
