@@ -105,6 +105,9 @@
 ;; .#* とかのバックアップファイルを作らない
 (setq auto-save-default nil)
 
+;; 括弧の対応はsmartparensを使う
+(electric-pair-mode 0)
+
 ;; インデントの設定
 (electric-indent-mode 1)
 
