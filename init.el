@@ -1056,10 +1056,8 @@
 ;; $ sudo apt-get install markdown
 (package-install 'markdown-mode)
 (when (require 'markdown-mode nil t)
-  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode))
-
-  (define-key gfm-mode-map (kbd "C-c C-c") 'markdown-insert-gfm-code-block))
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
 
 
 
