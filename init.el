@@ -400,15 +400,13 @@
 
 ;;; 基本キーバインド
 ;; バックスペース
-(global-set-key (kbd "C-h") 'delete-backward-char)
-;; ミニバッファ内でBackspace
-(define-key key-translation-map (kbd "C-h") (kbd "<DEL>"))
+(bind-key* "C-h" 'delete-backward-char)
 ;; カーソルの前の単語を削除
-(global-set-key (kbd "M-h") 'backward-kill-word)
+(bind-key* "M-h" 'backward-kill-word)
 ;; ヘルプ
-(global-set-key (kbd "M-?") 'help-for-help)
+(bind-key* "M-?" 'help-for-help)
 ;; 補完
-(global-set-key (kbd "C-o") 'hippie-expand)
+(bind-key* "C-o" 'hippie-expand)
 (setq hippie-expand-try-functions-list
       '(try-expand-dabbrev              ; カレントバッファでdabbrev
         try-expand-dabbrev-all-buffers  ; 全てのバッファでdabbrev
