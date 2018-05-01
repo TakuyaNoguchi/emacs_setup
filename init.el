@@ -858,6 +858,9 @@
 
   (add-hook 'sh-mode-hook
             (lambda ()
+              (setq sh-basic-offset 2
+                    sh-indentation 2)
+
               ;; $ sudo apt-get install shellcheck
               (when (executable-find "shellcheck")
                 (setq flycheck-checker 'sh-shellcheck)))))
@@ -1599,13 +1602,15 @@
     '(sh-mode-hook))
 
   (setq my-key-combos-for-sh
-      '((","   . (", " ","))
-        ("!"   . ("! " "!"))
-        ("!="  . " != ")
-        ("+"   . (" + " "+"))
-        ("-"   . ("-" " - " "-"))
-        ("%"   . (" % " "%"))
-        ("*"   . (" * " "*"))
+      '((","    . (", " ","))
+        ("!"    . ("! " "!"))
+        ("!="   . " != ")
+        ("+"    . (" + " "+"))
+        ("+;"   . "++")
+        ("-"    . ("-" " - " "-"))
+        ("-;"   . "--")
+        ("%"    . (" % " "%"))
+        ("*"    . (" * " "*"))
         ("-eq"  . " -eq ")
         ("-ne"  . " -ne ")
         ("-gt"  . " -gt ")
