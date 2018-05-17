@@ -20,6 +20,11 @@
   (unless (server-running-p)
     (server-start)))
 
+;; Chromeで「Edit with Emacs」を使うために必要なパッケージ
+(when (require 'edit-server nil t)
+  (setq edit-server-new-frame nil)
+  (edit-server-start))
+
 ;; zshのパスを設定
 ;; 必要なパスは ~/.zshenv に記載する
 ;; 参考サイト: http://d.hatena.ne.jp/zonu_exe/20120509/1336583187
