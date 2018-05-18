@@ -1488,6 +1488,61 @@
 
 
 
+;;; C言語の設定
+(when (require 'cc-mode nil t)
+  ;; c-mode-common-hook は C/C++ の設定
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (setq c-default-style "linux")
+              (setq c-basic-offset 4))))
+
+(package-install 'auto-complete-c-headers)
+(when (require 'auto-complete-c-headers nil t)
+  (add-hook 'c-mode-hook (lambda () (setq ac-sources '(ac-source-c-headers)))))
+
+;; $ sudo apt install -y clang llvm-dev libclang-dev
+;; $ cd /tmp
+;; $ git clone https://github.com/Golevka/emacs-clang-complete-async
+;; $ cd emacs-clang-complete-async
+;; $ make
+;; $ mkdir -p ~/.emacs.d/bin
+;; $ cp ./clang-complete ~/.emacs.d/bin
+(package-install 'auto-complete-clang-async)
+(when (and (require 'auto-complete-clang-async nil t)
+           (when (file-exists-p "~/.emacs.d/bin/clang-complete")))
+  (defun ac-cc-mode-setup ()
+    (setq ac-clang-complete-executable "~/.emacs.d/bin/clang-complete")
+    (setq ac-sources (append ac-sources '(ac-source-clang-async))
+    (ac-clang-launch-completion-process))
+
+  (defun my-ac-config ()
+    (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+    (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+    (global-auto-complete-mode t))
+
+  (my-ac-config))
+
+(package-install 'function-args)
+(when (require 'function-args nil t)
+  (fa-config-default)
+
+  (define-key function-args-mode-map (kbd "M-o") nil)
+  (define-key c-mode-map (kbd "C-M-o") 'moo-complete)
+
+  (custom-set-faces
+   '(fa-face-hint ((t (:background "#3f3f3f" :foreground "#ffffff"))))
+   '(fa-face-hint-bold ((t (:background "#3f3f3f" :weight bold))))
+   '(fa-face-semi ((t (:background "#3f3f3f" :foreground "#ffffff" :weight bold))))
+   '(fa-face-type ((t (:inherit (quote font-lock-type-face) :background "#3f3f3f"))))
+   '(fa-face-type-bold ((t (:inherit (quote font-lock-type-face) :background "#999999" :bold t))))))
+
+(package-install 'c-eldoc)
+(when (require 'c-eldoc nil t)
+  (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
+  (setq c-eldoc-buffer-regenerate-time 60))
+
+
+
 ;;; SQLの設定
 ;; M-x sql-mysql でMySQLのプロセスを起動する
 (package-install 'sql)
@@ -1495,8 +1550,7 @@
 (when (and (require 'sql nil t)
            (require 'sql-indent nil t))
   (defun sql-mode-hooks()
-    (setq sql-indent-offset 2)
-    (setq indent-tabs-mode nil))
+    (setq sql-indent-offset 2))
 
   (add-hook 'sql-mode-hook 'sql-mode-hooks)
 
