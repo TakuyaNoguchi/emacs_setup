@@ -971,7 +971,9 @@
 (package-install 'projectile-rails)
 (when (and (require 'projectile nil t)
            (require 'projectile-rails nil t))
+  (setq projectile-enable-caching t)
   (setq projectile-completion-system 'helm)
+
   (projectile-rails-global-mode)
 
   (global-set-key (kbd "C-x C-M-f") 'projectile-find-file)
