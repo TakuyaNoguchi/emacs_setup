@@ -1512,6 +1512,9 @@
   (add-hook 'c-mode-hook 'c-turn-on-eldoc-mode)
   (setq c-eldoc-buffer-regenerate-time 60))
 
+;; Makefileと判別するための拡張子の追加
+(add-to-list 'auto-mode-alist '("\\.make$" . makefile-mode))
+
 
 
 ;;; SQLの設定
