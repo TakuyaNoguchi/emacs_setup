@@ -8,6 +8,9 @@
 ;; 外部パッケージによって変更されたカスタム変数は別ファイルに記述する
 (setq custom-file (locate-user-emacs-file "custom.el"))
 
+;; コンパイル時に画面描画に合わせて自動スクロールするための設定
+(setq compilation-scroll-output t)
+
 ;; ダイアログを表示しないように
 (defalias 'message-box 'message)
 (setq use-dialog-box nil)
