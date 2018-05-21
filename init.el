@@ -412,7 +412,8 @@
 ;; ヘルプ
 (bind-key* "M-?" 'help-for-help)
 ;; 補完
-(bind-key* "C-M-o" 'hippie-expand)
+(bind-key* "C-o" 'hippie-expand)
+(bind-key* "C-M-o" 'open-line)
 (setq hippie-expand-try-functions-list
       '(try-expand-dabbrev              ; カレントバッファでdabbrev
         try-expand-dabbrev-all-buffers  ; 全てのバッファでdabbrev
