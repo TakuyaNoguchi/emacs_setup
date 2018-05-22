@@ -787,8 +787,6 @@
   ;; skk-isearch を無効化
   (setq skk-isearch-start-mode 'latin)
   (setq skk-large-jisyo (expand-file-name "~/.emacs.d/skk-get-jisyo/SKK-JISYO.L"))
-  ;; 最後の見出し語を表示
-  (setq skk-dcomp-activate t)
 
   (global-set-key (kbd "C-l") 'skk-mode)
   (global-set-key (kbd "C-;") 'skk-mode)
@@ -801,34 +799,7 @@
   (defvar skk-my-unnecessary-rule-list
     '(("l" nil nil)))
   (setq skk-rom-kana-rule-list
-        (append skk-rom-kana-rule-list skk-my-unnecessary-rule-list))
-
-  ;; M-x skk-auto-replace-mode でマイナーモードのON/OFFを切り替えを行う。
-  ;; 見出し語のひらがなの先頭で skk-sticky-key を押して変換を行うと、以降の文章に同様の文字列
-  ;; に対してquery-replace を実行する
-  ;; 参考サイト: http://emacs.rubikitch.com/skk-auto-replace-mode
-  (define-minor-mode skk-auto-replace-mode
-    "同じ見出し語をquery-replaceする。議事録校正のためのモード。"
-    nil " SKK置換")
-  (defvar skk-my-kakutei-key nil "")
-  (defadvice skk-start-henkan (before auto-replace activate)
-    (and (eq skk-henkan-mode 'on)
-         (setq skk-my-kakutei-key (buffer-substring skk-henkan-start-point (point)))))
-
-  (defadvice skk-kakutei (after auto-replace activate)
-    (skk-replace-after-kakutei))
-
-  (defun skk-replace-after-kakutei ()
-    (interactive)
-    (when (and skk-auto-replace-mode
-               skk-my-kakutei-key)
-      (unwind-protect
-          (perform-replace
-           skk-my-kakutei-key (buffer-substring skk-henkan-start-point (point))
-           t nil nil)
-        (setq skk-my-kakutei-key nil))))
-
-  (provide 'mylisp-skk-replace))
+        (append skk-rom-kana-rule-list skk-my-unnecessary-rule-list)))
 
 
 
