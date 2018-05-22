@@ -787,6 +787,9 @@
   ;; skk-isearch を無効化
   (setq skk-isearch-start-mode 'latin)
   (setq skk-large-jisyo (expand-file-name "~/.emacs.d/skk-get-jisyo/SKK-JISYO.L"))
+  ;; 最後の変換候補を動的に表示
+  (setq skk-dcomp-activate t)
+
 
   (global-set-key (kbd "C-l") 'skk-mode)
   (global-set-key (kbd "C-;") 'skk-mode)
