@@ -1554,8 +1554,7 @@
         (append my-key-combos-common
                 '(("+;"  . "++")
                   ("-;"  . "--")
-                  ("%"   . (" % " "%"))
-                  ("/"   . ( " / " "/")))))
+                  ("%"   . (" % " "%")))))
 
   (key-combo-define-hook my-c-mode-hooks
                          'my-key-combo-c-hook
