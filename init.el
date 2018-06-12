@@ -957,6 +957,7 @@
   (setq projectile-enable-caching t)
   (setq projectile-completion-system 'helm)
 
+  (projectile-global-mode)
   (projectile-rails-global-mode)
 
   (global-set-key (kbd "C-x C-M-f") 'projectile-find-file)
