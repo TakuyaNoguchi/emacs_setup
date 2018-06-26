@@ -25,14 +25,11 @@
   (setq edit-server-new-frame nil)
   (edit-server-start))
 
-;; zshのパスを設定
-;; 必要なパスは ~/.zshenv に記載する
-;; 参考サイト: http://d.hatena.ne.jp/zonu_exe/20120509/1336583187
-(let ((zshpath (shell-command-to-string "/usr/bin/zsh -c 'printenv PATH'")))
-  (let ((pathlst (split-string zshpath ":")))
-    (setq exec-path pathlst))
-  (setq eshell-path-env zshpath)
-  (setenv "PATH" zshpath))
+;; シェルの環境変数を引き継ぐ
+(package-install 'exec-path-from-shell)
+(when (require 'exec-path-from-shell nil t)
+  (let ((envs '("PATH" "GOPATH")))
+    (exec-path-from-shell-copy-envs envs)))
 
 ;; 起動時のメッセージを削除
 (setq inhibit-startup-message t)
