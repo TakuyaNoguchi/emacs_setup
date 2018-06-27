@@ -408,6 +408,7 @@
 (bind-key* "C-h" 'delete-backward-char)
 ;; skeleton 挿入時に C-h でバックスペースを入力できるようにするための設定
 (setq help-char nil)
+(define-key isearch-mode-map (kbd "C-h") 'isearch-delete-char)
 
 ;; カーソルの前の単語を削除
 (bind-key* "M-h" 'backward-kill-word)
