@@ -20,11 +20,6 @@
   (unless (server-running-p)
     (server-start)))
 
-;; Chromeで「Edit with Emacs」を使うために必要なパッケージ
-(when (require 'edit-server nil t)
-  (setq edit-server-new-frame nil)
-  (edit-server-start))
-
 ;; シェルの環境変数を引き継ぐ
 (package-install 'exec-path-from-shell)
 (when (require 'exec-path-from-shell nil t)
