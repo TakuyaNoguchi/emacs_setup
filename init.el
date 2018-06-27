@@ -1665,7 +1665,7 @@
 
 
 
-;;; 開発中のログラムを実行
+;;; 開発中のプログラムを実行
 (package-install 'quickrun)
 (when (require 'quickrun nil t)
   (global-set-key (kbd "C-c C-c") 'quickrun-with-arg))
