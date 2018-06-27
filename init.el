@@ -1669,3 +1669,24 @@
 (package-install 'quickrun)
 (when (require 'quickrun nil t)
   (global-set-key (kbd "C-c C-c") 'quickrun-with-arg))
+
+
+
+;;; 改行時に適宜空行を入れてくれるパッケージ
+;; 参考サイト: http://emacs.rubikitch.com/smart-newline/
+(package-install 'smart-newline)
+(when (require 'smart-newline)
+  (global-set-key (kbd "C-m") 'smart-newline)
+  (add-hook 'ruby-mode-hook 'smart-newline-mode)
+  (add-hook 'js2-mode-hook 'smart-newline-mode)
+  (add-hook 'go-mode-hook 'smart-newline-mode)
+  (add-hook 'emacs-lisp-mode-hook 'smart-newline-mode)
+  (add-hook 'org-mode-hook 'smart-newline-mode)
+
+  (defadvice smart-newline (around C-u activate)
+    "C-uを押下すると元のC-mの挙動をする。"
+    (if (not current-prefix-arg)
+        ad-do-it
+      (let (current-prefix-arg)
+        (let (smart-newline-mode)
+          (call-interactively (key-binding (kbd "C-m"))))))))
