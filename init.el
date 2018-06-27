@@ -1330,6 +1330,26 @@
 
 
 
+;;; golang
+;; $ go get -u github.com/nsf/gocode
+;; $ go get -u github.com/rogpeppe/godef
+;; $ go get -u golang.org/x/tools/cmd/goimports
+(package-install 'go-mode)
+(package-install 'go-autocomplete)
+(package-install 'go-eldoc)
+(when (and (require 'go-mode nil t)
+           (require 'go-autocomplete nil t)
+           (require 'go-eldoc nil t))
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (go-eldoc-setup)
+              (local-set-key (kbd "M-.") 'godef-jump)
+              (setq gofmt-command "goimports")
+              (add-hook 'before-save-hook 'gofmt-before-save)
+              (push '("*Gofmt Errors*" :height 15 :stick t) popwin:special-display-config))))
+
+
+
 ;;; view-mode
 ;; 参考サイト: http://syohex.hatenablog.com/entry/20110114/1294958917
 (when (require 'view nil t)
@@ -1623,7 +1643,18 @@
 
   (key-combo-define-hook my-sh-mode-hooks
                          'my-key-combo-sh-hook
-                         my-key-combos-for-sh))
+                         my-key-combos-for-sh)
+
+  (defvar my-go-mode-hooks
+    '(go-mode-hook))
+
+  (setq my-key-combos-for-go
+        (append my-key-combos-common
+                '(":=" . " := ")))
+
+  (key-combo-define-hook my-go-mode-hooks
+                         'my-key-combo-go-hoo
+                         my-key-combos-for-go))
 
 
 
