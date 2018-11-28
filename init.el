@@ -1489,6 +1489,10 @@
        (if asciip "ja" "en")
        string)))
 
+  (defun google-translate--get-b-d1 ()
+    ;; TKK='427110.1469889687'
+    (list 427110 1469889687))
+
   (push '("*Google Translate*" :height 25 :stick t) popwin:special-display-config)
 
   (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen)
