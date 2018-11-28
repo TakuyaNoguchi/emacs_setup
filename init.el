@@ -829,12 +829,6 @@
 
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
 
-  (add-hook 'ruby-mode-hook
-            (lambda ()
-              ;; $ gem i rubocop --no-document
-              (when (executable-find "rubocop")
-                (setq flycheck-checker 'ruby-rubocop))))
-
   (add-hook 'sh-mode-hook
             (lambda ()
               (setq sh-basic-offset 2
@@ -990,6 +984,11 @@
 
     ;; riなどのエスケープシーケンスを処理し、色付けする
     (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on))
+
+;; RuboCop
+(package-install 'rubocop)
+(when (require 'rubocop nil t)
+  (add-hook 'ruby-mode-hook #'rubocop-mode))
 
 (package-install 'robe)
 (package-install 'helm-robe)
