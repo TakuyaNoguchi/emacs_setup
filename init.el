@@ -1332,13 +1332,21 @@
 ;;; golang
 ;; $ go get -u github.com/nsf/gocode
 ;; $ go get -u github.com/rogpeppe/godef
+;; 必要な import を自動で追加
 ;; $ go get -u golang.org/x/tools/cmd/goimports
+;; 静的解析
+;; $ go get -u github.com/golang/lint/golint
+;; $ go get -u github.com/kisielk/errcheck
+;; デバッガ
+;; $ go get -u github.com/derekparker/delve/cmd/dlv
 (package-install 'go-mode)
 (package-install 'go-autocomplete)
 (package-install 'go-eldoc)
+(package-install 'go-dlv)
 (when (and (require 'go-mode nil t)
            (require 'go-autocomplete nil t)
-           (require 'go-eldoc nil t))
+           (require 'go-eldoc nil t)
+           (require 'go-dlv nil t))
   (add-hook 'go-mode-hook
             (lambda ()
               (go-eldoc-setup)
