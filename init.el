@@ -1493,7 +1493,12 @@
 
   (push '("*Google Translate*" :height 25 :stick t) popwin:special-display-config)
 
-  (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen))
+  (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen)
+
+  ;; Fix error of "Failed to search TKK"
+  (defun google-translate--get-b-d1 ()
+    ;; TKK='427110.1469889687'
+    (list 427110 1469889687)))
 
 
 
