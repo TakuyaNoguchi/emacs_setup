@@ -1457,6 +1457,15 @@
   (global-set-key (kbd "C-x C-:") 'toggle-quotes))
 
 
+;;; Google検索
+;; 参考サイト: https://konbu13.hatenablog.com/entry/2014/11/14/215224
+(package-install 'google-this)
+(when (require 'google-this)
+  (setq google-this-location-suffix "co.jp")
+  (defun google-this-url () "URL for google searches."
+         (concat google-this-base-url google-this-location-suffix
+                 "/search?q=%s&hl=ja&num=10&as_qdr=y5&lr=lang_ja"))
+  (global-set-key (kbd "C-c g") 'google-this))
 
 ;;; Google翻訳の設定
 ;; 参考サイト: http://blog.shibayu36.org/entry/2016/05/29/123342
