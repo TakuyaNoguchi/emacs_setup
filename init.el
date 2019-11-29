@@ -242,6 +242,17 @@
 
 
 
+;;; バッファの切り替え
+(package-install 'iflipb)
+(when (require 'iflipb nil t)
+  ;; 参考サイト: https://qiita.com/minoruGH/items/aa96e92c1434f87940d6
+  (setq iflipb-ignore-buffers (list "^[*]" "^magit" "]$"))
+  (setq iflipb-wrap-around t)
+  (bind-key* "M-o" 'iflipb-next-buffer)
+  (bind-key* "M-O" 'iflipb-previous-buffer))
+
+
+
 ;;; EWW
 (when (require 'eww nil t)
   (setq eww-search-prefix "https://www.google.co.jp/search?hl=ja&num=100&as_qdr=y5&lr=lang_ja&q=")
