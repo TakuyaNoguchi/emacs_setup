@@ -34,6 +34,9 @@
 ;; カーソルの前の式をkillする
 (global-set-key (kbd "C-M-k") 'backward-kill-sexp)
 
+;; デフォルトのIMEの切り替えをOFF
+(global-set-key (kbd "C-\\") nil)
+
 ;; URLをブラウザで開く
 (global-set-key (kbd "C-c C-o") 'browse-url-xdg-open)
 (global-set-key (kbd "C-c o") 'browse-url-xdg-open)
