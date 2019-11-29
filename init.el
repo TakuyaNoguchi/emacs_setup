@@ -1472,6 +1472,8 @@
 (package-install 'google-translate)
 (when (and (require 'google-translate nil t)
            (require 'google-translate-default-ui nil t))
+  (setq google-translate-backend-method 'curl)
+
   (defvar google-translate-english-chars "[:ascii:]"
     "これらの文字が含まれているときは英語とみなす")
   (defun google-translate-enja-or-jaen (&optional string)
@@ -1494,15 +1496,10 @@
        (if asciip "ja" "en")
        string)))
 
-  (defun google-translate--get-b-d1 ()
-    ;; TKK='427110.1469889687'
-    (list 427110 1469889687))
-
   (push '("*Google Translate*" :height 25 :stick t) popwin:special-display-config)
 
   (global-set-key (kbd "C-M-s") 'google-translate-enja-or-jaen)
 
-  ;; Fix error of "Failed to search TKK"
   (defun google-translate--get-b-d1 ()
     ;; TKK='427110.1469889687'
     (list 427110 1469889687)))
