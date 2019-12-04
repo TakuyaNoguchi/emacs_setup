@@ -1682,7 +1682,8 @@
   (setq my-key-combos-for-go
         (append my-key-combos-common
                 '((":=" . " := ")
-                  ("+;" . "++"))))
+                  ("+;" . "++")
+                  ("-;" . "--"))))
 
   (key-combo-define-hook my-go-mode-hooks
                          'my-key-combo-go-hoo
