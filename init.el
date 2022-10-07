@@ -476,6 +476,11 @@
 (when (require 'helm-config nil t)
   (helm-mode 1)
 
+  (custom-set-variables
+   '(helm-ff-skip-boring-files t)
+   ;; 暗号化ディレクトリが候補に出ると邪魔なので除外
+   '(helm-boring-file-regexp-list (append helm-boring-file-regexp-list '("\\.work$"))))
+
   (setq recentf-save-file "~/.emacs.d/.recentf")
   (setq recentf-exclude '(".recentf" "/elpa/"))
 
